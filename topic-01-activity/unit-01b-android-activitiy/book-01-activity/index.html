@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <style>
-      
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+        type="text/css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+        rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -57,94 +66,90 @@ h3 {
 
 
 
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
+<body>
+
+
+
+<div class="ui fixed top pointing inverted stackable menu labmenu">
+  <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
     
+      <a href="../../index.html"> Android Activities  </a>
     
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-01 Activities">
+        Lab-01 Activities
+      </a>
+    
+      <a class="item" data-tab="01">
+        01
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+      <a class="item" data-tab="05">
+        05
+      </a>
+    
+      <a class="item" data-tab="Exercises">
+        Exercises
+      </a>
+    
+  </div>
+</div>
 
-    <div class="ui fixed top pointing inverted stackable menu labmenu">
-      <header class="header item">
-        <i id="toc" class="sitemap icon"></i>
-        
-          <a href="../../index.html"> Android Activities  </a>
-        
-      </header>
-      <div class="right tab-menu menu">
-        
-          <a class="item" data-tab="Lab-01 Activities">
-            Lab-01 Activities
-          </a>
-        
-          <a class="item" data-tab="01">
-            01
-          </a>
-        
-          <a class="item" data-tab="02">
-            02
-          </a>
-        
-          <a class="item" data-tab="03">
-            03
-          </a>
-        
-          <a class="item" data-tab="04">
-            04
-          </a>
-        
-          <a class="item" data-tab="05">
-            05
-          </a>
-        
-          <a class="item" data-tab="Exercises">
-            Exercises
-          </a>
-        
-      </div>
-    </div>
-
-    <div class="ui segment pushable">
-      <div class="ui inverted labeled icon left inline vertical sidebar menu">
-        <br><br>
-        
-          
-            <a class="item" href="../../unit-2-android/book-00-studio/index.html">
-              Lab-00 Studio
-            </a>
-          
-        
-          
-            <a class="active item" href="../../unit-01b-android-activitiy/book-01-activity/index.html">
-              Lab-01 Activities
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-02b-android-adapters/book-02-adapters/index.html">
-              Lab-02 Adapters
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-03b-android-models/book-03-models/index.html">
-              Lab-03 Models
-            </a>
-          
-        
-      </div>
-      <div class="pusher" tabindex="-1">
-        <div class="ui basic segment" id="labchat">
-          <br>
-          
-            <div  class="ui tab segment lab" data-tab="Lab-01 Activities">
-              <h1>Objectives</h1>
+<div class="ui pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <br><br>
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+      
+    
+  </div>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment">
+      <br>
+      
+        <div class="ui tab segment lab" data-tab="Lab-01 Activities">
+          <h1>Objectives</h1>
 <p>Layout the PlacemarkActivity - supporting create/edit of placemarks</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="01">
-              <h1>Style &amp; String Resources</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="01">
+          <h1>Style &amp; String Resources</h1>
 <p>Before proceeding to introduce new features into our app - we will augment some of the libraries:</p>
 <h2>build.gradle</h2>
 <pre><code>...
@@ -172,10 +177,10 @@ h3 {
 <h2>strings.xml</h2>
 <pre><code>  &lt;string name=&quot;button_addPlacemark&quot;&gt;Add Placemark&lt;/string&gt;</code></pre>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="02">
-              <h1>Layouts</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="02">
+          <h1>Layouts</h1>
 <p>Working with <code>activity_placemark.xml</code>, progressively introduce the following versions - replacing each with the successive content below. Keep an eye on the <code>design</code> view as you progress to notice the changes</p>
 <p><img src="img/12.png" alt=""></p>
 <h2>activity_placemark.xml Version A</h2>
@@ -426,10 +431,10 @@ tools:context=&quot;org.wit.placemark.PlacemarkActivity&quot;&gt;
 <li>&lt;<a href="https://medium.com/google-developers/layouts-attributes-and-you-9e5a4b4fe32c">https://medium.com/google-developers/layouts-attributes-and-you-9e5a4b4fe32c</a>.</li>
 </ul>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="03">
-              <h1>Logging</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="03">
+          <h1>Logging</h1>
 <p>We are going to be working exclusively in Kotlin - not Java. This affords considerable improvements, largely around conciseness and expressiveness of code.</p>
 <h2>Logging</h2>
 <p>To prepare for this, include these additional dependencies in our gradle.build:</p>
@@ -466,10 +471,10 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 <li><a href="https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging">https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging</a></li>
 </ul>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="04">
-              <h1>Event Handling</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="04">
+          <h1>Event Handling</h1>
 <p>Now include the following inside the onCreate function:</p>
 <pre><code>    btnAdd.setOnClickListener() {
       info(&quot;add Button Pressed&quot;)
@@ -518,10 +523,10 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 <li><a href="https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Dialogs">https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Dialogs</a></li>
 </ul>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="05">
-              <h1>Refactor</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="05">
+          <h1>Refactor</h1>
 <p>Refactor the application structure such that ActivityPlacemark is in a new package called &#39;org.wit.placemarks.activities&#39;:</p>
 <p><img src="img/10.png" alt=""></p>
 <p>You should be able to do this from within the Studio Android perspective. You will be using the context menu to create the new package in the java folder:</p>
@@ -595,10 +600,10 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
       }
     }</code></pre>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="Exercises">
-              <h1>Solution</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="Exercises">
+          <h1>Solution</h1>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/placemark-01.zip">placemark-01.zip</a></li>
@@ -652,28 +657,34 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 <li>log the new field</li>
 </ul>
 
-            </div>
-          
         </div>
-      </div>
+      
     </div>
+  </div>
+</div>
 
-    <script>
-      $(document).ready(function() {
-  const $images = $('.lab img');
-  jQuery.each($images, function(i) {
-    if ($images[i].alt.length > 0) {
-      const divImg = $(document.createElement('div')).addClass('');
-      $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
-      divLabel.append($images[i].alt);
-      $(divLabel).insertAfter($images[i]);
-      $('<br>').insertAfter($images[i]);
-    }
-  });
+<script>
+  $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
 });
 
-      $(document).ready(function() {
+  $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -706,6 +717,6 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
     .sidebar('attach events', '#toc');
 });
 
-    </script>
-  </body>
+</script>
+</body>
 </html>

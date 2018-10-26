@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <style>
-      
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+        type="text/css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+        rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -57,98 +66,94 @@ h3 {
 
 
 
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
+<body>
+
+
+
+<div class="ui fixed top pointing inverted stackable menu labmenu">
+  <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
     
+      <a href="../../index.html"> Android Models  </a>
     
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-03 Models">
+        Lab-03 Models
+      </a>
+    
+      <a class="item" data-tab="Exercise Solutions">
+        Exercise Solutions
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+      <a class="item" data-tab="05">
+        05
+      </a>
+    
+      <a class="item" data-tab="06">
+        06
+      </a>
+    
+      <a class="item" data-tab="Exercises">
+        Exercises
+      </a>
+    
+  </div>
+</div>
 
-    <div class="ui fixed top pointing inverted stackable menu labmenu">
-      <header class="header item">
-        <i id="toc" class="sitemap icon"></i>
-        
-          <a href="../../index.html"> Android Models  </a>
-        
-      </header>
-      <div class="right tab-menu menu">
-        
-          <a class="item" data-tab="Lab-03 Models">
-            Lab-03 Models
-          </a>
-        
-          <a class="item" data-tab="Exercise Solutions">
-            Exercise Solutions
-          </a>
-        
-          <a class="item" data-tab="02">
-            02
-          </a>
-        
-          <a class="item" data-tab="03">
-            03
-          </a>
-        
-          <a class="item" data-tab="04">
-            04
-          </a>
-        
-          <a class="item" data-tab="05">
-            05
-          </a>
-        
-          <a class="item" data-tab="06">
-            06
-          </a>
-        
-          <a class="item" data-tab="Exercises">
-            Exercises
-          </a>
-        
-      </div>
-    </div>
-
-    <div class="ui segment pushable">
-      <div class="ui inverted labeled icon left inline vertical sidebar menu">
-        <br><br>
-        
-          
-            <a class="item" href="../../unit-2-android/book-00-studio/index.html">
-              Lab-00 Studio
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-01b-android-activitiy/book-01-activity/index.html">
-              Lab-01 Activities
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-02b-android-adapters/book-02-adapters/index.html">
-              Lab-02 Adapters
-            </a>
-          
-        
-          
-            <a class="active item" href="../../unit-03b-android-models/book-03-models/index.html">
-              Lab-03 Models
-            </a>
-          
-        
-      </div>
-      <div class="pusher" tabindex="-1">
-        <div class="ui basic segment" id="labchat">
-          <br>
-          
-            <div  class="ui tab segment lab" data-tab="Lab-03 Models">
-              <h2>Objectives</h2>
+<div class="ui pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <br><br>
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+      
+    
+  </div>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment">
+      <br>
+      
+        <div class="ui tab segment lab" data-tab="Lab-03 Models">
+          <h2>Objectives</h2>
 <p>Application object + Model classes to manage placemarks. </p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="Exercise Solutions">
-              <h1>Exercise Solutions</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="Exercise Solutions">
+          <h1>Exercise Solutions</h1>
 <h2>Exercise 2: Cancel Button</h2>
 <p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkListActivity without adding a new Placemark.</p>
 <h2>strings.xml</h2>
@@ -231,10 +236,10 @@ class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkMode
 <p><img src="img/03.png" alt=""></p>
 <p>The greyed out imported are no longer needed (they were used by PlacemarkAdapter). Remove them now and rebuild.</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="02">
-              <h2>Introduce first Model Representation</h2>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="02">
+          <h2>Introduce first Model Representation</h2>
 <p>Introduce the following interface into the <code>models</code> package:</p>
 <h2>PlacemarkStore</h2>
 <pre><code>package org.wit.placemark.models
@@ -295,10 +300,10 @@ class PlacemarkMemStore : PlacemarkStore {
 <pre><code>        info(&quot;add Button Pressed: $placemarkTitle&quot;)
         // app.placemarks.findAll().forEach{ info(&quot;add Button Pressed: ${it}&quot;) }</code></pre>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="03">
-              <h2>PlacemarkListner</h2>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="03">
+          <h2>PlacemarkListner</h2>
 <p>In PlacemarkAdapter, introduce this new interface:</p>
 <h2>PlacemarkAdapter</h2>
 <pre><code>interface PlacemarkListener {
@@ -346,10 +351,10 @@ class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkMode
 <pre><code>    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)</code></pre>
 <p>If you run the app now - and add some placemarks. Selecting a placemark from the list will start the PlacemarkActivity. However, the Placemark we select will not appear in the PlacemarkActivity view. We will fix this in the next steps.</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="04">
-              <h2>Parcelable</h2>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="04">
+          <h2>Parcelable</h2>
 <p>We will switch on some additional Kotlin goodness - which will significantly simplify the next set of features.</p>
 <h2>build.gradle</h2>
 <p>Before the dependencies:</p>
@@ -372,7 +377,7 @@ data class PlacemarkModel(var title: String = &quot;&quot;,
                           var description: String = &quot;&quot;) : Parcelable</code></pre>
 <p>It implements a parcelize capability. This is discussed in detail here:</p>
 <ul>
-<li><a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#104;&#116;&#116;&#112;&#115;&#x3a;&#x2f;&#47;&#109;&#x65;&#x64;&#x69;&#x75;&#109;&#46;&#x63;&#111;&#109;&#47;&#64;&#66;&#108;&#x61;&#100;&#x65;&#67;&#111;&#x64;&#x65;&#114;&#47;&#114;&#x65;&#100;&#x75;&#x63;&#105;&#x6e;&#103;&#45;&#112;&#x61;&#x72;&#99;&#101;&#108;&#x61;&#x62;&#108;&#x65;&#45;&#x62;&#x6f;&#105;&#x6c;&#101;&#114;&#x70;&#108;&#97;&#116;&#101;&#x2d;&#x63;&#111;&#100;&#101;&#x2d;&#x75;&#x73;&#x69;&#110;&#103;&#45;&#107;&#x6f;&#x74;&#x6c;&#105;&#110;&#x2d;&#x37;&#52;&#49;&#x63;&#51;&#49;&#x32;&#52;&#97;&#52;&#57;&#x61;">&#104;&#116;&#116;&#112;&#115;&#x3a;&#x2f;&#47;&#109;&#x65;&#x64;&#x69;&#x75;&#109;&#46;&#x63;&#111;&#109;&#47;&#64;&#66;&#108;&#x61;&#100;&#x65;&#67;&#111;&#x64;&#x65;&#114;&#47;&#114;&#x65;&#100;&#x75;&#x63;&#105;&#x6e;&#103;&#45;&#112;&#x61;&#x72;&#99;&#101;&#108;&#x61;&#x62;&#108;&#x65;&#45;&#x62;&#x6f;&#105;&#x6c;&#101;&#114;&#x70;&#108;&#97;&#116;&#101;&#x2d;&#x63;&#111;&#100;&#101;&#x2d;&#x75;&#x73;&#x69;&#110;&#103;&#45;&#107;&#x6f;&#x74;&#x6c;&#105;&#110;&#x2d;&#x37;&#52;&#49;&#x63;&#51;&#49;&#x32;&#52;&#97;&#52;&#57;&#x61;</a></li>
+<li><a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#104;&#x74;&#116;&#x70;&#115;&#58;&#x2f;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#109;&#x2f;&#64;&#66;&#x6c;&#97;&#x64;&#x65;&#67;&#x6f;&#100;&#101;&#114;&#47;&#114;&#x65;&#100;&#117;&#x63;&#105;&#110;&#x67;&#45;&#112;&#x61;&#x72;&#x63;&#x65;&#108;&#x61;&#98;&#108;&#101;&#x2d;&#x62;&#x6f;&#x69;&#x6c;&#101;&#114;&#112;&#108;&#97;&#116;&#101;&#x2d;&#99;&#x6f;&#x64;&#101;&#45;&#x75;&#115;&#105;&#x6e;&#x67;&#45;&#107;&#111;&#116;&#108;&#105;&#110;&#45;&#55;&#x34;&#49;&#99;&#51;&#49;&#50;&#52;&#97;&#x34;&#x39;&#97;">&#104;&#x74;&#116;&#x70;&#115;&#58;&#x2f;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#109;&#x2f;&#64;&#66;&#x6c;&#97;&#x64;&#x65;&#67;&#x6f;&#100;&#101;&#114;&#47;&#114;&#x65;&#100;&#117;&#x63;&#105;&#110;&#x67;&#45;&#112;&#x61;&#x72;&#x63;&#x65;&#108;&#x61;&#98;&#108;&#101;&#x2d;&#x62;&#x6f;&#x69;&#x6c;&#101;&#114;&#112;&#108;&#97;&#116;&#101;&#x2d;&#99;&#x6f;&#x64;&#101;&#45;&#x75;&#115;&#105;&#x6e;&#x67;&#45;&#107;&#111;&#116;&#108;&#105;&#110;&#45;&#55;&#x34;&#49;&#99;&#51;&#49;&#50;&#52;&#97;&#x34;&#x39;&#97;</a></li>
 </ul>
 <p>...but this was written without using the new feature we have just enabled, which dramatically reduces the boilerplate even further. Our approach is discussed here:</p>
 <ul>
@@ -380,10 +385,10 @@ data class PlacemarkModel(var title: String = &quot;&quot;,
 </ul>
 <p>(towards the end)</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="05">
-              <h1>StartActivityWithData</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="05">
+          <h1>StartActivityWithData</h1>
 <p>We can now pass the selected placemark when we start PlacemarkActivity:</p>
 <p>Change the current onPlacemarkClick implementation:</p>
 <h2>PlacemarkListActivity</h2>
@@ -410,10 +415,10 @@ data class PlacemarkModel(var title: String = &quot;&quot;,
 <p>We read back the placemark, and place its field into the view controls.</p>
 <p>Run the app now - and verify that if you select a placemark - you will be taken to the PlacemakrActivity containing its values.</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="06">
-              <h1>Ids</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="06">
+          <h1>Ids</h1>
 <p>Currently, we &#39;edit&#39; a placemark, make a change - then it will create a new placemark. This clearly is not the appropriate behavior. We should update the placemark we have been passed.</p>
 <p>To do this, we need a unique way of identifying placemarks - this is usually via an id. This is the current model:</p>
 <pre><code>@Parcelize
@@ -471,10 +476,10 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
 <p>Notice how we are generating a new ID when we create placemarks.</p>
 <p>These features will enable us to implement a placemark edit behaviour.</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="Exercises">
-              <h1>Solution</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="Exercises">
+          <h1>Solution</h1>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/placemark-03.zip">placemark-03.zip</a></li>
@@ -498,28 +503,34 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
 <p>If you have trouble finding the correct logs, enter <code>PlacemarkModel</code> in the expression window in logcat. This should remove all logs except the ones you want to see:</p>
 <p><img src="img/04.png" alt=""></p>
 
-            </div>
-          
         </div>
-      </div>
+      
     </div>
+  </div>
+</div>
 
-    <script>
-      $(document).ready(function() {
-  const $images = $('.lab img');
-  jQuery.each($images, function(i) {
-    if ($images[i].alt.length > 0) {
-      const divImg = $(document.createElement('div')).addClass('');
-      $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
-      divLabel.append($images[i].alt);
-      $(divLabel).insertAfter($images[i]);
-      $('<br>').insertAfter($images[i]);
-    }
-  });
+<script>
+  $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
 });
 
-      $(document).ready(function() {
+  $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -552,6 +563,6 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
     .sidebar('attach events', '#toc');
 });
 
-    </script>
-  </body>
+</script>
+</body>
 </html>

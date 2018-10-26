@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <style>
-      
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+        type="text/css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+        rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -57,94 +66,90 @@ h3 {
 
 
 
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
+<body>
+
+
+
+<div class="ui fixed top pointing inverted stackable menu labmenu">
+  <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
     
+      <a href="../../index.html"> Android Overview  </a>
     
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-00 Studio">
+        Lab-00 Studio
+      </a>
+    
+      <a class="item" data-tab="01">
+        01
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+      <a class="item" data-tab="05">
+        05
+      </a>
+    
+      <a class="item" data-tab="Exercises">
+        Exercises
+      </a>
+    
+  </div>
+</div>
 
-    <div class="ui fixed top pointing inverted stackable menu labmenu">
-      <header class="header item">
-        <i id="toc" class="sitemap icon"></i>
-        
-          <a href="../../index.html"> Android Overview  </a>
-        
-      </header>
-      <div class="right tab-menu menu">
-        
-          <a class="item" data-tab="Lab-00 Studio">
-            Lab-00 Studio
-          </a>
-        
-          <a class="item" data-tab="01">
-            01
-          </a>
-        
-          <a class="item" data-tab="02">
-            02
-          </a>
-        
-          <a class="item" data-tab="03">
-            03
-          </a>
-        
-          <a class="item" data-tab="04">
-            04
-          </a>
-        
-          <a class="item" data-tab="05">
-            05
-          </a>
-        
-          <a class="item" data-tab="Exercises">
-            Exercises
-          </a>
-        
-      </div>
-    </div>
-
-    <div class="ui segment pushable">
-      <div class="ui inverted labeled icon left inline vertical sidebar menu">
-        <br><br>
-        
-          
-            <a class="active item" href="../../unit-2-android/book-00-studio/index.html">
-              Lab-00 Studio
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-01b-android-activitiy/book-01-activity/index.html">
-              Lab-01 Activities
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-02b-android-adapters/book-02-adapters/index.html">
-              Lab-02 Adapters
-            </a>
-          
-        
-          
-            <a class="item" href="../../unit-03b-android-models/book-03-models/index.html">
-              Lab-03 Models
-            </a>
-          
-        
-      </div>
-      <div class="pusher" tabindex="-1">
-        <div class="ui basic segment" id="labchat">
-          <br>
-          
-            <div  class="ui tab segment lab" data-tab="Lab-00 Studio">
-              <h1>Objectives</h1>
+<div class="ui pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <br><br>
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+      
+    
+  </div>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment">
+      <br>
+      
+        <div class="ui tab segment lab" data-tab="Lab-00 Studio">
+          <h1>Objectives</h1>
 <p>Download and configure Android Studio. Generate and run a sample application.</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="01">
-              <h1>Setup</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="01">
+          <h1>Setup</h1>
 <p>Download and install the latest Android Studio (3.2 when this lab was updated last).</p>
 <ul>
 <li><a href="https://developer.android.com/studio/">https://developer.android.com/studio/</a></li>
@@ -158,10 +163,10 @@ h3 {
 <p><img src="img/01x.png" alt=""></p>
 <p>Do the same for XML, Groovy, Java and JSON. </p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="02">
-              <h2>New Project</h2>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="02">
+          <h2>New Project</h2>
 <p>Create an new Android project with the following key characteristics:</p>
 <ul>
 <li>Kotlin</li>
@@ -175,10 +180,10 @@ h3 {
 <p>Your project should look like this:</p>
 <p><img src="img/06.png" alt=""></p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="03">
-              <h1>Run</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="03">
+          <h1>Run</h1>
 <p>Make sure you can build and run the project. When you first attempt to run the app, you will be asked to create a Virtual Machine. You might create a VM configured like this:</p>
 <p><img src="img/02x.png" alt=""></p>
 <p>Which will appear in a list of VMs like this:</p>
@@ -199,10 +204,10 @@ h3 {
 <p>(we are excluding all .idea files)</p>
 <p>If you are using git, it is a good idea to commit the project to a repository now.</p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="04">
-              <h1>Key Project Files &amp; Resources</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="04">
+          <h1>Key Project Files &amp; Resources</h1>
 <p>Although the project structure looks daunting, there are only a small number of source files to work with regularly:</p>
 <p>Find each of these files now (there are presented here without filenames)</p>
 <pre><code>package org.wit.placemark
@@ -327,10 +332,10 @@ dependencies {
 <p><img src="img/08.png" alt=""></p>
 <p>As you gain experience in android - the role and purpose of each of these files will become clearer. </p>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="05">
-              <h1>Logging Event Handling in Kotlin</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="05">
+          <h1>Logging Event Handling in Kotlin</h1>
 <p>We are going to be working exclusively in Kotlin - not Java. This affords considerable improvements, largely around conciseness and expressiveness of code.</p>
 <h2>Logging</h2>
 <p>To prepare for this, include this additional dependency in our gradle.build:</p>
@@ -375,10 +380,10 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 <li><a href="https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging">https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging</a></li>
 </ul>
 
-            </div>
-          
-            <div  class="ui tab segment lab" data-tab="Exercises">
-              <h1>Solution</h1>
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="Exercises">
+          <h1>Solution</h1>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/placemark-00.zip">placemark-00.zip</a></li>
@@ -394,28 +399,34 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 <h2>Exercise 3:</h2>
 <p>Download, extract and run the archive/sample solution above.</p>
 
-            </div>
-          
         </div>
-      </div>
+      
     </div>
+  </div>
+</div>
 
-    <script>
-      $(document).ready(function() {
-  const $images = $('.lab img');
-  jQuery.each($images, function(i) {
-    if ($images[i].alt.length > 0) {
-      const divImg = $(document.createElement('div')).addClass('');
-      $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
-      divLabel.append($images[i].alt);
-      $(divLabel).insertAfter($images[i]);
-      $('<br>').insertAfter($images[i]);
-    }
-  });
+<script>
+  $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
 });
 
-      $(document).ready(function() {
+  $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -448,6 +459,6 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
     .sidebar('attach events', '#toc');
 });
 
-    </script>
-  </body>
+</script>
+</body>
 </html>

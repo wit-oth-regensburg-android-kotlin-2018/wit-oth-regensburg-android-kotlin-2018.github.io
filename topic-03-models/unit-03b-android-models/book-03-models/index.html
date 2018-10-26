@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
+
+body {
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+  font-size:90%;
+  color: black;
+}
+
+p {
+  margin: 0.5em;
+}
+
+pre code {
+  font-family: "Monaco";
+  font-size: 100%;
+}
+
+img {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin:10px;
+}
+
+h1, h2, h3 {
+  border-bottom:thin solid black;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-style:italic;
+  font-size:130%;
+}
+
+h2 {
+  font-size:110%;
+}
+
+h3 {
+  font-size:100%;
+}
+
+
+
+    </style>
+  </head>
+
+  <body>
+    
+    
+
+    <div class="ui fixed top pointing inverted stackable menu labmenu">
+      <header class="header item">
+        <i id="toc" class="sitemap icon"></i>
+        
+          <a href="../../index.html"> Android Models  </a>
+        
+      </header>
+      <div class="right tab-menu menu">
+        
+          <a class="item" data-tab="Lab-03 Models">
+            Lab-03 Models
+          </a>
+        
+          <a class="item" data-tab="Exercise Solutions">
+            Exercise Solutions
+          </a>
+        
+          <a class="item" data-tab="02">
+            02
+          </a>
+        
+          <a class="item" data-tab="03">
+            03
+          </a>
+        
+          <a class="item" data-tab="04">
+            04
+          </a>
+        
+          <a class="item" data-tab="05">
+            05
+          </a>
+        
+          <a class="item" data-tab="06">
+            06
+          </a>
+        
+          <a class="item" data-tab="Exercises">
+            Exercises
+          </a>
+        
+      </div>
+    </div>
+
+    <div class="ui segment pushable">
+      <div class="ui inverted labeled icon left inline vertical sidebar menu">
+        <br><br>
+        
+          
+            <a class="item" href="../../unit-2-android/book-00-studio/index.html">
+              Lab-00 Studio
+            </a>
+          
+        
+          
+            <a class="item" href="../../unit-01b-android-activitiy/book-01-activity/index.html">
+              Lab-01 Activities
+            </a>
+          
+        
+          
+            <a class="item" href="../../unit-02b-android-adapters/book-02-adapters/index.html">
+              Lab-02 Adapters
+            </a>
+          
+        
+          
+            <a class="active item" href="../../unit-03b-android-models/book-03-models/index.html">
+              Lab-03 Models
+            </a>
+          
+        
+      </div>
+      <div class="pusher" tabindex="-1">
+        <div class="ui basic segment" id="labchat">
+          <br>
+          
+            <div  class="ui tab segment lab" data-tab="Lab-03 Models">
+              <h2>Objectives</h2>
+<p>Application object + Model classes to manage placemarks. </p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="Exercise Solutions">
+              <h1>Exercise Solutions</h1>
+<h2>Exercise 2: Cancel Button</h2>
+<p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkListActivity without adding a new Placemark.</p>
+<h2>strings.xml</h2>
+<pre><code>...
+  &lt;string name=&quot;menu_cancelPlacemark&quot;&gt;Cancel&lt;/string&gt;
+...</code></pre>
+<h2>menu_placemark.xml</h2>
+<p>This resources must be in the <code>menu</code> folder in <code>res</code></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
+
+  &lt;item
+      android:id=&quot;@+id/item_cancel&quot;
+      android:title=&quot;@string/menu_cancelPlacemark&quot;
+      app:showAsAction=&quot;always&quot;/&gt;
+&lt;/menu&gt;</code></pre>
+<h2>PlacemarkActivity</h2>
+<p>In order to present the toolbar - we need to first support it:</p>
+<pre><code>...
+ override fun onCreate(savedInstanceState: Bundle?) {
+    ...
+    toolbarAdd.title = title
+    setSupportActionBar(toolbarAdd)
+    ...
+    }
+  }
+...</code></pre>
+<p>Then we need to <code>inflate</code> the menu:</p>
+<pre><code>  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_placemark, menu)
+    return super.onCreateOptionsMenu(menu)
+  }</code></pre>
+<p>Finally, we need to handle the event:</p>
+<pre><code>  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_cancel -&gt; {
+        finish()
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
+...</code></pre>
+<h1>Exercise 3: Refactor PlacemarkAdapter to its own source file.</h1>
+<p>The PlacemarkAdapter class is currently in the same source file as the PlacemarkListActivity class. For clarity and ease of maintenance, move this into its own source file.</p>
+<h2>PlacemarkAdapter</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.card_placemark.view.*
+import org.wit.placemark.R
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkModel&gt;) : RecyclerView.Adapter&lt;PlacemarkAdapter.MainHolder&gt;() {
+
+  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder {
+    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))
+  }
+
+  override fun onBindViewHolder(holder: MainHolder, position: Int) {
+    val placemark = placemarks[holder.adapterPosition]
+    holder.bind(placemark)
+  }
+
+  override fun getItemCount(): Int = placemarks.size
+
+  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bind(placemark: PlacemarkModel) {
+      itemView.placemarkTitle.text = placemark.title
+      itemView.description.text = placemark.description
+    }
+  }
+}</code></pre>
+<p>Delete the PlacemarkAdapter class from PlacemarkListActivity - and rebuild and run the app now to verify that these changes have been engaged correctly.</p>
+<p>Check the imports in PlacemarkListActivity:</p>
+<p><img src="img/03.png" alt=""></p>
+<p>The greyed out imported are no longer needed (they were used by PlacemarkAdapter). Remove them now and rebuild.</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="02">
+              <h2>Introduce first Model Representation</h2>
+<p>Introduce the following interface into the <code>models</code> package:</p>
+<h2>PlacemarkStore</h2>
+<pre><code>package org.wit.placemark.models
+
+interface PlacemarkStore {
+  fun findAll(): List&lt;PlacemarkModel&gt;
+  fun create(placemark: PlacemarkModel)
+}</code></pre>
+<p>In the same package, implement this interface in a class called PlacemarkMemStore</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>package org.wit.placemark.models
+
+class PlacemarkMemStore : PlacemarkStore {
+
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+
+  override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return placemarks
+  }
+
+  override fun create(placemark: PlacemarkModel) {
+    placemarks.add(placemark)
+  }
+}</code></pre>
+<p>This is a simple encapsulation of our list of placemarks.</p>
+<p>Rework all MainApp to use the above class:</p>
+<h2>MainApp</h2>
+<pre><code>  // val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+  val placemarks = PlacemarkMemStore()</code></pre>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  // recyclerView.adapter = PlacemarkAdapter(app.placemarks)
+  recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll())</code></pre>
+<h2>PlacemarkActivity</h2>
+<pre><code>  // app.placemarks.add(placemark.copy())
+  app.placemarks.create(placemark.copy())
+
+  ...
+  // app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;) }
+  app.placemarks.findAll().forEach{ info(&quot;add Button Pressed: ${it}&quot;) }
+  ...</code></pre>
+<h2>Logging</h2>
+<p>Introduce a new method in PlacemarkMemStore which will log all placemarks. Call it whenever a new placemark is added.</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>...
+  override fun create(placemark: PlacemarkModel) {
+    placemarks.add(placemark)
+    logAll()
+  }
+
+  fun logAll() {
+   placemarks.forEach{ info(&quot;${it}&quot;) }
+  }
+...</code></pre>
+<p>For the above to compile, you will. need to adjust the class declaration:</p>
+<pre><code>class PlacemarkMemStore : PlacemarkStore, AnkoLogger {</code></pre>
+<p>We can now remove the current logging from PlacemarkActivity:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        // app.placemarks.findAll().forEach{ info(&quot;add Button Pressed: ${it}&quot;) }</code></pre>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="03">
+              <h2>PlacemarkListner</h2>
+<p>In PlacemarkAdapter, introduce this new interface:</p>
+<h2>PlacemarkAdapter</h2>
+<pre><code>interface PlacemarkListener {
+  fun onPlacemarkClick(placemark: PlacemarkModel)
+}</code></pre>
+<p>Place it just before the PlacemarkAdapter class (outside the class).</p>
+<p>This new interface will represent click events on the placemark Card, and allow us to abstract the response to this event.</p>
+<p>Here is a revised version of the Adapter - which accepts and installs an event handler based on this interface:</p>
+<pre><code>
+class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkModel&gt;,
+                                   private val listener: PlacemarkListener) : RecyclerView.Adapter&lt;PlacemarkAdapter.MainHolder&gt;() {
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))
+  }
+
+  override fun onBindViewHolder(holder: MainHolder, position: Int) {
+    val placemark = placemarks[holder.adapterPosition]
+    holder.bind(placemark, listener)
+  }
+
+  override fun getItemCount(): Int = placemarks.size
+
+  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bind(placemark: PlacemarkModel,  listener : PlacemarkListener) {
+      itemView.placemarkTitle.text = placemark.title
+      itemView.description.text = placemark.description
+      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }
+    }
+  }
+}</code></pre>
+<p>Look carefully at the very last line of the bind function above:</p>
+<pre><code>      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }</code></pre>
+<p>Can you figure our that is going on here?</p>
+<p>Perhaps if we now use this capability in PlacemarkListActivity it will become clearer.</p>
+<h2>PlacemarkListActivity</h2>
+<p>First, declare that we will implement the new interface:</p>
+<pre><code>class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {</code></pre>
+<p>... then the actual implementation:</p>
+<pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;(), 0)
+  }</code></pre>
+<p>Finally, in onCreate, change the way we create the adapter:</p>
+<pre><code>    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)</code></pre>
+<p>If you run the app now - and add some placemarks. Selecting a placemark from the list will start the PlacemarkActivity. However, the Placemark we select will not appear in the PlacemarkActivity view. We will fix this in the next steps.</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="04">
+              <h2>Parcelable</h2>
+<p>We will switch on some additional Kotlin goodness - which will significantly simplify the next set of features.</p>
+<h2>build.gradle</h2>
+<p>Before the dependencies:</p>
+<pre><code>androidExtensions {
+  experimental = true
+}</code></pre>
+<p>These experimental features are discussed here:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/tutorials/android-plugin.html">https://kotlinlang.org/docs/tutorials/android-plugin.html</a></li>
+</ul>
+<p>They are not without some issues - but quite usable.</p>
+<p>This is a revised version of the PlacemarkModel class:</p>
+<pre><code>package org.wit.placemark.models
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class PlacemarkModel(var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;) : Parcelable</code></pre>
+<p>It implements a parcelize capability. This is discussed in detail here:</p>
+<ul>
+<li><a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x68;&#116;&#116;&#x70;&#115;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#x75;&#109;&#46;&#99;&#111;&#109;&#x2f;&#x40;&#66;&#108;&#97;&#x64;&#x65;&#x43;&#x6f;&#x64;&#101;&#x72;&#x2f;&#x72;&#x65;&#x64;&#117;&#99;&#105;&#x6e;&#103;&#x2d;&#x70;&#x61;&#x72;&#99;&#x65;&#x6c;&#97;&#x62;&#108;&#101;&#x2d;&#x62;&#x6f;&#105;&#x6c;&#x65;&#x72;&#112;&#108;&#97;&#x74;&#x65;&#45;&#99;&#111;&#x64;&#x65;&#45;&#117;&#x73;&#x69;&#110;&#x67;&#45;&#x6b;&#x6f;&#116;&#108;&#x69;&#x6e;&#45;&#x37;&#x34;&#x31;&#x63;&#x33;&#x31;&#50;&#x34;&#x61;&#x34;&#57;&#97;">&#x68;&#116;&#116;&#x70;&#115;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#x75;&#109;&#46;&#99;&#111;&#109;&#x2f;&#x40;&#66;&#108;&#97;&#x64;&#x65;&#x43;&#x6f;&#x64;&#101;&#x72;&#x2f;&#x72;&#x65;&#x64;&#117;&#99;&#105;&#x6e;&#103;&#x2d;&#x70;&#x61;&#x72;&#99;&#x65;&#x6c;&#97;&#x62;&#108;&#101;&#x2d;&#x62;&#x6f;&#105;&#x6c;&#x65;&#x72;&#112;&#108;&#97;&#x74;&#x65;&#45;&#99;&#111;&#x64;&#x65;&#45;&#117;&#x73;&#x69;&#110;&#x67;&#45;&#x6b;&#x6f;&#116;&#108;&#x69;&#x6e;&#45;&#x37;&#x34;&#x31;&#x63;&#x33;&#x31;&#50;&#x34;&#x61;&#x34;&#57;&#97;</a></li>
+</ul>
+<p>...but this was written without using the new feature we have just enabled, which dramatically reduces the boilerplate even further. Our approach is discussed here:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/tutorials/android-plugin.html">https://kotlinlang.org/docs/tutorials/android-plugin.html</a></li>
+</ul>
+<p>(towards the end)</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="05">
+              <h1>StartActivityWithData</h1>
+<p>We can now pass the selected placemark when we start PlacemarkActivity:</p>
+<p>Change the current onPlacemarkClick implementation:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;(), 0)
+  }</code></pre>
+<p>to this:</p>
+<pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), 0)
+  }</code></pre>
+<p>Notice we are passing the selected placemark to the activity - this is enabled via the <code>parcelable</code> mechanism we have just turned on.</p>
+<p>Now, in PlacemarkActivity, we can retrieve the placemark in <code>onCreate()</code></p>
+<pre><code>  override fun onCreate(savedInstanceState: Bundle?) {
+
+    ...
+    if (intent.hasExtra(&quot;placemark_edit&quot;)) {
+      placemark = intent.extras.getParcelable&lt;PlacemarkModel&gt;(&quot;placemark_edit&quot;)
+      placemarkTitle.setText(placemark.title)
+      description.setText(placemark.description)
+    }
+    ...
+  }</code></pre>
+<p>Place this before the <code>btnAdd.setOnClickListener()</code> statement.</p>
+<p>We read back the placemark, and place its field into the view controls.</p>
+<p>Run the app now - and verify that if you select a placemark - you will be taken to the PlacemakrActivity containing its values.</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="06">
+              <h1>Ids</h1>
+<p>Currently, we &#39;edit&#39; a placemark, make a change - then it will create a new placemark. This clearly is not the appropriate behavior. We should update the placemark we have been passed.</p>
+<p>To do this, we need a unique way of identifying placemarks - this is usually via an id. This is the current model:</p>
+<pre><code>@Parcelize
+data class PlacemarkModel(var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;) : Parcelable</code></pre>
+<p>This is a revised version to include an ID:</p>
+<pre><code>@Parcelize
+data class PlacemarkModel(var id: Long = 0,
+                          var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;) : Parcelable</code></pre>
+<p>We can now introduce a new method in PlacemarkStore interface:</p>
+<h2>PlacemarkStore</h2>
+<pre><code>...
+  fun update(placemark: PlacemarkModel)
+...</code></pre>
+<p>... and this is the completely revised PlacemarkMemStore implementation:</p>
+<pre><code>package org.wit.placemark.models
+
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
+var lastId = 0L
+
+internal fun getId(): Long {
+  return lastId++
+}
+
+class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
+
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+
+  override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return placemarks
+  }
+
+  override fun create(placemark: PlacemarkModel) {
+    placemark.id = getId()
+    placemarks.add(placemark)
+    logAll()
+  }
+
+  override fun update(placemark: PlacemarkModel) {
+    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == placemark.id }
+    if (foundPlacemark != null) {
+      foundPlacemark.title = placemark.title
+      foundPlacemark.description = placemark.description
+      logAll()
+    }
+  }
+
+  fun logAll() {
+    placemarks.forEach { info(&quot;${it}&quot;) }
+  }
+}</code></pre>
+<p>Notice how we are generating a new ID when we create placemarks.</p>
+<p>These features will enable us to implement a placemark edit behaviour.</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="Exercises">
+              <h1>Solution</h1>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/placemark-03.zip">placemark-03.zip</a></li>
+</ul>
+<h2>Exercise 1: String Resources</h2>
+<p>In PlacemarkActivity - we have the following hard coded string:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>  toast(&quot;Please Enter a title&quot;)</code></pre>
+<p>These strings should be in the strings.xml resource file. Move them in there, and figure out how to load the strings in PlacemarkActivity.</p>
+<p>For guidance, see:</p>
+<ul>
+<li><a href="https://developer.android.com/guide/topics/resources/string-resource.html">https://developer.android.com/guide/topics/resources/string-resource.html</a></li>
+<li><a href="https://stackoverflow.com/questions/44871481/how-can-i-access-values-from-strings-xml-in-kotlin-android">https://stackoverflow.com/questions/44871481/how-can-i-access-values-from-strings-xml-in-kotlin-android</a></li>
+</ul>
+<h2>Exercise 2: Add Button Label</h2>
+<p>When you select a placemark - and the PlacemarkActivity is launched, the button label is &#39;Add Placemark&#39;. See if you can change this to &#39;Save Placemark&#39;. This is only to be changed if PlacemarkActivity is launched with a placemark passed to it. Make sure the <code>Save Placemark</code> string is externalized (in strings.xml)</p>
+<h2>Exercise 3</h2>
+<p>When you select a placemark from PlacemarkListActivity - it presents the activity in the PlacemarkActivity. If you press &#39;Save Activity&#39; - a new activity is created and appended to the list.</p>
+<p>Change this behaviour such that the button should update the existing placemark with the newly entered values, not create a new one.  We have new features in PlacemarkStore to enable you to implement this (the update method). Essentially, you will need to call update OR create when handling the button event.</p>
+<p>If you complete the implementation, you will notice that even if you update a Placemark&#39;s contents, the new contents will not be displayed in PlacemarkList. However, if you consult the logs you may be able to see if the values are actually changed.</p>
+<p>If you have trouble finding the correct logs, enter <code>PlacemarkModel</code> in the expression window in logcat. This should remove all logs except the ones you want to see:</p>
+<p><img src="img/04.png" alt=""></p>
+
+            </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass('');
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
+      divLabel.append($images[i].alt);
+      $(divLabel).insertAfter($images[i]);
+      $('<br>').insertAfter($images[i]);
+    }
+  });
+});
+
+      $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+    </script>
+  </body>
+</html>

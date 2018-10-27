@@ -454,7 +454,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 <ul>
 <li><a href="https://developers.google.com/maps/documentation/android-api/start#get-key">https://developers.google.com/maps/documentation/android-api/start#get-key</a></li>
 </ul>
-<p>Thus might take a little while, as you navigate through the various features available. The key will be a long string applicable to a range of google services. You can choose to restrict it to just the Maps API. Also, once you have inserted into the <code>google_maps_api.xml</code> file, make sure you no NOT commit this file to any public repository (github). This key is intended to be a secret to your account. If you are using git, the simplest way of doing this is to append the following to <code>.gitignore</code>:</p>
+<p>Thus might take a little while, as you navigate through the various features available. The key will be a long string applicable to a range of google services. You can choose to restrict it to just the Maps API. </p>
+<p>Google have recently switched to a subscription model - and will be prompting you to sign up for free credits for using the api, seeking a credit card (which they promise not to charge). You can ignore this safely for the moment, as the modest number of requests we make should work without registration.</p>
+<p>Your key page might look like this:</p>
+<p><img src="img/11.png" alt=""></p>
+<p>Notice that application restrictions have been set to &#39;none&#39;</p>
+<p>Also, once you have inserted into the <code>google_maps_api.xml</code> file, make sure you no NOT commit this file to any public repository (github). This key is intended to be a secret to your account. If you are using git, the simplest way of doing this is to append the following to <code>.gitignore</code>:</p>
 <pre><code>app/src/release/res/values/google_maps_api.xml
 app/src/debug/res/values/google_maps_api.xml</code></pre>
 <p>Rebuild the app - you may get an error:</p>

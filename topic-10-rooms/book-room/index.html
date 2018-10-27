@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+        type="text/css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+        rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    
+
+body {
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+  font-size:90%;
+  color: black;
+}
+
+p {
+  margin: 0.5em;
+}
+
+pre code {
+  font-family: "Monaco";
+  font-size: 100%;
+}
+
+img {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin:10px;
+}
+
+h1, h2, h3 {
+  border-bottom:thin solid black;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-style:italic;
+  font-size:130%;
+}
+
+h2 {
+  font-size:110%;
+}
+
+h3 {
+  font-size:100%;
+}
+
+
+
+  </style>
+</head>
+
+<body>
+
+
+
+<div class="ui fixed top pointing inverted stackable menu labmenu">
+  <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
+    
+      <a href="../index.html"> 10: Rooms  </a>
+    
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-06">
+        Lab-06
+      </a>
+    
+      <a class="item" data-tab="01">
+        01
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+      <a class="item" data-tab="05">
+        05
+      </a>
+    
+      <a class="item" data-tab="Exercises">
+        Exercises
+      </a>
+    
+  </div>
+</div>
+
+<div class="ui pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <br><br>
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp/index.html">Lab-08 MVP </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-08b-location/book-1-location/index.html">Lab-09a Location </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-08b-location/book-2-tracking/index.html">Lab-09b Tracking </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/book-room/index.html">Lab-06 </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-xx-tracking/unit-09b-tracking/book-tracking/index.html">Lab-09 Tracking </a>
+      
+    
+  </div>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment">
+      <br>
+      
+        <div class="ui tab segment lab" data-tab="Lab-06">
+          <h1>Objectives</h1>
+<p>@Entity · @PrimaryKey · RoomDatabase · Dao · suspend ·async · deferred · bg</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="01">
+          <h1>Exercises</h1>
+<h1>Exercise 1</h1>
+<p>If you create a new placemark - and set it location, note that when you click on the marker it shows its lat/lng. Move it around - and notice that the lat/lng in the panel never changes (even though it is at a different location).</p>
+<p>See if you can fix this - such that it always shows the correct location.</p>
+<p>(HINT: look up <code>GoogleMap.OnMarkerClickListener</code> and <code>setSnippet</code>)</p>
+<h1>Solution</h1>
+<p>Implement OnMarkerClickListener:</p>
+<h2>MapsActivity</h2>
+<pre><code>lass MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+
+
+...
+  override fun onMarkerClick(marker: Marker): Boolean {
+    val loc = LatLng(location.lat, location.lng)
+    marker.setSnippet(&quot;GPS : &quot; + loc.toString())
+    return false
+  }
+...</code></pre>
+<p>We need to now also listen for this event:</p>
+<pre><code>  override fun onMapReady(googleMap: GoogleMap) {
+    map = googleMap
+    map.setOnMarkerDragListener(this)
+    map.setOnMarkerClickListener(this)
+    val loc = LatLng(location.lat, location.lng)
+    val options = MarkerOptions()
+        .title(&quot;Placemark&quot;)
+        .snippet(&quot;GPS : &quot; + loc.toString())
+        .draggable(true)
+        .position(loc)
+    map.addMarker(options)
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
+  }</code></pre>
+<h2>Exercise 2</h2>
+<p>When you leave the PlacemarkActiviy, the location is not currently stored in the PlacemarkModel correctly. So when you edit a placemark, it is back at the default location.</p>
+<p>Fix this by making location part of the placemark model, so we can edit and change the locations for existing markers.</p>
+<h1>Solution</h1>
+<p>First, extend the model to include additional fields:</p>
+<h2>PlacemarkModel</h2>
+<pre><code>package org.wit.placemark.models
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class PlacemarkModel(var id: Long = 0,
+                          var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;,
+                          var image: String = &quot;&quot;,
+                          var lat : Double = 0.0,
+                          var lng: Double = 0.0,
+                          var zoom: Float = 0f) : Parcelable
+
+@Parcelize
+data class Location(var lat: Double = 0.0,
+                    var lng: Double = 0.0,
+                    var zoom: Float = 0f) : Parcelable</code></pre>
+<p>We are still keeping Location model for use with the MapsActivity</p>
+<p>Make sure these fields are saved when a placemark us updated:</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>  override fun update(placemark: PlacemarkModel) {
+    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == placemark.id }
+    if (foundPlacemark != null) {
+      foundPlacemark.title = placemark.title
+      foundPlacemark.description = placemark.description
+      foundPlacemark.image = placemark.image
+      foundPlacemark.lat = placemark.lat
+      foundPlacemark.lng = placemark.lng
+      foundPlacemark.zoom = placemark.zoom
+    }
+  }</code></pre>
+<p>Then, remove Location from being a class member if PlacemarkActivity:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code> // var location = Location(52.245696, -7.139102, 15f)</code></pre>
+<p>Initialise the location from the placemark object (of zoom is not 0.0. in which case we use a default location)</p>
+<pre><code>   placemarkLocation.setOnClickListener {
+      val location = Location(52.245696, -7.139102, 15f)
+      if (placemark.zoom != 0f) {
+        location.lat =  placemark.lat
+        location.lng = placemark.lng
+        location.zoom = placemark.zoom
+      }
+      startActivityForResult(intentFor&lt;MapsActivity&gt;().putExtra(&quot;location&quot;, location), LOCATION_REQUEST)
+    }</code></pre>
+<p>Finally, make sure we recover and save the location when the maps activity finishes:</p>
+<pre><code>  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    when (requestCode) {
+      IMAGE_REQUEST -&gt; {
+        if (data != null) {
+          placemark.image = data.getData().toString()
+          placemarkImage.setImageBitmap(readImage(this, resultCode, data))
+          chooseImage.setText(R.string.change_placemark_image)
+        }
+      }
+      LOCATION_REQUEST -&gt; {
+        if (data != null) {
+          val location = data.extras.getParcelable&lt;Location&gt;(&quot;location&quot;)
+          placemark.lat = location.lat
+          placemark.lng = location.lng
+          placemark.zoom = location.zoom
+        }
+      }
+    }
+  }</code></pre>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="02">
+          <h1>MainApp &amp; PlacemarkListActivity Adjustments</h1>
+<p>First revise how we create the placemarks store object:</p>
+<h2>MainApp</h2>
+<pre><code>package org.wit.placemark.main
+
+import android.app.Application
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.wit.placemark.models.PlacemarkMemStore
+import org.wit.placemark.models.PlacemarkStore
+
+class MainApp : Application(), AnkoLogger {
+
+  lateinit var placemarks: PlacemarkStore
+
+  override fun onCreate() {
+    super.onCreate()
+    placemarks = PlacemarkMemStore()
+    info(&quot;Placemark started&quot;)
+  }</code></pre>
+<p>In the above class we are using a lateinit property. We have seen this before - review some of the motivation behind this property</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/properties.html#late-initialized-properties-and-variables">https://kotlinlang.org/docs/reference/properties.html#late-initialized-properties-and-variables</a></li>
+</ul>
+<p>We also will revise how we load the placemarks in PlacemarkListActivity.</p>
+<p>First, introduce these new methods:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  private fun loadPlacemarks() {
+    showPlacemarks( app.placemarks.findAll())
+  }
+
+  fun showPlacemarks (placemarks: List&lt;PlacemarkModel&gt;) {
+    recyclerView.adapter = PlacemarkAdapter(placemarks, this)
+    recyclerView.adapter.notifyDataSetChanged()
+  }</code></pre>
+<p>Change onCreate to call loadPlacemarks()</p>
+<pre><code>  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark_list)
+    app = application as MainApp
+
+    toolbarMain.title = title
+    setSupportActionBar(toolbarMain)
+
+    val layoutManager = LinearLayoutManager(this)
+    recyclerView.layoutManager = layoutManager
+    loadPlacemarks()
+  }</code></pre>
+<p>Finally, in onActivityResult() we also call loadPlacemarks():</p>
+<pre><code>  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    loadPlacemarks()
+    super.onActivityResult(requestCode, resultCode, data)
+  }</code></pre>
+<p>This is the complete class at this stage:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.*
+import kotlinx.android.synthetic.main.activity_placemark_list.*
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivityForResult
+import org.wit.placemark.R
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+
+  lateinit var app: MainApp
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark_list)
+    app = application as MainApp
+
+    toolbarMain.title = title
+    setSupportActionBar(toolbarMain)
+
+    val layoutManager = LinearLayoutManager(this)
+    recyclerView.layoutManager = layoutManager
+    loadPlacemarks()
+  }
+
+  private fun loadPlacemarks() {
+    showPlacemarks( app.placemarks.findAll())
+  }
+
+  fun showPlacemarks (placemarks: List&lt;PlacemarkModel&gt;) {
+    recyclerView.adapter = PlacemarkAdapter(placemarks, this)
+    recyclerView.adapter.notifyDataSetChanged()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_main, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    loadPlacemarks()
+    super.onActivityResult(requestCode, resultCode, data)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_add -&gt; startActivityForResult&lt;PlacemarkActivity&gt;(200)
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), 201)
+  }
+}</code></pre>
+<p>Make sure the app continues to run as expected.</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="03">
+          <h1>Room Classes</h1>
+<h2>build.gradle</h2>
+<p>In 2017 Google introduced a vastly simplified approach to persisting objects to the SQLite database called Rooms:</p>
+<ul>
+<li><a href="https://developer.android.com/training/data-storage/room/index.html">https://developer.android.com/training/data-storage/room/index.html</a></li>
+</ul>
+<p>Review the introduction above (just the page linked) before proceeding.</p>
+<p>First, we need to include the rooms libraries:</p>
+<h2>build.gradle</h2>
+<p>New dependencies:</p>
+<pre><code>  compile &#39;android.arch.persistence.room:runtime:1.0.0&#39;
+  kapt &#39;android.arch.persistence.room:compiler:1.0.0&#39;</code></pre>
+<p>Note the second dependency is slightly different - a <code>kapt</code> entry. Kapt is an annotation processor:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/kapt.html">https://kotlinlang.org/docs/reference/kapt.html</a></li>
+</ul>
+<p>and we are using it here to engage the Room annotations we are about to use.</p>
+<p>First, we adjust PlacemarkModel with additional annotations:</p>
+<h2>Placemarkmodel</h2>
+<pre><code>package org.wit.placemark.models
+
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+@Entity
+data class PlacemarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
+                          var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;,
+                          var image: String = &quot;&quot;,
+                          var lat : Double = 0.0,
+                          var lng: Double = 0.0,
+                          var zoom: Float = 0f) : Parcelable
+
+@Parcelize
+data class Location(var lat: Double = 0.0,
+                    var lng: Double = 0.0,
+                    var zoom: Float = 0f) : Parcelable</code></pre>
+<p>We have included 2 additional annotations:</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/arch/persistence/room/Entity.html">@Entity</a></li>
+<li><a href="https://developer.android.com/reference/android/arch/persistence/room/PrimaryKey.html">@PrimaryKey</a></li>
+</ul>
+<p>We now need some new classes - create a new package called <code>org.wit.placemark.room</code></p>
+<p><img src="img/01.png" alt=""></p>
+<h2>Database</h2>
+<pre><code>package org.wit.placemark.room
+
+import android.arch.persistence.room.Database
+import android.arch.persistence.room.RoomDatabase
+import org.wit.placemark.models.PlacemarkModel
+
+@Database(entities = arrayOf(PlacemarkModel::class), version = 1)
+abstract class Database : RoomDatabase() {
+
+  abstract fun placemarkDao(): PlacemarkDao
+}</code></pre>
+<h2>PlacemarkDao</h2>
+<pre><code>package org.wit.placemark.room
+
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
+import android.arch.persistence.room.Update
+import org.wit.placemark.models.PlacemarkModel
+
+@Dao
+interface PlacemarkDao {
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun create(placemark: PlacemarkModel)
+
+  @Query(&quot;SELECT * FROM PlacemarkModel&quot;)
+  fun findAll(): List&lt;PlacemarkModel&gt;
+
+  @Update
+  fun update(placemark: PlacemarkModel)
+}</code></pre>
+<h2>PlacemarkStoreRoom</h2>
+<pre><code>package org.wit.placemark.room
+
+import android.arch.persistence.room.Room
+import android.content.Context
+import org.wit.placemark.models.PlacemarkModel
+import org.wit.placemark.models.PlacemarkStore
+
+class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
+
+  var dao: PlacemarkDao
+
+  init {
+    val database = Room.databaseBuilder(context, Database::class.java, &quot;room_sample.db&quot;)
+        .fallbackToDestructiveMigration()
+        .build()
+    dao = database.placemarkDao()
+  }
+
+  override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return dao.findAll()
+  }
+
+  override fun create(placemark: PlacemarkModel) {
+    dao.create(placemark)
+  }
+
+  override fun update(placemark: PlacemarkModel) {
+    dao.update(placemark)
+  }
+}</code></pre>
+<h2>PlacemarkStore</h2>
+<pre><code>package org.wit.placemark.models
+
+interface PlacemarkStore {
+  suspend fun findAll(): List&lt;PlacemarkModel&gt;
+  suspend fun findById(id:Long) : PlacemarkModel?
+  fun create(placemark: PlacemarkModel)
+  fun update(placemark: PlacemarkModel)
+}</code></pre>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="04">
+          <h1>RoomStore</h1>
+<p>Because we have based PlacemarkRoomStore on the PlacemarkStore interface, switching over to the database from the memory store should be reasonably straightforward</p>
+<p>First, in MainApp, create a RoomStore instead of a MemStore:</p>
+<h2>MainApp</h2>
+<pre><code>package org.wit.placemark.main
+
+import android.app.Application
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.wit.placemark.models.PlacemarkMemStore
+import org.wit.placemark.models.PlacemarkStore
+import org.wit.placemark.room.PlacemarkStoreRoom
+
+class MainApp : Application(), AnkoLogger {
+
+  lateinit var placemarks: PlacemarkStore
+
+  override fun onCreate() {
+    super.onCreate()
+   // placemarks = PlacemarkMemStore()
+    placemarks = PlacemarkStoreRoom (applicationContext)
+    info(&quot;Placemark started&quot;)
+  }
+}</code></pre>
+<p>Run the app now - it will fail to launch:</p>
+<p><img src="img/01.png" alt=""></p>
+<p>Look carefully at the Logcat - and see if you can identify the error:</p>
+<pre><code>Caused by: java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time.</code></pre>
+<p>Android will not permit access to the database on the main UI thread - as it can seriously degrade performance. In some circumstances, this requires low-level thread management code in your app:</p>
+<ul>
+<li><a href="https://developer.android.com/training/multiple-threads/index.html">https://developer.android.com/training/multiple-threads/index.html</a></li>
+</ul>
+<p>However, when working with Kotlin we have considerable convenience methods available via the anko libraries when attempting multi-threaded development in Android:</p>
+<ul>
+<li><a href="https://github.com/Kotlin/anko/wiki/Anko-Coroutines">https://github.com/Kotlin/anko/wiki/Anko-Coroutines</a></li>
+<li><a href="https://antonioleiva.com/anko-background-kotlin-android">https://antonioleiva.com/anko-background-kotlin-android</a></li>
+</ul>
+<p>Before brining these features in your our application, we make one change to the way we have defined PlacemarkMemStore interface:</p>
+<p>First, we mark the findAll() method as <code>suspend</code>:</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>  suspend fun findAll(): List&lt;PlacemarkModel&gt;</code></pre>
+<p>This is stating that the method may be suspended, in the context of a Kotlin Coroutine:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/coroutines.html">https://kotlinlang.org/docs/reference/coroutines.html</a></li>
+</ul>
+<p>If we make this change, we need to define all implementations of the interface with the same signature:</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>  suspend override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return placemarks
+  }</code></pre>
+<h2>PlacemarkStoreRoom</h2>
+<pre><code class="lang-ß">  suspend override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return dao.findAll()
+  }</code></pre>
+<p>We can now move the findAll() call to a background thread:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  private fun loadPlacemarks() {
+    async(UI) {
+      showPlacemarks(app.placemarks.findAll())
+    }
+  }</code></pre>
+<p>Review this guide here for a basic introduction:</p>
+<ul>
+<li><a href="https://android.jlelse.eu/a-first-walk-into-kotlin-coroutines-on-android-fe4a6e25f46a">https://android.jlelse.eu/a-first-walk-into-kotlin-coroutines-on-android-fe4a6e25f46a</a></li>
+</ul>
+<p>We can launch the app now - however when we attempt to add a placemark, it will crash again.</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="05">
+          <h1>PlacemarkStoreRoom</h1>
+<p>To get the application to function correctly - we need to revise PlacemarkStoreRoom to properly use the background thread for all database access:</p>
+<h2>PlacemarkStoreRoom</h2>
+<pre><code>package org.wit.placemark.room
+
+import android.arch.persistence.room.Room
+import android.content.Context
+import org.jetbrains.anko.coroutines.experimental.bg
+import org.wit.placemark.models.PlacemarkModel
+import org.wit.placemark.models.PlacemarkStore
+
+class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
+
+  var dao: PlacemarkDao
+
+  init {
+    val database = Room.databaseBuilder(context, Database::class.java, &quot;room_sample.db&quot;)
+        .fallbackToDestructiveMigration()
+        .build()
+    dao = database.placemarkDao()
+  }
+
+  override suspend fun findAll(): List&lt;PlacemarkModel&gt; {
+    val deferredPlacemarks = bg {
+      dao.findAll()
+    }
+    val placemarks = deferredPlacemarks.await()
+    return placemarks
+  }
+
+  override fun create(placemark: PlacemarkModel) {
+    bg {
+      dao.create(placemark)
+    }
+  }
+
+  override fun update(placemark: PlacemarkModel) {
+    bg {
+      dao.update(placemark)
+    }
+  }
+}</code></pre>
+<p>Each method is now calling the database functions on the background thread via the <code>bg</code> helper:</p>
+<ul>
+<li><a href="https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg">https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg</a></li>
+</ul>
+<p>In findAll - we are also making use of the <code>deferred</code> facility:</p>
+<ul>
+<li><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-deferred/">https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-deferred/</a></li>
+</ul>
+<p>These are challenging concepts on first contact - and will require some study and reflection to master effectively.</p>
+<p>The application should run now.</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="Exercises">
+          <h2>Solution</h2>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/archive.zip">archive.zip</a></li>
+</ul>
+<h2>Exercise 1</h2>
+<p>Change back to using the PlacemarkMemStore instead of PlacemarkStoreRoom. The only change you need to make should be in MainApp.</p>
+<p>Try some experiments to make sure the persistence is working as expected:</p>
+<ul>
+<li>Using MemStore - create some placemarks and then kill the app. Relaunch, and verify that all placemarks are gone</li>
+<li>Using RoomStore - try the same experiment. This time the placemarks should persist between application terminations.</li>
+</ul>
+<h2>Exercise 2</h2>
+<p>Currently we have no way of deleting placemarks. To support delete, you will need to extend the PlacemarkStore to support removal of placemarks, and then implement this in PlacemarkMemStore and PlacemarkStoreRoom. These are the implementations you will need:</p>
+<h2>PlacemarkStore</h2>
+<pre><code>  fun delete(placemark: PlacemarkModel)</code></pre>
+<h2>PlacemarkMemStore</h2>
+<pre><code>  override fun delete(placemark: PlacemarkModel) {
+    placemarks.remove(placemark)
+  }</code></pre>
+<h2>PlacemarkDao</h2>
+<pre><code>  @Delete
+  fun deletePlacemark(placemark: PlacemarkModel)</code></pre>
+<h2>PlacemarkStoreRoom</h2>
+<pre><code>  override fun delete(placemark: PlacemarkModel) {
+    bg {
+      dao.deletePlacemark(placemark)
+    }
+  }</code></pre>
+<p>To trigger the actual deletion, three possible strategies could be used:</p>
+<ul>
+<li>Introduce a new <code>delete</code> button alongside the <code>cancel</code> button on the PlacemarkActivity</li>
+<li>Support <code>long press</code> on a placemark in PlacemarkListActivity</li>
+<li>Support <code>swipe</code> on a placemark in PlacemarkListActivity</li>
+</ul>
+<p>Implement one of these strategies</p>
+
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+  $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+</script>
+</body>
+</html>

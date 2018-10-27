@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+        type="text/css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+        rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    
+
+body {
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+  font-size:90%;
+  color: black;
+}
+
+p {
+  margin: 0.5em;
+}
+
+pre code {
+  font-family: "Monaco";
+  font-size: 100%;
+}
+
+img {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin:10px;
+}
+
+h1, h2, h3 {
+  border-bottom:thin solid black;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-style:italic;
+  font-size:130%;
+}
+
+h2 {
+  font-size:110%;
+}
+
+h3 {
+  font-size:100%;
+}
+
+
+
+  </style>
+</head>
+
+<body>
+
+
+
+<div class="ui fixed top pointing inverted stackable menu labmenu">
+  <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
+    
+      <a href="../../index.html"> Markers & Location  </a>
+    
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-09b Tracking">
+        Lab-09b Tracking
+      </a>
+    
+      <a class="item" data-tab="01">
+        01
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+      <a class="item" data-tab="05">
+        05
+      </a>
+    
+      <a class="item" data-tab="06">
+        06
+      </a>
+    
+      <a class="item" data-tab="07.Exercises">
+        07.Exercises
+      </a>
+    
+  </div>
+</div>
+
+<div class="ui pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <br><br>
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp/index.html">Lab-08 MVP </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-08b-location/book-1-location/index.html">Lab-09a Location </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-08b-location/book-2-tracking/index.html">Lab-09b Tracking </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/book-room/index.html">Lab-06 </a>
+      
+    
+      
+        <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-xx-tracking/unit-09b-tracking/book-tracking/index.html">Lab-09 Tracking </a>
+      
+    
+  </div>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment">
+      <br>
+      
+        <div class="ui tab segment lab" data-tab="Lab-09b Tracking">
+          <h1>Objectives</h1>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="01">
+          <h1>Exercises</h1>
+<h2>Exercise 1</h2>
+<p>Create a new placemark and set its location. Save the placemark and move the location a very small distance. When you switch back to the PlacemarkActivity view, notice that you now have 2 placemarks.</p>
+<h2>Solution</h2>
+<h2>PlacemarkActivity</h2>
+<p>Compare your version of the method below with the one shown here:</p>
+<pre><code>  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    when (requestCode) {
+      IMAGE_REQUEST -&gt; {
+        if (data != null) {
+          placemark.image = data.getData().toString()
+          placemarkImage.setImageBitmap(readImage(this, resultCode, data))
+          chooseImage.setText(R.string.change_placemark_image)
+        }
+      }
+      LOCATION_REQUEST -&gt; {
+        if (data != null) {
+          val location = data.extras.getParcelable&lt;Location&gt;(&quot;location&quot;)
+          map.clear()
+          placemark.lat = location.lat
+          placemark.lng = location.lng
+          placemark.zoom = location.zoom
+          configureMap()
+        }
+      }
+    }</code></pre>
+<p>Can you see the single extra line? See if this fixes the problem.</p>
+<h2>Exercise 2</h2>
+<p>Develop a landscape version of the PlacemarkMarkActivity:</p>
+<p><img src="img/00.png" alt=""></p>
+<p>Remember - the content of this activity is held in the <code>content_placemark_maps.xml</code>. This is included by <code>activity_pacemark_maps.xml</code></p>
+<p>This is the landscape layout:</p>
+<p><img src="img/01.png" alt=""></p>
+<h2>res/layout-land/content_placemark_maps.xml</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+  xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+  xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+  android:layout_width=&quot;match_parent&quot;
+  android:layout_height=&quot;match_parent&quot;
+  app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+  tools:context=&quot;org.wit.placemark.activities.PlacemarkMapsActivity&quot;
+  tools:showIn=&quot;@layout/activity_placemark_maps&quot;&gt;
+
+  &lt;android.support.v7.widget.CardView
+    android:id=&quot;@+id/cardView&quot;
+    android:layout_width=&quot;224dp&quot;
+    android:layout_height=&quot;293dp&quot;
+    android:layout_marginBottom=&quot;92dp&quot;
+    android:layout_marginEnd=&quot;16dp&quot;
+    android:layout_marginTop=&quot;8dp&quot;
+    app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+    app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+    app:layout_constraintTop_toTopOf=&quot;parent&quot;
+    app:layout_constraintVertical_bias=&quot;0.0&quot;&gt;
+
+    &lt;android.support.constraint.ConstraintLayout
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;match_parent&quot;&gt;
+
+      &lt;TextView
+        android:id=&quot;@+id/currentTitle&quot;
+        android:layout_width=&quot;198dp&quot;
+        android:layout_height=&quot;25dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+      &lt;TextView
+        android:id=&quot;@+id/currentDescription&quot;
+        android:layout_width=&quot;202dp&quot;
+        android:layout_height=&quot;25dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/currentTitle&quot; /&gt;
+
+      &lt;ImageView
+        android:id=&quot;@+id/imageView&quot;
+        android:layout_width=&quot;204dp&quot;
+        android:layout_height=&quot;195dp&quot;
+        android:layout_marginBottom=&quot;16dp&quot;
+        android:layout_marginEnd=&quot;44dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/currentDescription&quot;
+        app:srcCompat=&quot;@drawable/ic_launcher_background&quot; /&gt;
+    &lt;/android.support.constraint.ConstraintLayout&gt;
+  &lt;/android.support.v7.widget.CardView&gt;
+
+  &lt;com.google.android.gms.maps.MapView
+    android:id=&quot;@+id/mapView&quot;
+    android:layout_width=&quot;334dp&quot;
+    android:layout_height=&quot;289dp&quot;
+    android:layout_marginBottom=&quot;8dp&quot;
+    android:layout_marginEnd=&quot;8dp&quot;
+    android:layout_marginStart=&quot;8dp&quot;
+    android:layout_marginTop=&quot;8dp&quot;
+    app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+    app:layout_constraintEnd_toStartOf=&quot;@+id/cardView&quot;
+    app:layout_constraintStart_toStartOf=&quot;parent&quot;
+    app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="02">
+          <h1>findByID</h1>
+<p>Currently we do not have any way retrieving a placemark by its ID. Having this ability is a useful utility method for a variety of scenarios.</p>
+<p>We can start by introducing this into the PlacemarkStore and PlacemarkMemStore</p>
+<h2>PlacemarkStore</h2>
+<pre><code>...
+  suspend fun findById(id:Long) : PlacemarkModel?
+...</code></pre>
+<h2>PlacemarkMemStore</h2>
+<pre><code>...
+  suspend override fun findById(id:Long) : PlacemarkModel? {
+    val foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == id }
+    return foundPlacemark
+  }
+...</code></pre>
+<p>This implements the facility only if we are using in-memory store. Now implement the same feature when we are using the database:</p>
+<h2>PlacemarkStoreRoom</h2>
+<pre><code>...
+  override suspend fun findById(id: Long): PlacemarkModel? {
+    val deferredPlacemark = bg {
+      dao.findById(id)
+    }
+    val placemark = deferredPlacemark.await()
+    return placemark
+  }
+...</code></pre>
+<p>The above will need this method in the Dao class:</p>
+<h2>PlacemarkDao</h2>
+<pre><code>...
+  @Query(&quot;select * from PlacemarkModel where id = :arg0&quot;)
+  fun findById(id: Long): PlacemarkModel
+...</code></pre>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="03">
+          <h1>Marker Tags</h1>
+<p>Currently, in PlacemarkMapsActivity we have this method already implemented:</p>
+<h2>PlacemarkMapsActivity</h2>
+<pre><code>  fun configureMap() {
+    map.uiSettings.setZoomControlsEnabled(true)
+    map.setOnMarkerClickListener(this)
+    async(UI) {
+      app.placemarks.findAll().forEach {
+        val loc = LatLng(it.lat, it.lng)
+        val options = MarkerOptions().title(it.title).position(loc)
+        map.addMarker(options).tag = it.id
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+      }
+    }
+  }</code></pre>
+<p>There is one very significant line in here:</p>
+<pre><code>        map.addMarker(options).tag = it.id</code></pre>
+<p>This is doing two things:</p>
+<ul>
+<li>adding a marker to the map</li>
+<li>&quot;Tagging&quot; the marker with the ID of the placemark</li>
+</ul>
+<p>This means the each placemark will have the ID (from the datastore) of the placemark is is representing.</p>
+<p>We can now use this <code>tag</code> to update the card containing details of the selected placemark. This is the current version of the onMarkerCLick event hander:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>...
+  override fun onMarkerClick(marker: Marker): Boolean {
+    currentTitle.text = marker.title
+    return false
+  }
+...</code></pre>
+<p>Replace it with the following:</p>
+<pre><code>...
+  override fun onMarkerClick(marker: Marker): Boolean {
+    async(UI) {
+      val tag = marker.tag as Long
+      val placemark = app.placemarks.findById(tag)
+      currentTitle.text = placemark!!.title
+      currentDescription.text = placemark!!.description
+      imageView.setImageBitmap(readImageFromPath(this@PlacemarkMapsActivity, placemark.image))
+    }
+    return false
+  }
+...</code></pre>
+<p>Look carefully at method - when a user clicks on a placemark in the map, we do the following:</p>
+<ul>
+<li>retrieve the tag from the marker</li>
+<li>look up the datatore for a placemark based in this ID</li>
+<li>set the currentTitle, currentDescription &amp; imageView to contains the details of the placemark</li>
+</ul>
+<p>Try this out now - and make sure landmark and portrait PlacemarkMapsActivity now displays the placemark details on the panel as each marker is selected.</p>
+<p><img src="img/03.png" alt=""></p>
+<p><img src="img/04.png" alt=""></p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="04">
+          <h1>Current Location</h1>
+<p>We would like to support retrieving the current location, and using this when a placemark is being created. We will do this by adding a new button to the PlacemarkActivity - a <code>here</code> button. This will retrieve the current location and put the placemark in that position on the map.</p>
+<p>First - add a new button to the PlacemarkActivity</p>
+<p><img src="img/05.png" alt=""></p>
+<p>This might be the button characteristics:</p>
+<pre><code>    &lt;Button
+      android:id=&quot;@+id/btnHere&quot;
+      android:layout_width=&quot;147dp&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:layout_marginBottom=&quot;8dp&quot;
+      android:layout_marginEnd=&quot;8dp&quot;
+      android:layout_marginStart=&quot;8dp&quot;
+      android:layout_marginTop=&quot;8dp&quot;
+      android:text=&quot;Here&quot;
+      app:layout_constraintBottom_toTopOf=&quot;@+id/mapView&quot;
+      app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+      app:layout_constraintStart_toEndOf=&quot;@+id/placemarkLocation&quot;
+      app:layout_constraintTop_toBottomOf=&quot;@+id/placemarkImage&quot; /&gt;</code></pre>
+<p>By Default we will disable this button - so in onCreate we set the button as follows:</p>
+<pre><code>...
+  override fun onCreate(savedInstanceState: Bundle?) {
+    ...
+    btnHere.isEnabled = false
+    ...
+}</code></pre>
+<p>When you run the app now - make sure the button is disabled.</p>
+<h2>build.gradle</h2>
+<p>We need new location provider libraries - so include this new entry in <code>build.gradle</code></p>
+<pre><code>  implementation &quot;com.google.android.gms:play-services-location:11.6.2&quot;</code></pre>
+<p>Place it just below the google maps entry</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="05">
+          <h1>LocationHelpers</h1>
+<p>Introduce this new class into the helpers package:</p>
+<pre><code>package org.wit.placemark.helpers
+
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
+import android.util.Log
+
+val REQUEST_PERMISSIONS_REQUEST_CODE = 34
+
+fun checkLocationPermissions(activity: Activity): Boolean {
+  var success = false;
+  if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+    success = true;
+  } else {
+    ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSIONS_REQUEST_CODE)
+  }
+  return success
+}
+
+fun isPermissionGranted(code: Int, grantResults: IntArray): Boolean {
+  var permissionGranted = false;
+  if (code == REQUEST_PERMISSIONS_REQUEST_CODE) {
+    when {
+      grantResults.isEmpty() -&gt; Log.i(&quot;Location&quot;, &quot;User interaction was cancelled.&quot;)
+      (grantResults[0] == PackageManager.PERMISSION_GRANTED) -&gt; {
+        permissionGranted = true
+        Log.i(&quot;Location&quot;, &quot;Permission Granted.&quot;)
+      }
+      else -&gt; Log.i(&quot;Location&quot;, &quot;Permission Denied.&quot;)
+    }
+  }
+  return permissionGranted
+}</code></pre>
+<p>These are utility methods - which are needed if we wish to access the location services on the phone.</p>
+<p>In PlacemarkActivity - introduce these two now methods:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>  override fun onStart() {
+    super.onStart()
+    if (checkLocationPermissions(this)) {
+      btnHere.isEnabled = true
+    }
+  }
+
+  @SuppressLint(&quot;MissingPermission&quot;)
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array&lt;String&gt;, grantResults: IntArray) {
+    if (isPermissionGranted(requestCode, grantResults)) {
+      btnHere.isEnabled = true
+    }
+  }</code></pre>
+<p>This will specifically trigger a location permission dialog - asking the user to permit location services to be accessed.</p>
+<p>Run the app now - and see if, when you try to create a new activity, the location services dialog appears.</p>
+<p><img src="img/06.png" alt=""></p>
+<p>Grant permissions by selecting &#39;allow&#39; - the <code>Here</code> button should be activated.</p>
+<p>Kill the app - and run it again. Does the permission screen appear? It doesn&#39;t this time - because the permission is persisted.</p>
+<p>Try deleting the app completely - and then run it again. This time the the permission should appear again. Get used to this cycle, as it is important to understand the control flow here.</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="06">
+          <h1>Location Provider</h1>
+<p>Include this new field in the PlacemarkActivity class:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>  private lateinit var locationService: FusedLocationProviderClient</code></pre>
+<p>and in onCreate - initialise it:</p>
+<pre><code>  override fun onCreate(savedInstanceState: Bundle?) {
+      ...
+    locationService = LocationServices.getFusedLocationProviderClient(this)
+    ...
+  }</code></pre>
+<p>Introduce this new method:</p>
+<pre><code>  @SuppressLint(&quot;MissingPermission&quot;)
+  fun setCurrentLocation() {
+    locationService.lastLocation.addOnSuccessListener {
+      defaultLocation.lat = it.latitude
+      defaultLocation.lng = it.longitude
+      placemark.lat = it.latitude
+      placemark.lng = it.longitude
+      configureMap()
+    }
+  }</code></pre>
+<p>This will use the location provider to retrieve the current location - and set the map marker to this position. It is using the location provider - and retrieving the last known location.</p>
+<p>Finally - we can call this method of the <code>here</code> button is pressed:</p>
+<pre><code>    btnHere.setOnClickListener {
+      setCurrentLocation()
+    }</code></pre>
+<p>Try this now. Note that you have location options in the emulator:</p>
+<p><img src="img/07.png" alt=""></p>
+<p>It is available via the menu bar on the right.</p>
+<p>You should be able to set a location in the emulator - and when you press &#39;here&#39; it should send you to that location on the app.</p>
+
+        </div>
+      
+        <div class="ui tab segment lab" data-tab="07.Exercises">
+          <h1>Solution</h1>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/archive.zip">archive.zip</a></li>
+</ul>
+
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+  $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+</script>
+</body>
+</html>

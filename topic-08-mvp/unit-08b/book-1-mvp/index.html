@@ -110,6 +110,10 @@ h3 {
         06
       </a>
     
+      <a class="item" data-tab="07">
+        07
+      </a>
+    
       <a class="item" data-tab="Exercises">
         Exercises
       </a>
@@ -158,27 +162,12 @@ h3 {
     
       
         <a class="item"
+           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+      
+    
+      
+        <a class="item"
            href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp/index.html">Lab-08 MVP </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-08b-location/book-1-location/index.html">Lab-09a Location </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-08b-location/book-2-tracking/index.html">Lab-09b Tracking </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/book-room/index.html">Lab-06 </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-xx-tracking/unit-09b-tracking/book-tracking/index.html">Lab-09 Tracking </a>
       
     
   </div>
@@ -465,7 +454,7 @@ h3 {
     app:layout_constraintEnd_toEndOf=&quot;parent&quot;
     app:layout_constraintStart_toStartOf=&quot;parent&quot;
     app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;</code></pre>
-<p>These adjustments are made via the attibute inspector again:</p>
+<p>These adjustments are made via the attribute inspector again:</p>
 <p><img src="img/08.png" alt=""></p>
 
         </div>
@@ -548,10 +537,30 @@ h3 {
         </div>
       
         <div class="ui tab segment lab" data-tab="04">
-          <h1>MVP - PlacemarkActivity</h1>
+          <h1>PlacemarkPresenter</h1>
 <p>This is our current PlacemarkActivity:</p>
 <h2>PlacemarkActivity</h2>
-<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+<pre><code>package org.wit.placemark.activities
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_placemark.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.toast
+import org.wit.placemark.R
+import org.wit.placemark.helpers.readImage
+import org.wit.placemark.helpers.readImageFromPath
+import org.wit.placemark.helpers.showImagePicker
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.Location
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 
   var placemark = PlacemarkModel()
   lateinit var app: MainApp
@@ -655,21 +664,21 @@ h3 {
 }</code></pre>
 <p>Over 120 lines of code - which has multiple responsibilities. These include:</p>
 <ul>
-<li>initialising the the various controls</li>
-<li>establishing the event handlers</li>
-<li>overriding lifecycle methods</li>
-<li>determining what actions to take in response to menu events</li>
-<li>keeping track of edit mode</li>
-<li>interacting with the model</li>
+<li>Initialising the the various controls</li>
+<li>Establishing the event handlers</li>
+<li>Overriding life cycle methods</li>
+<li>Determining what actions to take in response to menu events</li>
+<li>Keeping track of edit mode</li>
+<li>Interacting with the model</li>
 </ul>
 <p>If we were to add additional features into this activity, for instance location tracking, or a maps control, then the complexity of the class would continue to expand.</p>
-<p>This is a well understood problem, with a range of possible solutions. Our chosen method is called Model View Presenter (MVP). This involves creating 2 classes from this single class, dividing the responsibilites as followws:</p>
+<p>This is a well understood problem, with a range of possible solutions. Our chosen method is called Model View Presenter (MVP). This involves creating 2 classes from this single class, dividing the responsibilities as follows:</p>
 <ul>
 <li><p>View: </p>
 <ul>
 <li>initialising the the various controls</li>
 <li>establishing the event handlers</li>
-<li>overriding lifecycle methods</li>
+<li>overriding life cycle methods</li>
 </ul>
 </li>
 <li><p>Presenter:</p>
@@ -680,7 +689,7 @@ h3 {
 </ul>
 </li>
 </ul>
-<p>This is a new class called the Presenter:</p>
+<p>This is a new class called PlacemarkPresenter:</p>
 <h2>PlacemarkPresenter:</h2>
 <pre><code>package org.wit.placemark.activities
 
@@ -758,7 +767,7 @@ class PlacemarkPresenter(val activity: PlacemarkActivity) {
     }
   }
 }</code></pre>
-<p>Look at it carefully. Notice that it recieves a PlacemarkActivity in its constructor, and that it invokes this actvity in a number of methods. Try to get a sense of the responsibilities of this class.</p>
+<p>Look at it carefully. Notice that it receives a PlacemarkActivity in its constructor, and that it invokes this actvity in a number of methods. Try to get a sense of the responsibilities of this class.</p>
 <p>And this is a revised PlacemarkActivity, which creates the presenter and defers to it as outlined above:</p>
 <h2>PlacemarkActivity</h2>
 <pre><code>package org.wit.placemark.activities
@@ -836,91 +845,242 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
     }
   }
 }</code></pre>
-<p>This version is simpler that the original, is focus now is primairly on the user interface, with model update and tracking responsibilities delegated to the presenter.</p>
+<p>This version is simpler that the original, is focus now is primarily on the user interface, with model update and tracking responsibilities delegated to the presenter.</p>
+<p>Have a close look at the responsibilities </p>
 
         </div>
       
         <div class="ui tab segment lab" data-tab="05">
-          <h1>PlacemarkList</h1>
+          <h1>PlacemarkListPresenter</h1>
+<p>This is our current PlacemarkListActivity:</p>
 <h2>PlacenarListActivity</h2>
-<pre><code>~~~
+<pre><code>package org.wit.placemark.activities
 
-
-## PlacemarkListPresenter</code></pre>
-<p>package org.wit.placemark.activities</p>
-<p>import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
-import org.wit.placemark.main.MainApp
-import org.wit.placemark.models.PlacemarkModel</p>
-<p>class PlacemarkListPresenter(val activity: PlacemarkListActivity) {</p>
-<p>  var app: MainApp</p>
-<p>  init {
-    app = activity.application as MainApp
-  }</p>
-<p>  fun getPlacemarks() = app.placemarks.findAll()</p>
-<p>  fun doAddPlacemark() {
-    activity.startActivityForResult<PlacemarkActivity>(0)
-  }</p>
-<p>  fun doEditPlacemark(placemark: PlacemarkModel) {
-    activity.startActivityForResult(activity.intentFor<PlacemarkActivity>().putExtra(&quot;placemark_edit&quot;, placemark), 0)
-  }</p>
-<p>  fun doShowPlacemarksMap() {
-    activity.startActivity<PlacemarkMapsActivity>()
-  }
-}</p>
-<pre><code>
-## PlacemarkListActivity</code></pre>
-<p>package org.wit.placemark.activities</p>
-<p>import android.content.Intent
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.<em>
-import kotlinx.android.synthetic.main.activity_placemark_list.</em>
+import android.view.*
+import kotlinx.android.synthetic.main.activity_placemark_list.*
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.wit.placemark.R
-import org.wit.placemark.models.PlacemarkModel</p>
-<p>class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {</p>
-<p>  lateinit var presenter: PlacemarkListPresenter</p>
-<p>  override fun onCreate(savedInstanceState: Bundle?) {
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+
+  lateinit var app: MainApp
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark_list)
+    app = application as MainApp
+    toolbarMain.title = title
+    setSupportActionBar(toolbarMain)
+
+    val layoutManager = LinearLayoutManager(this)
+    recyclerView.layoutManager = layoutManager
+    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)
+    loadPlacemarks()
+  }
+
+  private fun loadPlacemarks() {
+    showPlacemarks( app.placemarks.findAll())
+  }
+
+  fun showPlacemarks (placemarks: List&lt;PlacemarkModel&gt;) {
+    recyclerView.adapter = PlacemarkAdapter(placemarks, this)
+    recyclerView.adapter?.notifyDataSetChanged()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_main, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_add -&gt; startActivityForResult&lt;PlacemarkActivity&gt;(0)
+      R.id.item_map -&gt; startActivity&lt;PlacemarkMapsActivity&gt;()
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), 0)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    loadPlacemarks()
+    super.onActivityResult(requestCode, resultCode, data)
+  }
+}</code></pre>
+<p>And this is a new PlacemarkListPresenter:</p>
+<h2>PlacemarkListPresenter</h2>
+<pre><code>package org.wit.placemark.activities
+
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkListPresenter(val activity: PlacemarkListActivity) {
+
+  var app: MainApp
+
+  init {
+    app = activity.application as MainApp
+  }
+
+  fun getPlacemarks() = app.placemarks.findAll()
+
+  fun doAddPlacemark() {
+    activity.startActivityForResult&lt;PlacemarkActivity&gt;(0)
+  }
+
+  fun doEditPlacemark(placemark: PlacemarkModel) {
+    activity.startActivityForResult(activity.intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), 0)
+  }
+
+  fun doShowPlacemarksMap() {
+    activity.startActivity&lt;PlacemarkMapsActivity&gt;()
+  }
+}</code></pre>
+<p>This is a revised PlacemarkListActivity to defer some responsibilities to the presenter:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.*
+import kotlinx.android.synthetic.main.activity_placemark_list.*
+import org.wit.placemark.R
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+
+  lateinit var presenter: PlacemarkListPresenter
+
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark_list)
     toolbarMain.title = title
-    setSupportActionBar(toolbarMain)</p>
-<pre><code>presenter = PlacemarkListPresenter(this)
-val layoutManager = LinearLayoutManager(this)
-recyclerView.layoutManager = layoutManager
-recyclerView.adapter = PlacemarkAdapter(presenter.getPlacemarks(), this)
-recyclerView.adapter?.notifyDataSetChanged()</code></pre>
-<p>  }</p>
-<p>  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    setSupportActionBar(toolbarMain)
+
+    presenter = PlacemarkListPresenter(this)
+    val layoutManager = LinearLayoutManager(this)
+    recyclerView.layoutManager = layoutManager
+    recyclerView.adapter = PlacemarkAdapter(presenter.getPlacemarks(), this)
+    recyclerView.adapter?.notifyDataSetChanged()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_main, menu)
     return super.onCreateOptionsMenu(menu)
-  }</p>
-<p>  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
       R.id.item_add -&gt; presenter.doAddPlacemark()
       R.id.item_map -&gt; presenter.doShowPlacemarksMap()
     }
     return super.onOptionsItemSelected(item)
-  }</p>
-<p>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+  }
+
+  override fun onPlacemarkClick(placemark: PlacemarkModel) {
     presenter.doEditPlacemark(placemark)
-  }</p>
-<p>  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     recyclerView.adapter?.notifyDataSetChanged()
     super.onActivityResult(requestCode, resultCode, data)
   }
-}
-~~~</p>
+}</code></pre>
+<p>The PlacemarkAdapter is not effected by these changes</p>
 
         </div>
       
         <div class="ui tab segment lab" data-tab="06">
-          <h1>MapsActivity</h1>
+          <h1>MapsPresenter</h1>
+<p>The Current Maps Activity:</p>
 <h2>MapsActivity</h2>
-<pre><code>
-</code></pre>
+<pre><code>package org.wit.placemark.activities
+
+import android.app.Activity
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import org.wit.placemark.R
+import org.wit.placemark.models.Location
+
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+
+  private lateinit var map: GoogleMap
+  var location = Location()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_maps)
+    location = intent.extras.getParcelable&lt;Location&gt;(&quot;location&quot;)
+    val mapFragment = supportFragmentManager
+        .findFragmentById(R.id.map) as SupportMapFragment
+    mapFragment.getMapAsync(this)
+  }
+
+  override fun onMapReady(googleMap: GoogleMap) {
+    map = googleMap
+    map.setOnMarkerDragListener(this)
+    map.setOnMarkerClickListener(this)
+    val loc = LatLng(location.lat, location.lng)
+    val options = MarkerOptions()
+        .title(&quot;Placemark&quot;)
+        .snippet(&quot;GPS : &quot; + loc.toString())
+        .draggable(true)
+        .position(loc)
+    map.addMarker(options)
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
+  }
+
+  override fun onMarkerDragStart(marker: Marker) {
+  }
+
+  override fun onMarkerDrag(marker: Marker) {
+  }
+
+  override fun onMarkerDragEnd(marker: Marker) {
+    location.lat = marker.position.latitude
+    location.lng = marker.position.longitude
+    location.zoom = map.cameraPosition.zoom
+  }
+
+  override fun onBackPressed() {
+    val resultIntent = Intent()
+    resultIntent.putExtra(&quot;location&quot;, location)
+    setResult(Activity.RESULT_OK, resultIntent)
+    finish()
+    super.onBackPressed()
+  }
+
+  override fun onMarkerClick(marker: Marker): Boolean {
+    val loc = LatLng(location.lat, location.lng)
+    marker.setSnippet(&quot;GPS : &quot; + loc.toString())
+    return false
+  }
+}</code></pre>
+<p>A new Presenter class:</p>
 <h2>MapsPresenter</h2>
 <pre><code>package org.wit.placemark.activities
 
@@ -970,6 +1130,7 @@ class MapsPresenter(val activity: MapsActivity) {
     marker.setSnippet(&quot;GPS : &quot; + loc.toString())
   }
 }</code></pre>
+<p>Revised MapsActivity to use this class:</p>
 <h2>MapsActivity</h2>
 <pre><code>package org.wit.placemark.activities
 
@@ -1018,11 +1179,46 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerDragListener, Google
 
         </div>
       
+        <div class="ui tab segment lab" data-tab="07">
+          <h2>Rename &amp; Refactor</h2>
+<p>We might take this opportunity to tidy up some of the names we have been using</p>
+<h2>1: MapsActivity/MapsPresenter</h2>
+<p>This class has a poor name choice, as it conflicts somewhat with one of our other activities.</p>
+<ul>
+<li>Rename MapsActivity to EditLoctionActivity</li>
+<li>Rename MapsPresenter to EditLocationPresenter</li>
+</ul>
+<p>Be sure to use the refactoring tools to do this. In particular, make sure that the various resources to refer to the activity class are appropriately updated.</p>
+<p>A good way of doing this is to keep an eye on the git changes once the refactoring is complete.</p>
+<p>Do not proceed until you have completed a complete rebuild and also test of the application.</p>
+<h2>2: Rename all <code>Activities</code> to <code>Views</code></h2>
+<p>As we are now using the MVP pattern - it would be a good idea to adjust our class naming to reveal this.</p>
+<ul>
+<li>Rename all XxxxActivity classes to ViewActivity</li>
+<li>Rename all <code>activity</code> references in the Presenters to <code>view</code></li>
+</ul>
+<p>So we would have <code>PlacemarkView</code> and <code>PlacemarkPresenter</code>, with the <code>activity</code> property in PlacemarkPresenter renamed to <code>view</code>:</p>
+<pre><code>...
+class PlacemarkPresenter(val view: PlacemarkView) {
+...</code></pre>
+<p>Again, try to use the refactoring tools to do this.</p>
+<h2>Refactor package structure</h2>
+<p>Finally, this is our current package structure:</p>
+<p><img src="img/11.png" alt=""></p>
+<p>Have a look at this revised version:</p>
+<p><img src="img/10.png" alt=""></p>
+<p>Notice that we have created a <code>views</code> packages - and then this contains a package for each view/presenter pair.</p>
+<p>See if you can replicate this now in your project.</p>
+
+        </div>
+      
         <div class="ui tab segment lab" data-tab="Exercises">
           <h1>Exercises</h1>
 <h2>Exercise 1</h2>
-<p>Convert the PlacemarkMaps Activity into PlacemarkMapView + PlacemarkPresenter</p>
+<p>Convert the PlacemarkMaps Activity into PlacemarkMapView + PlacemarkPresenter. Perhaps aim for this final structure:</p>
+<p><img src="img/12.png" alt=""></p>
 <h2>Exercise 2:</h2>
+<p>Simplify the UX for PlacemarkActivity, removing the <code>Add Placemark</code> button, and including a <code>save</code> menu option to perform equivalent functionality:</p>
 <p><img src="img/09.png" alt=""></p>
 
         </div>

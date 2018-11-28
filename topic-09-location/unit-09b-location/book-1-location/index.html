@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
-        type="text/css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
-        rel="stylesheet"/>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -66,163 +66,187 @@ h3 {
 
 
 
-  </style>
-</head>
+      
 
-<body>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
 
 
-<div class="ui fixed top pointing inverted stackable menu labmenu">
-  <header class="header item">
-    <i id="toc" class="sitemap icon"></i>
-    
-      <a href="../../index.html"> Last Known Location  </a>
-    
-  </header>
-  <div class="right tab-menu menu">
-    
-      <a class="item" data-tab="Lab-09a Location">
-        Lab-09a Location
-      </a>
-    
-      <a class="item" data-tab="01">
-        01
-      </a>
-    
-      <a class="item" data-tab="02">
-        02
-      </a>
-    
-      <a class="item" data-tab="03">
-        03
-      </a>
-    
-      <a class="item" data-tab="04">
-        04
-      </a>
-    
-      <a class="item" data-tab="05">
-        05
-      </a>
-    
-      <a class="item" data-tab="06">
-        06
-      </a>
-    
-      <a class="item" data-tab="07">
-        07
-      </a>
-    
-      <a class="item" data-tab="Exercises">
-        Exercises
-      </a>
-    
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Last Known Location  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-09a Location">
+          Lab-09a Location
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="07">
+          07
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
+    </div>
   </div>
-</div>
 
-<div class="ui pushable">
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    <br><br>
-    
+
+  
+
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
+        
       
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
-      
-    
-  </div>
-  <div class="pusher" tabindex="-1">
-    <div class="ui basic segment">
-      <br>
-      
-        <div class="ui tab segment lab" data-tab="Lab-09a Location">
-          <h1>Objectives</h1>
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-09a Location">
+            <h1>Objectives</h1>
 <p>When creating a new placemark, use the current location as the starting point.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="01">
-          <h1>Solutions</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Solutions</h1>
 <h1>Exercise 1</h1>
 <p>Using this lab as a guide, convert PlacemarkMapView/Presenter to use the PlacemarkView/Presenter base classes</p>
 <h2>Solution</h2>
@@ -335,10 +359,10 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
   }
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="02">
-          <h1>Solutions</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Solutions</h1>
 <h1>Exercise 2</h1>
 <p>Also convert EditLoctionView/Presenter to use the base classes</p>
 <h2>Solution</h2>
@@ -430,10 +454,10 @@ class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.O
   }
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="03">
-          <h1>MapView</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>MapView</h1>
 <p>Using the Layout Editor, restructure activity_placemark to contain a MapView:</p>
 <p><img src="img/03.png" alt=""></p>
 <p>This is the layout file:</p>
@@ -555,10 +579,10 @@ class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.O
 
 &lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="04">
-          <h2>PlacemarkView</h2>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="04">
+            <h2>PlacemarkView</h2>
 <p>We should be familiar with manually managing a MapView component, which involves:</p>
 <ul>
 <li>declaring a GoogleMap reference</li>
@@ -742,10 +766,10 @@ class PlacemarkView : BaseView(), AnkoLogger {
 }</code></pre>
 <p>It still does not determine the actual current location.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="05">
-          <h1>Location Libraries</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>Location Libraries</h1>
 <p>In order to determine the current location, we need the google play service location libraries:</p>
 <h2>gradle</h2>
 <pre><code>...
@@ -788,10 +812,10 @@ fun isPermissionGranted(code: Int, grantResults: IntArray): Boolean {
   return permissionGranted
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="06">
-          <h1>Location Permissions</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="06">
+            <h1>Location Permissions</h1>
 <p>If we wish to access the devices current location, we will need to prompt the user to grant this permission - and be able to proceed in an orderly manner if this permission is denied.</p>
 <p>First, in the presenter, acquire a reference to the location provider client:</p>
 <pre><code>  var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)</code></pre>
@@ -938,10 +962,10 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   }
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="07">
-          <h1>Requesting the Current Location</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="07">
+            <h1>Requesting the Current Location</h1>
 <p>Introduce this new method into the presenter:</p>
 <pre><code>  @SuppressLint(&quot;MissingPermission&quot;)
   fun doSetCurrentLocation() {
@@ -1086,10 +1110,10 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   }
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="Exercises">
-          <h1>Solution</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h1>Solution</h1>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/archive.zip">archive.zip</a></li>
@@ -1102,14 +1126,16 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
 <h2>Exercise 2:</h2>
 <p>Notice in the above that the &#39;Set Location&#39; button has been removed. If the map widget itself is clicked, then we will launch the EditLocation activity. Implement this capability</p>
 
-        </div>
-      
+          </div>
+        
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  $(document).on('keydown', function(e) {
+
+
+  <script>
+    $(document).on('keydown', function(e) {
   e = e || window.event;
   var nextTab;
   switch (e.which || e.keyCode) {
@@ -1129,7 +1155,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   }
 });
 
-  $(document).ready(function() {
+    $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -1162,6 +1188,18 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     .sidebar('attach events', '#toc');
 });
 
-</script>
-</body>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
+  </body>
+
 </html>

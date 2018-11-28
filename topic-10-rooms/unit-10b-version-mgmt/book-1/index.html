@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
-        type="text/css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
-        rel="stylesheet"/>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -66,159 +66,183 @@ h3 {
 
 
 
-  </style>
-</head>
+      
 
-<body>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
 
 
-<div class="ui fixed top pointing inverted stackable menu labmenu">
-  <header class="header item">
-    <i id="toc" class="sitemap icon"></i>
-    
-      <a href="../../index.html"> AndroidX  </a>
-    
-  </header>
-  <div class="right tab-menu menu">
-    
-      <a class="item" data-tab="Lab-10a AndroidX">
-        Lab-10a AndroidX
-      </a>
-    
-      <a class="item" data-tab="01">
-        01
-      </a>
-    
-      <a class="item" data-tab="02">
-        02
-      </a>
-    
-      <a class="item" data-tab="03">
-        03
-      </a>
-    
-      <a class="item" data-tab="04">
-        04
-      </a>
-    
-      <a class="item" data-tab="05">
-        05
-      </a>
-    
-      <a class="item" data-tab="06">
-        06
-      </a>
-    
-      <a class="item" data-tab="Exercises">
-        Exercises
-      </a>
-    
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> AndroidX  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-10a AndroidX">
+          Lab-10a AndroidX
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
+    </div>
   </div>
-</div>
 
-<div class="ui pushable">
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    <br><br>
-    
+
+  
+
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
+        
       
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
-      
-    
-  </div>
-  <div class="pusher" tabindex="-1">
-    <div class="ui basic segment">
-      <br>
-      
-        <div class="ui tab segment lab" data-tab="Lab-10a AndroidX">
-          <h1>Objectives</h1>
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-10a AndroidX">
+            <h1>Objectives</h1>
 <p>Migrate to AndroidX + manage library versions more optimally</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="01">
-          <h1>Manifest Navigation Hierarchy</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Manifest Navigation Hierarchy</h1>
 <p>We need to augment strings with some additional labels/titles currently missing from our manmifest:</p>
 <h2>strings.xml</h2>
 <pre><code>  &lt;string name=&quot;title_activity_placemark_list&quot;&gt;Placemarks&lt;/string&gt;
@@ -284,10 +308,10 @@ h3 {
 
 &lt;/manifest&gt;</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="02">
-          <h1>Up Support</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Up Support</h1>
 <p>Part of the AppBar components we are using has automatic <code>Up</code> support:</p>
 <ul>
 <li><a href="https://developer.android.com/training/appbar/up-action">https://developer.android.com/training/appbar/up-action</a></li>
@@ -312,10 +336,10 @@ h3 {
 <pre><code>    init(toolbarMain, false)</code></pre>
 <p>Try this now - all views, except list, should have the up button.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="03">
-          <h1>AndroidX Migration</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>AndroidX Migration</h1>
 <p>AndroidX is a rationalisation of many of the libraries we are using </p>
 <ul>
 <li><a href="https://developer.android.com/jetpack/androidx/">https://developer.android.com/jetpack/androidx/</a></li>
@@ -350,10 +374,10 @@ app/src/main/res/layout/content_placemark_map.xml</code></pre>
 <p>These are largely import signature modifications.</p>
 <p>Rebuild now and verify that the app performs as before.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="04">
-          <h1>Version Management Strategy</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>Version Management Strategy</h1>
 <p>Here is a revised version of main gradle script:</p>
 <pre><code>apply plugin: &#39;com.android.application&#39;
 
@@ -451,20 +475,20 @@ dependencies {
   androidTestImplementation &#39;androidx.test.espresso:espresso-core:3.1.0&#39;
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="05">
-          <p>#</p>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="05">
+            <p>#</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="06">
-          <p>#</p>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="06">
+            <p>#</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="Exercises">
-          <h1>Exercises</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h1>Exercises</h1>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/archive.zip">archive.zip</a></li>
@@ -474,14 +498,16 @@ dependencies {
 <p><img src="img/02.png" alt=""></p>
 <p>We will be introducing a new package here in the next lab</p>
 
-        </div>
-      
+          </div>
+        
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  $(document).on('keydown', function(e) {
+
+
+  <script>
+    $(document).on('keydown', function(e) {
   e = e || window.event;
   var nextTab;
   switch (e.which || e.keyCode) {
@@ -501,7 +527,7 @@ dependencies {
   }
 });
 
-  $(document).ready(function() {
+    $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -534,6 +560,18 @@ dependencies {
     .sidebar('attach events', '#toc');
 });
 
-</script>
-</body>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
+  </body>
+
 </html>

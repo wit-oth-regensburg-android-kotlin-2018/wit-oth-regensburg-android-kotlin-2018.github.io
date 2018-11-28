@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
-        type="text/css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
-        rel="stylesheet"/>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -66,167 +66,191 @@ h3 {
 
 
 
-  </style>
-</head>
+      
 
-<body>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
 
 
-<div class="ui fixed top pointing inverted stackable menu labmenu">
-  <header class="header item">
-    <i id="toc" class="sitemap icon"></i>
-    
-      <a href="../../index.html"> Firebase Authentication  </a>
-    
-  </header>
-  <div class="right tab-menu menu">
-    
-      <a class="item" data-tab="Lab-11a Firebase Auth">
-        Lab-11a Firebase Auth
-      </a>
-    
-      <a class="item" data-tab="01">
-        01
-      </a>
-    
-      <a class="item" data-tab="02">
-        02
-      </a>
-    
-      <a class="item" data-tab="03">
-        03
-      </a>
-    
-      <a class="item" data-tab="04">
-        04
-      </a>
-    
-      <a class="item" data-tab="05">
-        05
-      </a>
-    
-      <a class="item" data-tab="06">
-        06
-      </a>
-    
-      <a class="item" data-tab="07">
-        07
-      </a>
-    
-      <a class="item" data-tab="08">
-        08
-      </a>
-    
-      <a class="item" data-tab="Exercises">
-        Exercises
-      </a>
-    
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Firebase Authentication  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-11a Firebase Auth">
+          Lab-11a Firebase Auth
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="07">
+          07
+        </a>
+      
+        <a class="item" data-tab="08">
+          08
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
+    </div>
   </div>
-</div>
 
-<div class="ui pushable">
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    <br><br>
-    
+
+  
+
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
+        
       
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
-      
-    
-  </div>
-  <div class="pusher" tabindex="-1">
-    <div class="ui basic segment">
-      <br>
-      
-        <div class="ui tab segment lab" data-tab="Lab-11a Firebase Auth">
-          <h1>Objectives</h1>
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-11a Firebase Auth">
+            <h1>Objectives</h1>
 <p>Authenticate users against the Firebase Authentication service</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="01">
-          <h1>Exercise</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Exercise</h1>
 <p>Rework the PlacemarkModel so that, instead repeating lat/lng/zoom in each placemark, we embed a Location object. In order to implement this in the context of the Room system, you will need to use the <code>@Embedded</code> annotation:</p>
 <ul>
 <li><a href="https://developer.android.com/reference/android/arch/persistence/room/Embedded">https://developer.android.com/reference/android/arch/persistence/room/Embedded</a></li>
@@ -438,10 +462,10 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     }
   }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="02">
-          <h1>Login Layout</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Login Layout</h1>
 <p>We would like to introduce a new Login screen - which will be presented before any user logs in:</p>
 <p><img src="img/01x.png" alt=""></p>
 <p>We need these new string resources:</p>
@@ -566,10 +590,10 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
 
 &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="03">
-          <h1>Login View/Presenter</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>Login View/Presenter</h1>
 <p>Our first version will just let the user signup/login without paying any attention to what they enter as credentials.</p>
 <h2>LoginPresenter</h2>
 <pre><code>package org.wit.placemark.views.login
@@ -696,10 +720,10 @@ class LoginView : BaseView() {
 &lt;/manifest&gt;</code></pre>
 <p>Run the app now - it should display the login activity first, and take you to the placemark list when you press either button.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="04">
-          <h1>Logout</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>Logout</h1>
 <p>As we now support log in - we also need to support logout. This will require a change to our existing menus in PlacemarkListView. Once logged in the AppBar will be reconfigured to have a drop down menu:</p>
 <p><img src="img/03x.png" alt=""></p>
 <p><img src="img/04x.png" alt=""></p>
@@ -774,10 +798,10 @@ enum class VIEW {
 <p>Notice we are just switching to the login screen when logout is selected.</p>
 <p>Try this now, and make sure login and logout work as expected.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="05">
-          <h1>Firebase</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>Firebase</h1>
 <p>Visit Firebase and create / log in to your account:</p>
 <ul>
 <li><a href="https://firebase.google.com/">https://firebase.google.com/</a></li>
@@ -795,10 +819,10 @@ enum class VIEW {
 <p>Your Authentication methods should look like this:</p>
 <p><img src="img/06.png" alt=""></p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="06">
-          <h1>Connect the App</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="06">
+            <h1>Connect the App</h1>
 <p>Back in Android Studio, select <code>Tools-&gt;Firebase</code> - you should see the Firebase Assistant:</p>
 <p><img src="img/07.png" alt=""></p>
 <p>Select <code>Authentication</code>:</p>
@@ -909,10 +933,10 @@ apply plugin: &#39;com.google.gms.google-services&#39;
 <h2>.gitignore</h2>
 <pre><code>app/google-services.json</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="07">
-          <h2>Progress</h2>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="07">
+            <h2>Progress</h2>
 <p>When login in, we should display some indication to the user that we are &#39;working&#39; on the login. This is usually via a <code>Progress</code> widget of some kind. Bring one in now to the login layout:</p>
 <p><img src="img/17/png" alt=""></p>
 <p>It might be structured like this in the layout:</p>
@@ -946,10 +970,10 @@ apply plugin: &#39;com.google.gms.google-services&#39;
   }
 }</code></pre>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="08">
-          <h1>Signup/Login Implementation</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="08">
+            <h1>Signup/Login Implementation</h1>
 <p>Back in the LoginPresenter class - we can implement the Firebase login strategy:</p>
 <h2>LoginPresenter</h2>
 <pre><code>package org.wit.placemark.views.login
@@ -994,10 +1018,10 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
 <p>Back in the Firebase console - check the authentication panel to see if the new user is recorded:</p>
 <p><img src="img/12.png" alt=""></p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="Exercises">
-          <h1>Solution</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h1>Solution</h1>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/archive.zip">archive.zip</a></li>
@@ -1017,14 +1041,16 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
 <p>Here is how we could access this in kotlin:</p>
 <pre><code>    val user = FirebaseAuth.getInstance().currentUser</code></pre>
 
-        </div>
-      
+          </div>
+        
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  $(document).on('keydown', function(e) {
+
+
+  <script>
+    $(document).on('keydown', function(e) {
   e = e || window.event;
   var nextTab;
   switch (e.which || e.keyCode) {
@@ -1044,7 +1070,7 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
   }
 });
 
-  $(document).ready(function() {
+    $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -1077,6 +1103,18 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
     .sidebar('attach events', '#toc');
 });
 
-</script>
-</body>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
+  </body>
+
 </html>

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
-        type="text/css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
-        rel="stylesheet"/>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -66,159 +66,183 @@ h3 {
 
 
 
-  </style>
-</head>
+      
 
-<body>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
 
 
-<div class="ui fixed top pointing inverted stackable menu labmenu">
-  <header class="header item">
-    <i id="toc" class="sitemap icon"></i>
-    
-      <a href="../../index.html"> Rooms  </a>
-    
-  </header>
-  <div class="right tab-menu menu">
-    
-      <a class="item" data-tab="Lab-10b Rooms">
-        Lab-10b Rooms
-      </a>
-    
-      <a class="item" data-tab="01">
-        01
-      </a>
-    
-      <a class="item" data-tab="02">
-        02
-      </a>
-    
-      <a class="item" data-tab="03">
-        03
-      </a>
-    
-      <a class="item" data-tab="04">
-        04
-      </a>
-    
-      <a class="item" data-tab="05">
-        05
-      </a>
-    
-      <a class="item" data-tab="06">
-        06
-      </a>
-    
-      <a class="item" data-tab="Exercises">
-        Exercises
-      </a>
-    
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Rooms  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-10b Rooms">
+          Lab-10b Rooms
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
+    </div>
   </div>
-</div>
 
-<div class="ui pushable">
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    <br><br>
-    
+
+  
+
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
+        
       
-    
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
+        
       
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+        
+          <a class="item"
+             href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
+        
       
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
-      
-    
-      
-        <a class="item"
-           href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
-      
-    
-  </div>
-  <div class="pusher" tabindex="-1">
-    <div class="ui basic segment">
-      <br>
-      
-        <div class="ui tab segment lab" data-tab="Lab-10b Rooms">
-          <h1>Objectives</h1>
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-10b Rooms">
+            <h1>Objectives</h1>
 <p>Introduce a new PlacemarkStore implementation to persist to an SQLite database</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="01">
-          <h1>Room Classes</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Room Classes</h1>
 <p>In 2017 Google introduced a vastly simplified approach to persisting objects to the SQLite database called Rooms:</p>
 <ul>
 <li><a href="https://developer.android.com/training/data-storage/room/index.html">https://developer.android.com/training/data-storage/room/index.html</a></li>
@@ -242,10 +266,10 @@ h3 {
 <p>and we are using it here to engage the Room annotations we are about to use.</p>
 <p>Rebuild now to make sure the libraries are correctly included.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="02">
-          <h1>Room Classes &amp; Annotations</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Room Classes &amp; Annotations</h1>
 <p>Now we need to adjust PlacemarkModel with additional annotations:</p>
 <h2>PlacemarkModel</h2>
 <pre><code>package org.wit.placemark.models
@@ -309,10 +333,10 @@ interface PlacemarkDao {
 }</code></pre>
 <p>These are classes that a new version of the PlacemarkStore interface can use to implement a new store.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="03">
-          <h2>PlacemarkStoreRoom - Version 1</h2>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="03">
+            <h2>PlacemarkStoreRoom - Version 1</h2>
 <p>Here is a first implementation of PlacemarkStoreRoom</p>
 <pre><code>package org.wit.placemark.room
 
@@ -412,10 +436,10 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
 </ul>
 <p>However, as we are using Kotlin - we have a number of language features that can greatly simplify how we do this.</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="04">
-          <h1>suspend</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>suspend</h1>
 <p>Android will not permit access to the database on the main UI thread - as it can seriously degrade performance. </p>
 <p>Qhen working with Kotlin we have considerable convenience methods available via the anko libraries when attempting multi-threaded development in Android:</p>
 <ul>
@@ -433,7 +457,7 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
 }</code></pre>
 <p>Each method is marked with the keyword <code>suspend</code>. To get an initial understanding of the purpose of this keyword, read this (5 min):</p>
 <ul>
-<li><a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#104;&#116;&#x74;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#99;&#x6f;&#x6d;&#x2f;&#64;&#101;&#x6c;&#121;&#x65;&#x2e;&#x70;&#114;&#111;&#106;&#101;&#x63;&#x74;&#47;&#x75;&#x6e;&#100;&#101;&#114;&#115;&#116;&#x61;&#x6e;&#x64;&#x69;&#x6e;&#x67;&#x2d;&#x73;&#117;&#115;&#x70;&#101;&#110;&#x64;&#45;&#102;&#x75;&#x6e;&#99;&#116;&#105;&#x6f;&#110;&#x2d;&#111;&#102;&#45;&#99;&#x6f;&#114;&#x6f;&#x75;&#116;&#105;&#110;&#x65;&#x73;&#x2d;&#100;&#101;&#50;&#x36;&#x62;&#48;&#55;&#x30;&#99;&#53;&#101;&#100;">&#104;&#116;&#x74;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#99;&#x6f;&#x6d;&#x2f;&#64;&#101;&#x6c;&#121;&#x65;&#x2e;&#x70;&#114;&#111;&#106;&#101;&#x63;&#x74;&#47;&#x75;&#x6e;&#100;&#101;&#114;&#115;&#116;&#x61;&#x6e;&#x64;&#x69;&#x6e;&#x67;&#x2d;&#x73;&#117;&#115;&#x70;&#101;&#110;&#x64;&#45;&#102;&#x75;&#x6e;&#99;&#116;&#105;&#x6f;&#110;&#x2d;&#111;&#102;&#45;&#99;&#x6f;&#114;&#x6f;&#x75;&#116;&#105;&#110;&#x65;&#x73;&#x2d;&#100;&#101;&#50;&#x36;&#x62;&#48;&#55;&#x30;&#99;&#53;&#101;&#100;</a></li>
+<li><a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x68;&#116;&#x74;&#x70;&#115;&#x3a;&#x2f;&#47;&#x6d;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#64;&#101;&#x6c;&#121;&#x65;&#46;&#x70;&#x72;&#x6f;&#x6a;&#101;&#x63;&#116;&#x2f;&#x75;&#x6e;&#x64;&#101;&#x72;&#x73;&#116;&#x61;&#x6e;&#x64;&#105;&#x6e;&#x67;&#x2d;&#115;&#117;&#115;&#x70;&#x65;&#110;&#x64;&#45;&#x66;&#x75;&#x6e;&#x63;&#x74;&#105;&#111;&#x6e;&#45;&#111;&#102;&#x2d;&#x63;&#111;&#114;&#x6f;&#117;&#x74;&#105;&#x6e;&#101;&#x73;&#x2d;&#x64;&#x65;&#x32;&#54;&#x62;&#48;&#x37;&#48;&#99;&#53;&#101;&#100;">&#x68;&#116;&#x74;&#x70;&#115;&#x3a;&#x2f;&#47;&#x6d;&#x65;&#100;&#x69;&#x75;&#x6d;&#x2e;&#x63;&#x6f;&#109;&#x2f;&#64;&#101;&#x6c;&#121;&#x65;&#46;&#x70;&#x72;&#x6f;&#x6a;&#101;&#x63;&#116;&#x2f;&#x75;&#x6e;&#x64;&#101;&#x72;&#x73;&#116;&#x61;&#x6e;&#x64;&#105;&#x6e;&#x67;&#x2d;&#115;&#117;&#115;&#x70;&#x65;&#110;&#x64;&#45;&#x66;&#x75;&#x6e;&#x63;&#x74;&#105;&#111;&#x6e;&#45;&#111;&#102;&#x2d;&#x63;&#111;&#114;&#x6f;&#117;&#x74;&#105;&#x6e;&#101;&#x73;&#x2d;&#x64;&#x65;&#x32;&#54;&#x62;&#48;&#x37;&#48;&#99;&#53;&#101;&#100;</a></li>
 </ul>
 <p>In addition, look at this article (7 mins):</p>
 <ul>
@@ -453,10 +477,10 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
 <p>This is the type of error you may see:</p>
 <p><img src="img/04.png" alt=""></p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="05">
-          <h1>PlacemarkStoreRoom</h1>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>PlacemarkStoreRoom</h1>
 <p>To get the application to function correctly - we need to revise PlacemarkStoreRoom to properly use the background thread for all database access</p>
 <h2>PlacemarkStoreRoom</h2>
 <pre><code>package org.wit.placemark.room
@@ -520,10 +544,10 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
 <li><a href="https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg">https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg</a></li>
 </ul>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="06">
-          <h2>async</h2>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="06">
+            <h2>async</h2>
 <p>To make the presenters work with the revised model, all called to the <code>suspend</code> versions of the PlacemarkStore objects will need to be reconfigured.</p>
 <p>Each call to a <code>suspend</code> method will need revision:</p>
 <h2>PlacemrkListPresenter</h2>
@@ -569,10 +593,10 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
 import kotlinx.coroutines.experimental.async</code></pre>
 <p>This should rebuild now and run without error</p>
 
-        </div>
-      
-        <div class="ui tab segment lab" data-tab="Exercises">
-          <h2>Solution</h2>
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h2>Solution</h2>
 <p>Placemark application so far:</p>
 <ul>
 <li><a href="archives/archive.zip">archive.zip</a></li>
@@ -584,14 +608,16 @@ import kotlinx.coroutines.experimental.async</code></pre>
 </ul>
 <p>Also, you will also have to adjust the other Store implementations.</p>
 
-        </div>
-      
+          </div>
+        
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  $(document).on('keydown', function(e) {
+
+
+  <script>
+    $(document).on('keydown', function(e) {
   e = e || window.event;
   var nextTab;
   switch (e.which || e.keyCode) {
@@ -611,7 +637,7 @@ import kotlinx.coroutines.experimental.async</code></pre>
   }
 });
 
-  $(document).ready(function() {
+    $(document).ready(function() {
   $('img').addClass('ui image');
 
   $('.ui.embed').embed();
@@ -644,6 +670,18 @@ import kotlinx.coroutines.experimental.async</code></pre>
     .sidebar('attach events', '#toc');
 });
 
-</script>
-</body>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
+  </body>
+
 </html>

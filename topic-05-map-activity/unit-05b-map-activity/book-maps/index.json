@@ -1,0 +1,1217 @@
+
+
+
+  {
+  
+  
+  "type" : "lab",
+  "title" : "Lab-05 MapActivity",
+  "folder" : "book-maps",
+  
+    "link" : "book-maps/index.html",
+  
+  "img" : "book-maps/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Include a MapActivity, enabling the user to select the location of the placemark</p>",
+  "properties" : {},
+  "los": [  ]
+,
+  "chapters" : [
+  
+    {
+    "title": " Summary",
+    "shortTitle": "Lab-05 MapActivity",
+    "content": [
+     
+      "<h1>Summary</h1>" ,
+     
+      "<p>Include a MapActivity, enabling the user to select the location of the placemark </p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Exercise Solutions",
+    "shortTitle": "Exercise Solutions",
+    "content": [
+     
+      "<h1>Exercise Solutions</h1>" ,
+     
+      "<h2>Exercise 1</h2>" ,
+     
+      "<p>As a user, create a new placemark with a title + image. Now edit the placemark and change the title - and update the placemark. Notice that the title has changed in PlacemarkList. </p>" ,
+     
+      "<p>Edit the placemark and change the image - and update the placemark. Go back in to edit the placemark again - what image do you see?</p>" ,
+     
+      "<p>There is a bug here - the placemark activity is still showing the original image. See if you can debug and fix this bug.</p>" ,
+     
+      "<h2>Exercise 1 Solution</h2>" ,
+     
+      "<p>The problem is we are not changing the stored placemark in the <code>update</code> function in the PlacemarkMemStore:</p>" ,
+     
+      "<h2>PlacemarkMemStore</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  override fun update(placemark: PlacemarkModel) {" ,
+     
+      "    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == placemark.id }" ,
+     
+      "    if (foundPlacemark != null) {" ,
+     
+      "      foundPlacemark.title = placemark.title" ,
+     
+      "      foundPlacemark.description = placemark.description" ,
+     
+      "      foundPlacemark.image = placemark.image" ,
+     
+      "      logAll();" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>Just one line added in the above.</p>" ,
+     
+      "<h2>Exercise 2</h2>" ,
+     
+      "<p>in PlacemarkActivity, if you are editing a placemark OR if the placemark already has an image, change the button label to be &#39;Change Image&#39; from </p>" ,
+     
+      "<h2>Exercise 2 Solution</h2>" ,
+     
+      "<h2>strings.xml</h2>" ,
+     
+      "<pre><code>  &lt;string name=&quot;change_placemark_image&quot;&gt;Change placemark image&lt;/string&gt;</code></pre>" ,
+     
+      "<h2>PlacemarkActivity</h2>" ,
+     
+      "<p>When edit it detected, change the label:</p>" ,
+     
+      "<pre><code>    ..." ,
+     
+      "    if (intent.hasExtra(&quot;placemark_edit&quot;)) {" ,
+     
+      "        ..." ,
+     
+      "      placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))" ,
+     
+      "      if (placemark.image != null) {" ,
+     
+      "        chooseImage.setText(R.string.change_placemark_image)" ,
+     
+      "      }" ,
+     
+      "      ...</code></pre>" ,
+     
+      "<p>When an image is loaded, also change the label:</p>" ,
+     
+      "<pre><code>      ..." ,
+     
+      "      IMAGE_REQUEST -&gt; {" ,
+     
+      "        if (data != null) {" ,
+     
+      "          placemark.image = data.getData().toString()" ,
+     
+      "          placemarkImage.setImageBitmap(readImage(this, resultCode, data))" ,
+     
+      "          chooseImage.setText(R.string.change_placemark_image)" ,
+     
+      "        }" ,
+     
+      "      ...</code></pre>" ,
+     
+      "<h2>Exercise 3</h2>" ,
+     
+      "<p>Introduce a new ImageView into the PlaceMarkCard view (displayed by PlacemarkListAcivity). Display the placemark images here (if it has one)</p>" ,
+     
+      "<h2>Exercise 3 Solution</h2>" ,
+     
+      "<p>Extend the card to include an imageView:</p>" ,
+     
+      "<h2>card_placemark.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;android.support.v7.widget.CardView" ,
+     
+      "    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "    android:layout_width=&quot;match_parent&quot;" ,
+     
+      "    android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "    android:layout_marginBottom=&quot;8dp&quot;" ,
+     
+      "    android:elevation=&quot;24dp&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;RelativeLayout" ,
+     
+      "      android:layout_width=&quot;match_parent&quot;" ,
+     
+      "      android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "      android:padding=&quot;16dp&quot;&gt;" ,
+     
+      "" ,
+     
+      "    &lt;ImageView" ,
+     
+      "        android:id=&quot;@+id/imageIcon&quot;" ,
+     
+      "        android:layout_width=&quot;64dp&quot;" ,
+     
+      "        android:layout_height=&quot;64dp&quot;" ,
+     
+      "        android:layout_alignParentLeft=&quot;true&quot;" ,
+     
+      "        android:layout_alignParentTop=&quot;true&quot;" ,
+     
+      "        android:layout_marginRight=&quot;16dp&quot;/&gt;" ,
+     
+      "" ,
+     
+      "    &lt;TextView" ,
+     
+      "        android:id=&quot;@+id/placemarkTitle&quot;" ,
+     
+      "        android:layout_width=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_alignParentTop=&quot;true&quot;" ,
+     
+      "        android:layout_toRightOf=&quot;@+id/imageIcon&quot;" ,
+     
+      "        android:textSize=&quot;30sp&quot;/&gt;" ,
+     
+      "" ,
+     
+      "    &lt;TextView" ,
+     
+      "        android:id=&quot;@+id/description&quot;" ,
+     
+      "        android:layout_width=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_below=&quot;@id/placemarkTitle&quot;" ,
+     
+      "        android:layout_toRightOf=&quot;@+id/imageIcon&quot;/&gt;" ,
+     
+      "" ,
+     
+      "  &lt;/RelativeLayout&gt;" ,
+     
+      "&lt;/android.support.v7.widget.CardView&gt;</code></pre>" ,
+     
+      "<p>In the adapter - initialise the imageView from the model:</p>" ,
+     
+      "<h2>PlacemarkAdapter</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "    fun bind(placemark: PlacemarkModel,  listener : PlacemarkListener) {" ,
+     
+      "      itemView.placemarkTitle.text = placemark.title" ,
+     
+      "      itemView.description.text = placemark.description" ,
+     
+      "      itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, placemark.image))" ,
+     
+      "      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }" ,
+     
+      "    }" ,
+     
+      "...</code></pre>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Location Resources",
+    "shortTitle": "02",
+    "content": [
+     
+      "<h1>Location Resources</h1>" ,
+     
+      "<p>First introduce a new button to set the location. This requires:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>string resource</li>" ,
+     
+      "<li>button</li>" ,
+     
+      "<li>event handler</li>" ,
+     
+      "</ul>" ,
+     
+      "<h2>strings.xml</h2>" ,
+     
+      "<pre><code>  &lt;string name=&quot;button_location&quot;&gt;Set Location&lt;/string&gt;</code></pre>" ,
+     
+      "<h2>activity_placemark.xml</h2>" ,
+     
+      "<pre><code>        &lt;Button" ,
+     
+      "            android:id=&quot;@+id/placemarkLocation&quot;" ,
+     
+      "            android:layout_width=&quot;match_parent&quot;" ,
+     
+      "            android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "            android:layout_margin=&quot;16dp&quot;" ,
+     
+      "            android:background=&quot;@color/colorAccent&quot;" ,
+     
+      "            android:paddingBottom=&quot;8dp&quot;" ,
+     
+      "            android:paddingTop=&quot;8dp&quot;" ,
+     
+      "            android:stateListAnimator=&quot;@null&quot;" ,
+     
+      "            android:text=&quot;@string/button_location&quot;" ,
+     
+      "            android:textColor=&quot;@color/colorPrimary&quot;" ,
+     
+      "            android:textSize=&quot;16sp&quot;/&gt;</code></pre>" ,
+     
+      "<h2>PlacemarkActivity</h2>" ,
+     
+      "<pre><code>    placemarkLocation.setOnClickListener {" ,
+     
+      "      info (&quot;Set Location Pressed&quot;)" ,
+     
+      "    }</code></pre>" ,
+     
+      "<p>Build &amp; run the application now and make sure the button appears as expected</p>" ,
+     
+      "<p><img src='img/02.png' alt=''></p>" ,
+     
+      "<p>and also the log appears when the button is pressed.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Google Maps Activity",
+    "shortTitle": "03",
+    "content": [
+     
+      "<h1>Google Maps Activity</h1>" ,
+     
+      "<p>Briefly review then general guide to incorporating google maps here:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/training/maps/index.html'>https://developer.android.com/training/maps/index.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>In Studio, select the activities package, and from the context menu insert a new <code>Google Maps</code> activity:</p>" ,
+     
+      "<p><img src='img/03.png' alt=''></p>" ,
+     
+      "<p>This will suggest this configuration:</p>" ,
+     
+      "<p><img src='img/07.png' alt=''></p>" ,
+     
+      "<p>Accept all defaults and press Finish.</p>" ,
+     
+      "<h2>File Updates</h2>" ,
+     
+      "<p>This will generate updates to the following files:</p>" ,
+     
+      "<h2>build.gradle:</h2>" ,
+     
+      "<pre><code>  implementation &#39;com.google.android.gms:play-services-maps:15.0.1&#39;</code></pre>" ,
+     
+      "<h2>strings.xml</h2>" ,
+     
+      "<pre><code>  &lt;string name=&quot;title_activity_maps&quot;&gt;Map&lt;/string&gt;</code></pre>" ,
+     
+      "<h2>AndroidManifest.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "  package=&quot;org.wit.placemark&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;!--" ,
+     
+      "         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use" ,
+     
+      "         Google Maps Android API v2, but you must specify either coarse or fine" ,
+     
+      "         location permissions for the &#39;MyLocation&#39; functionality. " ,
+     
+      "    --&gt;" ,
+     
+      "  &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot; /&gt;" ,
+     
+      "" ,
+     
+      "  &lt;application" ,
+     
+      "    android:name=&quot;.main.MainApp&quot;" ,
+     
+      "    android:allowBackup=&quot;true&quot;" ,
+     
+      "    android:icon=&quot;@mipmap/ic_launcher&quot;" ,
+     
+      "    android:label=&quot;@string/app_name&quot;" ,
+     
+      "    android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;" ,
+     
+      "    android:supportsRtl=&quot;true&quot;" ,
+     
+      "    android:theme=&quot;@style/AppTheme&quot;&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkActivity&quot;&gt;&lt;/activity&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkListActivity&quot;&gt;" ,
+     
+      "      &lt;intent-filter&gt;" ,
+     
+      "        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;" ,
+     
+      "" ,
+     
+      "        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;" ,
+     
+      "      &lt;/intent-filter&gt;" ,
+     
+      "    &lt;/activity&gt;" ,
+     
+      "    &lt;!--" ,
+     
+      "             The API key for Google Maps-based APIs is defined as a string resource." ,
+     
+      "             (See the file &quot;res/values/google_maps_api.xml&quot;)." ,
+     
+      "             Note that the API key is linked to the encryption key used to sign the APK." ,
+     
+      "             You need a different API key for each encryption key, including the release key that is used to" ,
+     
+      "             sign the APK for publishing." ,
+     
+      "             You can define the keys for the debug and release targets in src/debug/ and src/release/. " ,
+     
+      "        --&gt;" ,
+     
+      "    &lt;meta-data" ,
+     
+      "      android:name=&quot;com.google.android.geo.API_KEY&quot;" ,
+     
+      "      android:value=&quot;@string/google_maps_key&quot; /&gt;" ,
+     
+      "" ,
+     
+      "    &lt;activity" ,
+     
+      "      android:name=&quot;.activities.MapsActivity&quot;" ,
+     
+      "      android:label=&quot;@string/title_activity_maps&quot;&gt;&lt;/activity&gt;" ,
+     
+      "  &lt;/application&gt;" ,
+     
+      "" ,
+     
+      "&lt;/manifest&gt;</code></pre>" ,
+     
+      "<h2>New Files</h2>" ,
+     
+      "<p>In Addition, these new files will have been generated:</p>" ,
+     
+      "<h2>activity_maps.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;fragment xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "  xmlns:map=&quot;http://schemas.android.com/apk/res-auto&quot;" ,
+     
+      "  xmlns:tools=&quot;http://schemas.android.com/tools&quot;" ,
+     
+      "  android:id=&quot;@+id/map&quot;" ,
+     
+      "  android:name=&quot;com.google.android.gms.maps.SupportMapFragment&quot;" ,
+     
+      "  android:layout_width=&quot;match_parent&quot;" ,
+     
+      "  android:layout_height=&quot;match_parent&quot;" ,
+     
+      "  tools:context=&quot;.activities.MapsActivity&quot; /&gt;</code></pre>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.activities" ,
+     
+      "" ,
+     
+      "import android.support.v7.app.AppCompatActivity" ,
+     
+      "import android.os.Bundle" ,
+     
+      "" ,
+     
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+     
+      "import com.google.android.gms.maps.GoogleMap" ,
+     
+      "import com.google.android.gms.maps.OnMapReadyCallback" ,
+     
+      "import com.google.android.gms.maps.SupportMapFragment" ,
+     
+      "import com.google.android.gms.maps.model.LatLng" ,
+     
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+     
+      "" ,
+     
+      "class MapsActivity : AppCompatActivity(), OnMapReadyCallback {" ,
+     
+      "" ,
+     
+      "  private lateinit var mMap: GoogleMap" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_maps)" ,
+     
+      "    // Obtain the SupportMapFragment and get notified when the map is ready to be used." ,
+     
+      "    val mapFragment = supportFragmentManager" ,
+     
+      "        .findFragmentById(R.id.map) as SupportMapFragment" ,
+     
+      "    mapFragment.getMapAsync(this)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  /**" ,
+     
+      "   * Manipulates the map once available." ,
+     
+      "   * This callback is triggered when the map is ready to be used." ,
+     
+      "   * This is where we can add markers or lines, add listeners or move the camera. In this case," ,
+     
+      "   * we just add a marker near Sydney, Australia." ,
+     
+      "   * If Google Play services is not installed on the device, the user will be prompted to install" ,
+     
+      "   * it inside the SupportMapFragment. This method will only be triggered once the user has" ,
+     
+      "   * installed Google Play services and returned to the app." ,
+     
+      "   */" ,
+     
+      "  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    mMap = googleMap" ,
+     
+      "" ,
+     
+      "    // Add a marker in Sydney and move the camera" ,
+     
+      "    val sydney = LatLng(-34.0, 151.0)" ,
+     
+      "    mMap.addMarker(MarkerOptions().position(sydney).title(&quot;Marker in Sydney&quot;))" ,
+     
+      "    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<h2>google_maps_api.xml</h2>" ,
+     
+      "<pre><code>&lt;resources&gt;" ,
+     
+      "  &lt;!--" ,
+     
+      "    TODO: Before you run your application, you need a Google Maps API key." ,
+     
+      "" ,
+     
+      "    To get one, follow this link, follow the directions and press &quot;Create&quot; at the end:" ,
+     
+      "" ,
+     
+      "    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&amp;keyType=CLIENT_SIDE_ANDROID&amp;r=BC:AA:86:5A:D7:8C:52:EA:1C:F2:24:FB:80:2C:A6:73:1D:B4:DA:8B%3Borg.wit.placemark.activities" ,
+     
+      "" ,
+     
+      "    You can also add your credentials to an existing key, using these values:" ,
+     
+      "" ,
+     
+      "    Package name:" ,
+     
+      "    BC:AA:86:5A:D7:8C:52:EA:1C:F2:24:FB:80:2C:A6:73:1D:B4:DA:8B" ,
+     
+      "" ,
+     
+      "    SHA-1 certificate fingerprint:" ,
+     
+      "    BC:AA:86:5A:D7:8C:52:EA:1C:F2:24:FB:80:2C:A6:73:1D:B4:DA:8B" ,
+     
+      "" ,
+     
+      "    Alternatively, follow the directions here:" ,
+     
+      "    https://developers.google.com/maps/documentation/android/start#get-key" ,
+     
+      "" ,
+     
+      "    Once you have your key (it starts with &quot;AIza&quot;), replace the &quot;google_maps_key&quot;" ,
+     
+      "    string in this file." ,
+     
+      "    --&gt;" ,
+     
+      "  &lt;string name=&quot;google_maps_key&quot; templateMergeStrategy=&quot;preserve&quot; translatable=&quot;false&quot;&gt;YOUR API KEY HERE&lt;/string&gt;" ,
+     
+      "&lt;/resources&gt;</code></pre>" ,
+     
+      "<p>In the above file, you will need to insert your own API Key. </p>" ,
+     
+      "<p>Before proceeding, you will need to get a google map api key. Follow the guide here:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developers.google.com/maps/documentation/android-api/start#get-key'>https://developers.google.com/maps/documentation/android-api/start#get-key</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Thus might take a little while, as you navigate through the various features available. The key will be a long string applicable to a range of google services. You can choose to restrict it to just the Maps API. </p>" ,
+     
+      "<p>Google have recently switched to a subscription model - and will be prompting you to sign up for free credits for using the api, seeking a credit card (which they promise not to charge). You can ignore this safely for the moment, as the modest number of requests we make should work without registration.</p>" ,
+     
+      "<p>Your key page might look like this:</p>" ,
+     
+      "<p><img src='img/11.png' alt=''></p>" ,
+     
+      "<p>Notice that application restrictions have been set to &#39;none&#39;</p>" ,
+     
+      "<p>Also, once you have inserted into the <code>google_maps_api.xml</code> file, make sure you no NOT commit this file to any public repository (github). This key is intended to be a secret to your account. If you are using git, the simplest way of doing this is to append the following to <code>.gitignore</code>:</p>" ,
+     
+      "<pre><code>app/src/release/res/values/google_maps_api.xml" ,
+     
+      "app/src/debug/res/values/google_maps_api.xml</code></pre>" ,
+     
+      "<p>Rebuild the app - you may get an error:</p>" ,
+     
+      "<h3>MasActivity</h3>" ,
+     
+      "<pre><code>Unresolved reference: R</code></pre>" ,
+     
+      "<p>If you get this error, include this import:</p>" ,
+     
+      "<pre><code>import org.wit.placemark.R</code></pre>" ,
+     
+      "<p>If all goes well, you should be able to start the maps activity:</p>" ,
+     
+      "<h2>PlacemarkActivity</h2>" ,
+     
+      "<pre><code>    placemarkLocation.setOnClickListener {" ,
+     
+      "      startActivity (intentFor&lt;MapsActivity&gt;())" ,
+     
+      "    }</code></pre>" ,
+     
+      "<p>If they key is correctly entered, the map should appear:</p>" ,
+     
+      "<p><img src='img/04.png' alt=''></p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Tidyup Generated code",
+    "shortTitle": "04",
+    "content": [
+     
+      "<h1>Tidyup Generated code</h1>" ,
+     
+      "<p>We might remove some of the additional comments generated by the studio wizard (read them first)</p>" ,
+     
+      "<h2>AndroidManifest.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "  package=&quot;org.wit.placemark&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot; /&gt;" ,
+     
+      "" ,
+     
+      "  &lt;application" ,
+     
+      "    android:name=&quot;.main.MainApp&quot;" ,
+     
+      "    android:allowBackup=&quot;true&quot;" ,
+     
+      "    android:icon=&quot;@mipmap/ic_launcher&quot;" ,
+     
+      "    android:label=&quot;@string/app_name&quot;" ,
+     
+      "    android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;" ,
+     
+      "    android:supportsRtl=&quot;true&quot;" ,
+     
+      "    android:theme=&quot;@style/AppTheme&quot;&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkActivity&quot;&gt;&lt;/activity&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkListActivity&quot;&gt;" ,
+     
+      "      &lt;intent-filter&gt;" ,
+     
+      "        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;" ,
+     
+      "" ,
+     
+      "        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;" ,
+     
+      "      &lt;/intent-filter&gt;" ,
+     
+      "    &lt;/activity&gt;" ,
+     
+      "" ,
+     
+      "    &lt;meta-data" ,
+     
+      "      android:name=&quot;com.google.android.geo.API_KEY&quot;" ,
+     
+      "      android:value=&quot;@string/google_maps_key&quot; /&gt;" ,
+     
+      "" ,
+     
+      "    &lt;activity" ,
+     
+      "      android:name=&quot;.activities.MapsActivity&quot;" ,
+     
+      "      android:label=&quot;@string/title_activity_maps&quot;&gt;&lt;/activity&gt;" ,
+     
+      "  &lt;/application&gt;" ,
+     
+      "" ,
+     
+      "&lt;/manifest&gt;</code></pre>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.activities" ,
+     
+      "" ,
+     
+      "import android.support.v7.app.AppCompatActivity" ,
+     
+      "import android.os.Bundle" ,
+     
+      "" ,
+     
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+     
+      "import com.google.android.gms.maps.GoogleMap" ,
+     
+      "import com.google.android.gms.maps.OnMapReadyCallback" ,
+     
+      "import com.google.android.gms.maps.SupportMapFragment" ,
+     
+      "import com.google.android.gms.maps.model.LatLng" ,
+     
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+     
+      "import org.wit.placemark.R" ,
+     
+      "" ,
+     
+      "class MapsActivity : AppCompatActivity(), OnMapReadyCallback {" ,
+     
+      "" ,
+     
+      "  private lateinit var mMap: GoogleMap" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_maps)" ,
+     
+      "    val mapFragment = supportFragmentManager" ,
+     
+      "        .findFragmentById(R.id.map) as SupportMapFragment" ,
+     
+      "    mapFragment.getMapAsync(this)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    mMap = googleMap" ,
+     
+      "    val sydney = LatLng(-34.0, 151.0)" ,
+     
+      "    mMap.addMarker(MarkerOptions().position(sydney).title(&quot;Marker in Sydney&quot;))" ,
+     
+      "    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Also, revise the default location + zoom level:</p>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    mMap = googleMap" ,
+     
+      "    val wit = LatLng(52.245696, -7.139102)" ,
+     
+      "    mMap.addMarker(MarkerOptions().position(wit).title(&quot;Marker in Waterford&quot;))" ,
+     
+      "    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wit, 16f))" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p><img src='img/05.png' alt=''></p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Location Model",
+    "shortTitle": "05",
+    "content": [
+     
+      "<h1>Location Model</h1>" ,
+     
+      "<p>We would like to include the location into our model, so we can record the latitude/longitude the user selects. Introduce this new class alongside the PlacemarkModel class:</p>" ,
+     
+      "<h2>PlacemarkModel</h2>" ,
+     
+      "<pre><code>@Parcelize" ,
+     
+      "data class Location(var lat: Double = 0.0," ,
+     
+      "                    var lng: Double = 0.0," ,
+     
+      "                    var zoom: Float = 0f) : Parcelable</code></pre>" ,
+     
+      "<p>Put this class in the same source file as PlacemarkModel.</p>" ,
+     
+      "<p>We can now pass a location to the MapsActivity:</p>" ,
+     
+      "<h2>PlacemarkActivity</h2>" ,
+     
+      "<pre><code>    placemarkLocation.setOnClickListener {" ,
+     
+      "      val location = Location(52.245696, -7.139102, 15f)" ,
+     
+      "      startActivity (intentFor&lt;MapsActivity&gt;().putExtra(&quot;location&quot;, location))" ,
+     
+      "    }</code></pre>" ,
+     
+      "<p>Here is a revised version of MapsActivity - which uses the Location model</p>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.activities" ,
+     
+      "" ,
+     
+      "..." ,
+     
+      "" ,
+     
+      "class MapsActivity : AppCompatActivity(), OnMapReadyCallback {" ,
+     
+      "" ,
+     
+      "  private lateinit var mMap: GoogleMap" ,
+     
+      "  var location = Location()" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_maps)" ,
+     
+      "    location = intent.extras.getParcelable&lt;Location&gt;(&quot;location&quot;)" ,
+     
+      "    val mapFragment = supportFragmentManager" ,
+     
+      "        .findFragmentById(R.id.map) as SupportMapFragment" ,
+     
+      "    mapFragment.getMapAsync(this)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    mMap = googleMap" ,
+     
+      "    val loc = LatLng(location.lat, location.lng)" ,
+     
+      "    mMap.addMarker(MarkerOptions().position(loc).title(&quot;Default Marker&quot;))" ,
+     
+      "    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Read this carefully, and note how the location object is being used. Specifically :</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>it is being recovered from the intent in onCreate</li>" ,
+     
+      "<li>it is being used on onMapReady to center the map on the recovered location</li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Experiment with different hard coded lat/lng + zoom values and verify that the MapsActivity correctly renders. </p>" ,
+     
+      "<p>This is a slightly revised onMapReady implementation:</p>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    mMap = googleMap" ,
+     
+      "    val loc = LatLng(location.lat, location.lng)" ,
+     
+      "    val options = MarkerOptions()" ,
+     
+      "        .title(&quot;Placemark&quot;)" ,
+     
+      "        .snippet(&quot;GPS : &quot; + loc.toString())" ,
+     
+      "        .draggable(true)" ,
+     
+      "        .position(loc)" ,
+     
+      "    mMap.addMarker(options)" ,
+     
+      "    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>Try it out now.</p>" ,
+     
+      "<p><img src='img/06.png' alt=''></p>" ,
+     
+      "<p>You should be able to select the marker - it will display its lat/lng. And also able to drag it to a different location.</p>" ,
+     
+      "<p>Finally, to keep the code more consistent, rename the map from <code>mMap</code> to <code>map</code>:</p>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>class MapsActivity : AppCompatActivity(), OnMapReadyCallback {" ,
+     
+      "" ,
+     
+      "  private lateinit var map: GoogleMap" ,
+     
+      "  var location = Location()" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_maps)" ,
+     
+      "    location = intent.extras.getParcelable&lt;Location&gt;(&quot;location&quot;)" ,
+     
+      "    val mapFragment = supportFragmentManager" ,
+     
+      "        .findFragmentById(R.id.map) as SupportMapFragment" ,
+     
+      "    mapFragment.getMapAsync(this)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    map = googleMap" ,
+     
+      "    val loc = LatLng(location.lat, location.lng)" ,
+     
+      "    val options = MarkerOptions()" ,
+     
+      "        .title(&quot;Placemark&quot;)" ,
+     
+      "        .snippet(&quot;GPS : &quot; + loc.toString())" ,
+     
+      "        .draggable(true)" ,
+     
+      "        .position(loc)" ,
+     
+      "    map.addMarker(options)" ,
+     
+      "    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Recover Location from Activity",
+    "shortTitle": "06",
+    "content": [
+     
+      "<h1>Recover Location from Activity</h1>" ,
+     
+      "<p>Currently, when you press back from the MapsActivity, any change made in the marker by the user is lost. We need to address this now.</p>" ,
+     
+      "<p>First, add these fields to the ActivityPlacemark class:</p>" ,
+     
+      "<h2>PlacemarkActivity</h2>" ,
+     
+      "<pre><code>  val LOCATION_REQUEST = 2" ,
+     
+      "  var location = Location(52.245696, -7.139102, 15f)</code></pre>" ,
+     
+      "<p>When we start the map, we pass the LOCATION_REQUEST  code:</p>" ,
+     
+      "<pre><code>   placemarkLocation.setOnClickListener {" ,
+     
+      "      startActivityForResult(intentFor&lt;MapsActivity&gt;().putExtra(&quot;location&quot;, location), LOCATION_REQUEST)" ,
+     
+      "    }</code></pre>" ,
+     
+      "<p>Now, when a result is returned, we detect a LOCATION_REQUEST response, and recover the location:</p>" ,
+     
+      "<pre><code>  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {" ,
+     
+      "    super.onActivityResult(requestCode, resultCode, data)" ,
+     
+      "    when (requestCode) {" ,
+     
+      "      IMAGE_REQUEST -&gt; {" ,
+     
+      "        if (data != null) {" ,
+     
+      "          placemark.image = data.getData().toString()" ,
+     
+      "          placemarkImage.setImageBitmap(readImage(this, resultCode, data))" ,
+     
+      "          chooseImage.setText(R.string.change_placemark_image)" ,
+     
+      "        }" ,
+     
+      "      }" ,
+     
+      "      LOCATION_REQUEST -&gt; {" ,
+     
+      "        if (data != null) {" ,
+     
+      "          location = data.extras.getParcelable&lt;Location&gt;(&quot;location&quot;)" ,
+     
+      "        }" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>Try the app now - and drag the marker to a new location.</p>" ,
+     
+      "<p>When you press back - and you get to the PlacemarkActivity - try pressing Set Location again. What happens? It still doesn&#39;t seem to remember the new location.</p>" ,
+     
+      "<p>Introduce some logging statements to see what is happening. We will fix this in the next step.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "# Listening for Marker Drag Events",
+    "shortTitle": "07",
+    "content": [
+     
+      "<h2>Listening for Marker Drag Events</h2>" ,
+     
+      "<p>To get this to work, we need further capabilities in MapsActivity.</p>" ,
+     
+      "<p>First, implement a new interface:</p>" ,
+     
+      "<h2>MapsActivity</h2>" ,
+     
+      "<pre><code>class MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener {</code></pre>" ,
+     
+      "<p>This interface requires three methods:</p>" ,
+     
+      "<pre><code>  override fun onMarkerDragStart(marker: Marker) {" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun onMarkerDrag(marker: Marker) {" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun onMarkerDragEnd(marker: Marker) {" ,
+     
+      "    location.lat = marker.position.latitude" ,
+     
+      "    location.lng = marker.position.longitude" ,
+     
+      "    location.zoom = map.cameraPosition.zoom" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>We are only interested in one of these methods for the moment.</p>" ,
+     
+      "<p>We need modify the onMapReady method to make sure we are listening for this event:</p>" ,
+     
+      "<pre><code>  override fun onMapReady(googleMap: GoogleMap) {" ,
+     
+      "    ..." ,
+     
+      "    map.setOnMarkerDragListener(this)" ,
+     
+      "    ..." ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>Finally, we need to intercept the back button, and send it back to the parent activity:</p>" ,
+     
+      "<pre><code>  override fun onBackPressed() {" ,
+     
+      "    val resultIntent = Intent()" ,
+     
+      "    resultIntent.putExtra(&quot;location&quot;, location)" ,
+     
+      "    setResult(Activity.RESULT_OK, resultIntent)" ,
+     
+      "    finish()" ,
+     
+      "    super.onBackPressed()" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>Try this now - and verify that if you change the location - and then immediately press back and then renter the map again. The location should be remembered, and the map centred to the new location.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "Solution",
+    "shortTitle": "Exercises",
+    "content": [
+     
+      "<h1>Solution</h1>" ,
+     
+      "<p>Placemark application so far:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='archives/placemark-05.zip'>placemark-05.zip</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>This archive does not include the Google Maps API keys - so will not build</p>" ,
+     
+      "<h2>Exercise 1</h2>" ,
+     
+      "<p>If you create a new placemark - and set it location, note that when you click on the marker it shows its lat/lng. Move it around - and notice that the lat/lng in the panel never changes (even though it is at a different location).</p>" ,
+     
+      "<p>See if you can fix this - such that it always shows the correct location.</p>" ,
+     
+      "<p>(HINT: look up <code>GoogleMap.OnMarkerClickListener</code> and <code>setSnippet</code>)</p>" ,
+     
+      "<h2>Exercise 2</h2>" ,
+     
+      "<p>When you leave the PlacemarkActiviy, the location is not currently stored in the PlacemarkModel correctly. So when you edit a placemark, it is back at the default location.</p>" ,
+     
+      "<p>Fix this by making location part of the placemark model, so we can edit and change the locations for existing markers.</p>" ,
+     
+      "<p>HINT: the simplest way of approach this might be to just extend the model to include three new fields:</p>" ,
+     
+      "<pre><code>@Parcelize" ,
+     
+      "data class PlacemarkModel(var id: Long = 0," ,
+     
+      "                          var title: String = &quot;&quot;," ,
+     
+      "                          var description: String = &quot;&quot;," ,
+     
+      "                          var image: String = &quot;&quot;," ,
+     
+      "                          var lat : Double = 0.0," ,
+     
+      "                          var lng: Double = 0.0," ,
+     
+      "                          var zoom: Float = 0f) : Parcelable</code></pre>" ,
+     
+      "<p>... and then manage these accordingly.</p>" ,
+     
+      "" 
+     
+    ]
+    }
+  
+  ]
+  }
+

@@ -1,0 +1,849 @@
+
+
+
+  {
+  
+  
+  "type" : "lab",
+  "title" : "Lab-11b Firebase Database",
+  "folder" : "book",
+  
+    "link" : "book/index.html",
+  
+  "img" : "book/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Store placemarks in Firebase Realtime Database</p>",
+  "properties" : {},
+  "los": [  ]
+,
+  "chapters" : [
+  
+    {
+    "title": "Objectives",
+    "shortTitle": "Lab-11b Firebase Database",
+    "content": [
+     
+      "<h1>Objectives</h1>" ,
+     
+      "<p>Store placemarks in Firebase Realtime Database</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Solutions",
+    "shortTitle": "Solutions",
+    "content": [
+     
+      "<h1>Solutions</h1>" ,
+     
+      "<h2>Exercise 1 : Logout</h2>" ,
+     
+      "<h2>PlacemarkListPresenter</h2>" ,
+     
+      "<pre><code>  fun doLogout() {" ,
+     
+      "    FirebaseAuth.getInstance().signOut()" ,
+     
+      "    view?.navigateTo(VIEW.LOGIN)" ,
+     
+      "  }</code></pre>" ,
+     
+      "<h2>Exercise 2: Current User</h2>" ,
+     
+      "<p>Adjust the title of the PlacemarkListActivity - such that it displays the logged in users email:</p>" ,
+     
+      "<p><img src='img/13.png' alt=''></p>" ,
+     
+      "<h2>Solution</h2>" ,
+     
+      "<p>Now that we are centralising the toolbar initialisation in BaseView, we can introduce this feature for all views:</p>" ,
+     
+      "<h2>BaseView</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      " fun init(toolbar: Toolbar, upEnabled: Boolean) {" ,
+     
+      "    toolbar.title = title" ,
+     
+      "    setSupportActionBar(toolbar)" ,
+     
+      "    supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)" ,
+     
+      "    val user = FirebaseAuth.getInstance().currentUser" ,
+     
+      "    if (user != null) {" ,
+     
+      "      toolbar.title = &quot;${title}: ${user.email}&quot;" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "...</code></pre>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Image Management",
+    "shortTitle": "02",
+    "content": [
+     
+      "<h1>Image Management</h1>" ,
+     
+      "<p>Currently we load all of the images using a helper method we have written for this purpose. We will replace this now with the Glide library:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://github.com/bumptech/glide'>https://github.com/bumptech/glide</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>This will work as as currently, but additionally it will also work with url of images on the public Internet. This will be part of our move to firebase later in this lab.</p>" ,
+     
+      "<p>First, we define the version of Glide we wish to use:</p>" ,
+     
+      "<h2>build.gradle</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  glide_version = &#39;4.8.0&#39;" ,
+     
+      "  ..." ,
+     
+      "  implementation &quot;com.github.bumptech.glide:glide:$glide_version&quot;" ,
+     
+      "  ..." ,
+     
+      "...</code></pre>" ,
+     
+      "<p>Now we can introduce the glide library wherever we are displaying images:</p>" ,
+     
+      "<h2>PlacemarkAdapter</h2>" ,
+     
+      "<p>Replace:</p>" ,
+     
+      "<pre><code>      itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, placemark.image))</code></pre>" ,
+     
+      "<p>with</p>" ,
+     
+      "<pre><code>      Glide.with(itemView.context).load(placemark.image).into(itemView.imageIcon);</code></pre>" ,
+     
+      "<h2>PlacemarkView</h2>" ,
+     
+      "<p>Replace:</p>" ,
+     
+      "<pre><code>    placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))</code></pre>" ,
+     
+      "<p>with</p>" ,
+     
+      "<pre><code>    Glide.with(this).load(placemark.image).into(placemarkImage);</code></pre>" ,
+     
+      "<h2>PlacemarkMqpView</h2>" ,
+     
+      "<p>Replace:</p>" ,
+     
+      "<pre><code>     imageView.setImageBitmap(readImageFromPath(this, placemark.image))</code></pre>" ,
+     
+      "<p>with:</p>" ,
+     
+      "<pre><code>    Glide.with(this).load(placemark.image).into(imageView);</code></pre>" ,
+     
+      "<p>Rebuild and test the app now. It should behave as before.</p>" ,
+     
+      "<h2>PlacemarkMapPresenter</h2>" ,
+     
+      "<p>We need one other small adjustment - currently we have this line in PlacemarkMapPresenter::doPopulateMap()</p>" ,
+     
+      "<pre><code>      map.addMarker(options).tag = it.id</code></pre>" ,
+     
+      "<p>This stores a tag to refer to the placemark associated with the marker we have just placed on the map. Change this to the following:</p>" ,
+     
+      "<pre><code>      map.addMarker(options).tag = it</code></pre>" ,
+     
+      "<p>Now in PlacemarkMapPresenter::onMarkerSelected(), replace</p>" ,
+     
+      "<pre><code>      val tag = marker.tag as Long" ,
+     
+      "      val placemark = app.placemarks.findById(tag)</code></pre>" ,
+     
+      "<p>with</p>" ,
+     
+      "<pre><code>      val placemark = marker.tag as PlacemarkModel</code></pre>" ,
+     
+      "<p>The reason we are making this adjustment is because of the Firebase adjustments we will shortly make to the PlacemarkModel</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Preparing for Firebase",
+    "shortTitle": "03",
+    "content": [
+     
+      "<h1>Preparing for Firebase</h1>" ,
+     
+      "<p>We need to make a number of small changes to the application in order to prepare for incorporating Firebase storage of placemarks.</p>" ,
+     
+      "<h1>Managing the Firebase ID</h1>" ,
+     
+      "<p>In PlacemarkModel, we need an additional ID - fbId - to record the Firebase ID of each placemark. Unlike the existing id, which is a Long, the firebase id is a string:</p>" ,
+     
+      "<h2>PlacemarkModel</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.models" ,
+     
+      "" ,
+     
+      "import android.os.Parcelable" ,
+     
+      "import androidx.room.Embedded" ,
+     
+      "import androidx.room.Entity" ,
+     
+      "import androidx.room.PrimaryKey" ,
+     
+      "import kotlinx.android.parcel.Parcelize" ,
+     
+      "" ,
+     
+      "@Parcelize" ,
+     
+      "@Entity" ,
+     
+      "data class PlacemarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0," ,
+     
+      "                          var fbId : String = &quot;&quot;," ,
+     
+      "                          var title: String = &quot;&quot;," ,
+     
+      "                          var description: String = &quot;&quot;," ,
+     
+      "                          var image: String = &quot;&quot;," ,
+     
+      "                          @Embedded var location : Location = Location()): Parcelable" ,
+     
+      "" ,
+     
+      "@Parcelize" ,
+     
+      "data class Location(var lat: Double = 0.0," ,
+     
+      "                    var lng: Double = 0.0," ,
+     
+      "                    var zoom: Float = 0f) : Parcelable</code></pre>" ,
+     
+      "<h1>Clearing Placemarks between user logins</h1>" ,
+     
+      "<p>As we are now supporting multiple logins - then we need a way of clearing the placemarks between different users accessing the app.</p>" ,
+     
+      "<h2>PlacemarkMemStore</h2>" ,
+     
+      "<pre><code>  fun clear()</code></pre>" ,
+     
+      "<h2>PlacemarkMemStore</h2>" ,
+     
+      "<pre><code>  override fun clear() {" ,
+     
+      "    placemarks.clear()" ,
+     
+      "  }</code></pre>" ,
+     
+      "<h2>PlacemarkStoreRoom</h2>" ,
+     
+      "<pre><code>  override fun clear() {" ,
+     
+      "  }</code></pre>" ,
+     
+      "<h2>PlacemarkJSONStore</h2>" ,
+     
+      "<pre><code>  override fun clear() {" ,
+     
+      "    placemarks.clear()" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>We keep the PlacemarkStoreRoom implementation empty for the moment.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Firebase Database",
+    "shortTitle": "04",
+    "content": [
+     
+      "<h1>Firebase Database</h1>" ,
+     
+      "<p>In your Firebase Application Console, select <code>Database</code>:</p>" ,
+     
+      "<p><img src='img/01x.png' alt=''></p>" ,
+     
+      "<p>And press <code>Get Started</code> on <code>Realtime Database</code>:</p>" ,
+     
+      "<p><img src='img/02x.png' alt=''></p>" ,
+     
+      "<p>Be sure to select <code>Start in test mode</code> as shown above.</p>" ,
+     
+      "<p><img src='img/03x.png' alt=''></p>" ,
+     
+      "<p>This is a view into your database - you will see in real time here any objects you insert. Also, take note of the url:</p>" ,
+     
+      "<pre><code>https://placemark-XXXXd.firebaseio.co</code></pre>" ,
+     
+      "<p>This will be used in your application configuration. To establish the connection, in Studio select <code>Tools-&gt;Firebase-&gt;Realtime Database</code></p>" ,
+     
+      "<p><img src='img/04.png' alt=''></p>" ,
+     
+      "<p>Press connect (screen shot above shows result of pressing connect). This is all you need to do at this stage. If you like, you can verify that the connection has been made. Do this by locating the following file:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>app/google-services.json</li>" ,
+     
+      "</ul>" ,
+     
+      "<p>It may look something like this:</p>" ,
+     
+      "<pre><code>{" ,
+     
+      "  &quot;project_info&quot;: {" ,
+     
+      "    &quot;project_number&quot;: &quot;4283XXXXX&quot;," ,
+     
+      "    &quot;firebase_url&quot;: &quot;https://placemark-XXXXd.firebaseio.com&quot;," ,
+     
+      "    &quot;project_id&quot;: &quot;placemark-XXXd&quot;," ,
+     
+      "  }," ,
+     
+      "  &quot;client&quot;: [" ,
+     
+      "    {" ,
+     
+      "      &quot;client_info&quot;: {" ,
+     
+      "        &quot;mobilesdk_app_id&quot;: &quot;1:428338485028:android:634c4XXXce143&quot;," ,
+     
+      "        &quot;android_client_info&quot;: {" ,
+     
+      "          &quot;package_name&quot;: &quot;org.wit.placemark&quot;" ,
+     
+      "        }" ,
+     
+      "      }," ,
+     
+      "      &quot;oauth_client&quot;: [" ,
+     
+      "        {" ,
+     
+      "          &quot;client_id&quot;: &quot;4283XXXXX028-ntqXXXXXXXXXl9ot6ok3r.apps.googleusercontent.com&quot;," ,
+     
+      "          &quot;client_type&quot;: 1," ,
+     
+      "          &quot;android_info&quot;: {" ,
+     
+      "            &quot;package_name&quot;: &quot;org.wit.placemark&quot;," ,
+     
+      "            &quot;certificate_hash&quot;: &quot;bcaa865ad78XXXXXXXXX731db4da8b&quot;" ,
+     
+      "          }" ,
+     
+      "        }," ,
+     
+      "        {" ,
+     
+      "          &quot;client_id&quot;: &quot;42833848XXXXXX5cup7XXXXXXk8s.apps.googleusercontent.com&quot;," ,
+     
+      "          &quot;client_type&quot;: 3" ,
+     
+      "        }" ,
+     
+      "      ]," ,
+     
+      "      &quot;api_key&quot;: [" ,
+     
+      "        {" ,
+     
+      "          &quot;current_key&quot;: &quot;AIzaSyBXXXXXXXXXXXoTeWhTqfKxbI&quot;" ,
+     
+      "        }" ,
+     
+      "      ]," ,
+     
+      "      &quot;services&quot;: {" ,
+     
+      "        &quot;analytics_service&quot;: {" ,
+     
+      "          &quot;status&quot;: 1" ,
+     
+      "        }," ,
+     
+      "        &quot;appinvite_service&quot;: {" ,
+     
+      "          &quot;status&quot;: 2," ,
+     
+      "          &quot;other_platform_oauth_client&quot;: [" ,
+     
+      "            {" ,
+     
+      "              &quot;client_id&quot;: &quot;428338XXXXXXXXXXXXXXXXXX1e4kk8s.apps.googleusercontent.com&quot;," ,
+     
+      "              &quot;client_type&quot;: 3" ,
+     
+      "            }" ,
+     
+      "          ]" ,
+     
+      "        }," ,
+     
+      "        &quot;ads_service&quot;: {" ,
+     
+      "          &quot;status&quot;: 2" ,
+     
+      "        }" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  ]," ,
+     
+      "  &quot;configuration_version&quot;: &quot;1&quot;" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>A Firebase URL should be in the opening info object.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " FireStore",
+    "shortTitle": "05",
+    "content": [
+     
+      "<h1>FireStore</h1>" ,
+     
+      "<p>Create a new package called <code>org.wit.placemark.models.firebase</code>, and introduce this new class, an implementation of PlacemarkStore:</p>" ,
+     
+      "<h3>PlacemarkFireStore</h3>" ,
+     
+      "<pre><code>package org.wit.placemark.models.firebase" ,
+     
+      "" ,
+     
+      "import android.content.Context" ,
+     
+      "import com.google.firebase.auth.FirebaseAuth" ,
+     
+      "import com.google.firebase.database.*" ,
+     
+      "import org.jetbrains.anko.AnkoLogger" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "import org.wit.placemark.models.PlacemarkStore" ,
+     
+      "" ,
+     
+      "class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {" ,
+     
+      "" ,
+     
+      "  val placemarks = ArrayList&lt;PlacemarkModel&gt;()" ,
+     
+      "  lateinit var userId: String" ,
+     
+      "  lateinit var db: DatabaseReference" ,
+     
+      "" ,
+     
+      "  suspend override fun findAll(): List&lt;PlacemarkModel&gt; {" ,
+     
+      "    return placemarks" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun findById(id: Long): PlacemarkModel? {" ,
+     
+      "    val foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == id }" ,
+     
+      "    return foundPlacemark" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun create(placemark: PlacemarkModel) {" ,
+     
+      "    val key = db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).push().key" ,
+     
+      "    placemark.fbId = key!!" ,
+     
+      "    placemarks.add(placemark)" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(key).setValue(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun update(placemark: PlacemarkModel) {" ,
+     
+      "    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.fbId == placemark.fbId }" ,
+     
+      "    if (foundPlacemark != null) {" ,
+     
+      "      foundPlacemark.title = placemark.title" ,
+     
+      "      foundPlacemark.description = placemark.description" ,
+     
+      "      foundPlacemark.image = placemark.image" ,
+     
+      "      foundPlacemark.location = placemark.location" ,
+     
+      "    }" ,
+     
+      "" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun delete(placemark: PlacemarkModel) {" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).removeValue()" ,
+     
+      "    placemarks.remove(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun clear() {" ,
+     
+      "    placemarks.clear()" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun fetchPlacemarks(placemarksReady: () -&gt; Unit) {" ,
+     
+      "    val valueEventListener = object : ValueEventListener {" ,
+     
+      "      override fun onCancelled(error: DatabaseError) {" ,
+     
+      "      }" ,
+     
+      "      override fun onDataChange(dataSnapshot: DataSnapshot) {" ,
+     
+      "        dataSnapshot.children.mapNotNullTo(placemarks) { it.getValue&lt;PlacemarkModel&gt;(PlacemarkModel::class.java) }" ,
+     
+      "        placemarksReady()" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "    userId = FirebaseAuth.getInstance().currentUser!!.uid" ,
+     
+      "    db = FirebaseDatabase.getInstance().reference" ,
+     
+      "    placemarks.clear()" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).addListenerForSingleValueEvent(valueEventListener)" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>This is an implementation of our PlacemarkStore interface - which stores/retrieves placemarks from the Firebase database.</p>" ,
+     
+      "<p>It implements all the PlacemarkStore methods + one new method not specified in the interface:</p>" ,
+     
+      "<pre><code>  fun fetchPlacemarks(placemarksReady: () -&gt; Unit) {" ,
+     
+      "    val valueEventListener = object : ValueEventListener {" ,
+     
+      "      override fun onCancelled(error: DatabaseError) {" ,
+     
+      "      }" ,
+     
+      "      override fun onDataChange(dataSnapshot: DataSnapshot) {" ,
+     
+      "        dataSnapshot.children.mapNotNullTo(placemarks) { it.getValue&lt;PlacemarkModel&gt;(PlacemarkModel::class.java) }" ,
+     
+      "        placemarksReady()" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "    userId = FirebaseAuth.getInstance().currentUser!!.uid" ,
+     
+      "    db = FirebaseDatabase.getInstance().reference" ,
+     
+      "    placemarks.clear()" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).addListenerForSingleValueEvent(valueEventListener)" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>This is a method to fetch placemarks, and trigger a callback (placemarkReady) when the placemakrs have been retrieved. We will need to explicitly call this method when we are log in (next step).</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Login",
+    "shortTitle": "06",
+    "content": [
+     
+      "<h1>Login</h1>" ,
+     
+      "<p>This is a revised Login activity:</p>" ,
+     
+      "<h2>LoginAPresenter</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.views.login" ,
+     
+      "" ,
+     
+      "import com.google.firebase.auth.FirebaseAuth" ,
+     
+      "import org.jetbrains.anko.toast" ,
+     
+      "import org.wit.placemark.models.firebase.PlacemarkFireStore" ,
+     
+      "import org.wit.placemark.views.BasePresenter" ,
+     
+      "import org.wit.placemark.views.BaseView" ,
+     
+      "import org.wit.placemark.views.VIEW" ,
+     
+      "" ,
+     
+      "class LoginPresenter(view: BaseView) : BasePresenter(view) {" ,
+     
+      "" ,
+     
+      "  var auth: FirebaseAuth = FirebaseAuth.getInstance()" ,
+     
+      "  var fireStore: PlacemarkFireStore? = null" ,
+     
+      "" ,
+     
+      "  init {" ,
+     
+      "    if (app.placemarks is PlacemarkFireStore) {" ,
+     
+      "      fireStore = app.placemarks as PlacemarkFireStore" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun doLogin(email: String, password: String) {" ,
+     
+      "    view?.showProgress()" ,
+     
+      "    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task -&gt;" ,
+     
+      "      if (task.isSuccessful) {" ,
+     
+      "        if (fireStore != null) {" ,
+     
+      "          fireStore!!.fetchPlacemarks {" ,
+     
+      "            view?.hideProgress()" ,
+     
+      "            view?.navigateTo(VIEW.LIST)" ,
+     
+      "          }" ,
+     
+      "        } else {" ,
+     
+      "          view?.hideProgress()" ,
+     
+      "          view?.navigateTo(VIEW.LIST)" ,
+     
+      "        }" ,
+     
+      "      } else {" ,
+     
+      "        view?.hideProgress()" ,
+     
+      "        view?.toast(&quot;Sign Up Failed: ${task.exception?.message}&quot;)" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun doSignUp(email: String, password: String) {" ,
+     
+      "    view?.showProgress()" ,
+     
+      "    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task -&gt;" ,
+     
+      "      if (task.isSuccessful) {" ,
+     
+      "        view?.hideProgress()" ,
+     
+      "        view?.navigateTo(VIEW.LIST)" ,
+     
+      "      } else {" ,
+     
+      "        view?.hideProgress()" ,
+     
+      "        view?.toast(&quot;Sign Up Failed: ${task.exception?.message}&quot;)" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>The key here is the code dealing with a successful login:</p>" ,
+     
+      "<pre><code>      if (task.isSuccessful) {" ,
+     
+      "        if (fireStore != null) {" ,
+     
+      "          fireStore!!.fetchPlacemarks {" ,
+     
+      "            view?.hideProgress()" ,
+     
+      "            view?.navigateTo(VIEW.LIST)" ,
+     
+      "          }" ,
+     
+      "        }" ,
+     
+      "      }</code></pre>" ,
+     
+      "<p>In the above, we are checking to see if we are using the fireStore PlacemarkStore implementation, and if so, we fetch the placemarks and will be notified when they arrive. If we are not using the fireStore, then we just launch PlacemarkListActivity as normal.</p>" ,
+     
+      "<p>Finally, on logout we need to clear the placemarks:</p>" ,
+     
+      "<pre><code>  fun doLogout() {" ,
+     
+      "    FirebaseAuth.getInstance().signOut()" ,
+     
+      "    app.placemarks.clear()" ,
+     
+      "    view?.navigateTo(VIEW.LOGIN)" ,
+     
+      "  }</code></pre>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "# Console",
+    "shortTitle": "07",
+    "content": [
+     
+      "<h2>Console</h2>" ,
+     
+      "<p>Create the PlacemarkFireStore now in MainApp:</p>" ,
+     
+      "<pre><code>class MainApp : Application(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  lateinit var placemarks: PlacemarkStore" ,
+     
+      "" ,
+     
+      "  override fun onCreate() {" ,
+     
+      "    super.onCreate()" ,
+     
+      "    //placemarks = PlacemarkJSONStore(applicationContext)" ,
+     
+      "    //placemarks = PlacemarkStoreRoom(applicationContext)" ,
+     
+      "    placemarks = PlacemarkFireStore(applicationContext)" ,
+     
+      "    info(&quot;Placemark started&quot;)" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Run the app now, log in and create some placemarks. </p>" ,
+     
+      "<p>Keep an eye on the Database console:</p>" ,
+     
+      "<p><img src='img/06.png' alt=''></p>" ,
+     
+      "<p>You should see the placemarks you create populating here. Each users placemarks are grouped under the user id. And individual placemarks are under their own unique id.</p>" ,
+     
+      "<p>User Ids can be cross-referenced on the Authentication panel:</p>" ,
+     
+      "<p><img src='img/07.png' alt=''></p>" ,
+     
+      "<p>Experiment with various accounts + placemarks now. Verify that when you log in you get the placemarks relevant to the logged in user.</p>" ,
+     
+      "<p>Also - note that the images are still stored locally - examine the image path. So, although they will display as normal - they will not be available if you change emulators. </p>" ,
+     
+      "<p>Perhaps try this now to verify that placemark images are localised to a specific phone.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "Solution",
+    "shortTitle": "Exercises",
+    "content": [
+     
+      "<h1>Solution</h1>" ,
+     
+      "<p>Placemark application so far:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='archives/archive.zip'>archive.zip</a></li>" ,
+     
+      "</ul>" ,
+     
+      "" 
+     
+    ]
+    }
+  
+  ]
+  }
+

@@ -1,0 +1,789 @@
+
+
+
+  {
+  
+  
+  "type" : "lab",
+  "title" : "Lab-10b Rooms",
+  "folder" : "book-1",
+  
+    "link" : "book-1/index.html",
+  
+  "img" : "book-1/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Introduce a new PlacemarkStore implementation to persist to an SQLite database</p>",
+  "properties" : {},
+  "los": [  ]
+,
+  "chapters" : [
+  
+    {
+    "title": " Objectives",
+    "shortTitle": "Lab-10b Rooms",
+    "content": [
+     
+      "<h1>Objectives</h1>" ,
+     
+      "<p>Introduce a new PlacemarkStore implementation to persist to an SQLite database</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Room Classes",
+    "shortTitle": "01",
+    "content": [
+     
+      "<h1>Room Classes</h1>" ,
+     
+      "<p>In 2017 Google introduced a vastly simplified approach to persisting objects to the SQLite database called Rooms:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/training/data-storage/room/index.html'>https://developer.android.com/training/data-storage/room/index.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Review the introduction above (just the page linked) before proceeding.</p>" ,
+     
+      "<p>First, we need to include the rooms libraries:</p>" ,
+     
+      "<h2>build.gradle</h2>" ,
+     
+      "<p>New dependencies:</p>" ,
+     
+      "<h2>build.gradle</h2>" ,
+     
+      "<p>A new plugin at the top of the file:</p>" ,
+     
+      "<pre><code>apply plugin: &quot;kotlin-kapt&quot;</code></pre>" ,
+     
+      "<p>A new version identifier:</p>" ,
+     
+      "<pre><code>  room_version = &quot;2.0.0&quot;</code></pre>" ,
+     
+      "<p>New libraries:</p>" ,
+     
+      "<pre><code>  implementation &quot;androidx.room:room-runtime:$room_version&quot;" ,
+     
+      "  kapt &quot;androidx.room:room-compiler:$room_version&quot;</code></pre>" ,
+     
+      "<p>Note the second dependency is slightly different - a <code>kapt</code> entry. Kapt is an annotation processor:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://kotlinlang.org/docs/reference/kapt.html'>https://kotlinlang.org/docs/reference/kapt.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>and we are using it here to engage the Room annotations we are about to use.</p>" ,
+     
+      "<p>Rebuild now to make sure the libraries are correctly included.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Room Classes & Annotations",
+    "shortTitle": "02",
+    "content": [
+     
+      "<h1>Room Classes &amp; Annotations</h1>" ,
+     
+      "<p>Now we need to adjust PlacemarkModel with additional annotations:</p>" ,
+     
+      "<h2>PlacemarkModel</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.models" ,
+     
+      "" ,
+     
+      "import android.os.Parcelable" ,
+     
+      "import androidx.room.Entity" ,
+     
+      "import androidx.room.PrimaryKey" ,
+     
+      "import kotlinx.android.parcel.Parcelize" ,
+     
+      "" ,
+     
+      "@Parcelize" ,
+     
+      "@Entity" ,
+     
+      "data class PlacemarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0," ,
+     
+      "                          var title: String = &quot;&quot;," ,
+     
+      "                          var description: String = &quot;&quot;," ,
+     
+      "                          var image: String = &quot;&quot;," ,
+     
+      "                          var lat : Double = 0.0," ,
+     
+      "                          var lng: Double = 0.0," ,
+     
+      "                          var zoom: Float = 0f) : Parcelable</code></pre>" ,
+     
+      "<p>We have included 2 additional annotations:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/reference/android/arch/persistence/room/Entity.html'>@Entity</a></li>" ,
+     
+      "<li><a href='https://developer.android.com/reference/android/arch/persistence/room/PrimaryKey.html'>@PrimaryKey</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>These annotations will enable PlacemarkModel objects to be stored in a Room database.</p>" ,
+     
+      "<p>In a new <code>room</code> package, include these new classes:</p>" ,
+     
+      "<h2>Database</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.room" ,
+     
+      "" ,
+     
+      "import androidx.room.Database" ,
+     
+      "import androidx.room.RoomDatabase" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "" ,
+     
+      "@Database(entities = arrayOf(PlacemarkModel::class), version = 1)" ,
+     
+      "abstract class Database : RoomDatabase() {" ,
+     
+      "" ,
+     
+      "  abstract fun placemarkDao(): PlacemarkDao" ,
+     
+      "}</code></pre>" ,
+     
+      "<h2>PlacemarkDao</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.room" ,
+     
+      "" ,
+     
+      "import androidx.room.*" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "" ,
+     
+      "@Dao" ,
+     
+      "interface PlacemarkDao {" ,
+     
+      "" ,
+     
+      "  @Insert(onConflict = OnConflictStrategy.REPLACE)" ,
+     
+      "  fun create(placemark: PlacemarkModel)" ,
+     
+      "" ,
+     
+      "  @Query(&quot;SELECT * FROM PlacemarkModel&quot;)" ,
+     
+      "  fun findAll(): List&lt;PlacemarkModel&gt;" ,
+     
+      "" ,
+     
+      "  @Query(&quot;select * from PlacemarkModel where id = :id&quot;)" ,
+     
+      "  fun findById(id: Long): PlacemarkModel" ,
+     
+      "" ,
+     
+      "  @Update" ,
+     
+      "  fun update(placemark: PlacemarkModel)" ,
+     
+      "" ,
+     
+      "  @Delete" ,
+     
+      "  fun deletePlacemark(placemark: PlacemarkModel)" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>These are classes that a new version of the PlacemarkStore interface can use to implement a new store.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "# PlacemarkStoreRoom - Version 1",
+    "shortTitle": "03",
+    "content": [
+     
+      "<h2>PlacemarkStoreRoom - Version 1</h2>" ,
+     
+      "<p>Here is a first implementation of PlacemarkStoreRoom</p>" ,
+     
+      "<pre><code>package org.wit.placemark.room" ,
+     
+      "" ,
+     
+      "import android.content.Context" ,
+     
+      "import androidx.room.Room" ,
+     
+      "import org.jetbrains.anko.coroutines.experimental.bg" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "import org.wit.placemark.models.PlacemarkStore" ,
+     
+      "" ,
+     
+      "class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {" ,
+     
+      "" ,
+     
+      "  var dao: PlacemarkDao" ,
+     
+      "" ,
+     
+      "  init {" ,
+     
+      "    val database = Room.databaseBuilder(context, Database::class.java, &quot;room_sample.db&quot;)" ,
+     
+      "        .fallbackToDestructiveMigration()" ,
+     
+      "        .build()" ,
+     
+      "    dao = database.placemarkDao()" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun findAll(): List&lt;PlacemarkModel&gt; {" ,
+     
+      "    return dao.findAll()" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun findById(id: Long): PlacemarkModel? {" ,
+     
+      "    return dao.findById(id)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun create(placemark: PlacemarkModel) {" ,
+     
+      "    dao.create(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun update(placemark: PlacemarkModel) {" ,
+     
+      "    dao.update(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun delete(placemark: PlacemarkModel) {" ,
+     
+      "    dao.deletePlacemark(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun clear() {" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Lets try it out. In main, create PlacemarkStoreRoom instead of whatever version you are currently using:</p>" ,
+     
+      "<h2>MainApp</h2>" ,
+     
+      "<pre><code>class MainApp : Application(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  lateinit var placemarks: PlacemarkStore" ,
+     
+      "" ,
+     
+      "  override fun onCreate() {" ,
+     
+      "    super.onCreate()" ,
+     
+      "    placemarks = PlacemarkStoreRoom(applicationContext)" ,
+     
+      "    info(&quot;Placemark started&quot;)" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Run the app now:</p>" ,
+     
+      "<p><img src='img/03.png' alt=''></p>" ,
+     
+      "<p>If you interrogate logcat - you will (eventually) uncover the issue:</p>" ,
+     
+      "<pre><code>2018-11-16 16:50:58.333 12758-12758/org.wit.placemark E/AndroidRuntime: FATAL EXCEPTION: main" ,
+     
+      "    Process: org.wit.placemark, PID: 12758" ,
+     
+      "    java.lang.RuntimeException: Unable to start activity ComponentInfo{org.wit.placemark/org.wit.placemark.views.placemarklist.PlacemarkListView}: java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time." ,
+     
+      "        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2665)" ,
+     
+      "        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2726)" ,
+     
+      "        at android.app.ActivityThread.-wrap12(ActivityThread.java)" ,
+     
+      "        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1477)" ,
+     
+      "        at android.os.Handler.dispatchMessage(Handler.java:102)" ,
+     
+      "        at android.os.Looper.loop(Looper.java:154)" ,
+     
+      "        at android.app.ActivityThread.main(ActivityThread.java:6119)" ,
+     
+      "        at java.lang.reflect.Method.invoke(Native Method)" ,
+     
+      "        at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)" ,
+     
+      "        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)" ,
+     
+      "     Caused by: java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time." ,
+     
+      "        at androidx.room.RoomDatabase.assertNotMainThread(RoomDatabase.java:209)" ,
+     
+      "        at androidx.room.RoomDatabase.query(RoomDatabase.java:237)" ,
+     
+      "        at org.wit.placemark.room.PlacemarkDao_Impl.findAll(PlacemarkDao_Impl.java:137)" ,
+     
+      "        at org.wit.placemark.room.PlacemarkStoreRoom.findAll(PlacemarkStoreRoom.kt:21)" ,
+     
+      "        at org.wit.placemark.views.placemarklist.PlacemarkListPresenter.loadPlacemarks(PlacemarkListPresenter.kt:23)" ,
+     
+      "        at org.wit.placemark.views.placemarklist.PlacemarkListView.onCreate(PlacemarkListView.kt:25)" ,
+     
+      "        at android.app.Activity.performCreate(Activity.java:6679)" ,
+     
+      "        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1118)" ,
+     
+      "        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2618)" ,
+     
+      "        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2726) " ,
+     
+      "        at android.app.ActivityThread.-wrap12(ActivityThread.java) " ,
+     
+      "        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1477) " ,
+     
+      "        at android.os.Handler.dispatchMessage(Handler.java:102) " ,
+     
+      "        at android.os.Looper.loop(Looper.java:154) " ,
+     
+      "        at android.app.ActivityThread.main(ActivityThread.java:6119) " ,
+     
+      "        at java.lang.reflect.Method.invoke(Native Method) " ,
+     
+      "        at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886) " ,
+     
+      "        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)</code></pre>" ,
+     
+      "<p>The report here is:</p>" ,
+     
+      "<pre><code>org.wit.placemark.views.placemarklist.PlacemarkListView}: java.lang.IllegalStateException: Cannot access database on the main thread</code></pre>" ,
+     
+      "<p>Out application has been terminated by Android, as we attempted to access a potentially long running operation (a database lookup) on the main thread.</p>" ,
+     
+      "<p>This is quite a challenging area to get to grips with:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/training/multiple-threads/'>https://developer.android.com/training/multiple-threads/</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>However, as we are using Kotlin - we have a number of language features that can greatly simplify how we do this.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " suspend",
+    "shortTitle": "04",
+    "content": [
+     
+      "<h1>suspend</h1>" ,
+     
+      "<p>Android will not permit access to the database on the main UI thread - as it can seriously degrade performance. </p>" ,
+     
+      "<p>Qhen working with Kotlin we have considerable convenience methods available via the anko libraries when attempting multi-threaded development in Android:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://github.com/Kotlin/anko/wiki/Anko-Coroutines'>https://github.com/Kotlin/anko/wiki/Anko-Coroutines</a></li>" ,
+     
+      "<li><a href='https://antonioleiva.com/anko-background-kotlin-android'>https://antonioleiva.com/anko-background-kotlin-android</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Before brining these features in your our application, we make some changes to the way we have defined the PlacemarkMemStore interface:</p>" ,
+     
+      "<h2>PlacemarkStore</h2>" ,
+     
+      "<pre><code>interface PlacemarkStore {" ,
+     
+      "  suspend fun findAll(): List&lt;PlacemarkModel&gt;" ,
+     
+      "  suspend fun findById(id:Long) : PlacemarkModel?" ,
+     
+      "  suspend fun create(placemark: PlacemarkModel)" ,
+     
+      "  suspend fun update(placemark: PlacemarkModel)" ,
+     
+      "  suspend fun delete(placemark: PlacemarkModel)" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Each method is marked with the keyword <code>suspend</code>. To get an initial understanding of the purpose of this keyword, read this (5 min):</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x68;&#116;&#x74;&#112;&#x73;&#x3a;&#47;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#x63;&#x6f;&#109;&#47;&#64;&#101;&#108;&#121;&#101;&#46;&#x70;&#x72;&#111;&#x6a;&#x65;&#99;&#116;&#x2f;&#117;&#x6e;&#100;&#x65;&#x72;&#115;&#116;&#97;&#110;&#100;&#x69;&#110;&#x67;&#45;&#115;&#x75;&#x73;&#x70;&#x65;&#x6e;&#x64;&#45;&#x66;&#x75;&#110;&#x63;&#116;&#105;&#x6f;&#110;&#45;&#111;&#102;&#45;&#x63;&#x6f;&#x72;&#111;&#x75;&#116;&#x69;&#x6e;&#x65;&#x73;&#45;&#x64;&#x65;&#x32;&#x36;&#x62;&#x30;&#55;&#48;&#x63;&#x35;&#101;&#x64;'>&#x68;&#116;&#x74;&#112;&#x73;&#x3a;&#47;&#x2f;&#109;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#x63;&#x6f;&#109;&#47;&#64;&#101;&#108;&#121;&#101;&#46;&#x70;&#x72;&#111;&#x6a;&#x65;&#99;&#116;&#x2f;&#117;&#x6e;&#100;&#x65;&#x72;&#115;&#116;&#97;&#110;&#100;&#x69;&#110;&#x67;&#45;&#115;&#x75;&#x73;&#x70;&#x65;&#x6e;&#x64;&#45;&#x66;&#x75;&#110;&#x63;&#116;&#105;&#x6f;&#110;&#45;&#111;&#102;&#45;&#x63;&#x6f;&#x72;&#111;&#x75;&#116;&#x69;&#x6e;&#x65;&#x73;&#45;&#x64;&#x65;&#x32;&#x36;&#x62;&#x30;&#55;&#48;&#x63;&#x35;&#101;&#x64;</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>In addition, look at this article (7 mins):</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://android.jlelse.eu/a-first-walk-into-kotlin-coroutines-on-android-fe4a6e25f46a'>https://android.jlelse.eu/a-first-walk-into-kotlin-coroutines-on-android-fe4a6e25f46a</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Making the above change to PlacemarkStore will break the PlacemarkMemStore and PlacemarkJSONStore implementations. Fix them now by marking all of those classes with the equivalent <code>suspend</code> marker:</p>" ,
+     
+      "<pre><code>  suspend override fun findAll(): MutableList&lt;PlacemarkModel&gt; " ,
+     
+      "  ..." ,
+     
+      "  ..." ,
+     
+      "  ...</code></pre>" ,
+     
+      "<p>Rebuild the project - all of the Model classes should build, However, there will be errors in these three presenters:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>PlacemarkPresenter</li>" ,
+     
+      "<li>PlacemarkListPresenter</li>" ,
+     
+      "<li>PlacemarkMapPresenter</li>" ,
+     
+      "</ul>" ,
+     
+      "<p>This is the type of error you may see:</p>" ,
+     
+      "<p><img src='img/04.png' alt=''></p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " PlacemarkStoreRoom",
+    "shortTitle": "05",
+    "content": [
+     
+      "<h1>PlacemarkStoreRoom</h1>" ,
+     
+      "<p>To get the application to function correctly - we need to revise PlacemarkStoreRoom to properly use the background thread for all database access</p>" ,
+     
+      "<h2>PlacemarkStoreRoom</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.room" ,
+     
+      "" ,
+     
+      "import android.content.Context" ,
+     
+      "import androidx.room.Room" ,
+     
+      "import org.jetbrains.anko.coroutines.experimental.bg" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "import org.wit.placemark.models.PlacemarkStore" ,
+     
+      "" ,
+     
+      "class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {" ,
+     
+      "" ,
+     
+      "  var dao: PlacemarkDao" ,
+     
+      "" ,
+     
+      "  init {" ,
+     
+      "    val database = Room.databaseBuilder(context, Database::class.java, &quot;room_sample.db&quot;)" ,
+     
+      "        .fallbackToDestructiveMigration()" ,
+     
+      "        .build()" ,
+     
+      "    dao = database.placemarkDao()" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun findAll(): List&lt;PlacemarkModel&gt; {" ,
+     
+      "    val deferredPlacemarks = bg {" ,
+     
+      "      dao.findAll()" ,
+     
+      "    }" ,
+     
+      "    val placemarks = deferredPlacemarks.await()" ,
+     
+      "    return placemarks" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun findById(id: Long): PlacemarkModel? {" ,
+     
+      "    val deferredPlacemark = bg {" ,
+     
+      "      dao.findById(id)" ,
+     
+      "    }" ,
+     
+      "    val placemark = deferredPlacemark.await()" ,
+     
+      "    return placemark" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun create(placemark: PlacemarkModel) {" ,
+     
+      "    bg {" ,
+     
+      "      dao.create(placemark)" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun update(placemark: PlacemarkModel) {" ,
+     
+      "    bg {" ,
+     
+      "      dao.update(placemark)" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun delete(placemark: PlacemarkModel) {" ,
+     
+      "    bg {" ,
+     
+      "      dao.deletePlacemark(placemark)" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun clear() {" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Each method is now calling the database functions on the background thread via the <code>bg</code> helper:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg'>https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg</a></li>" ,
+     
+      "</ul>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "# async",
+    "shortTitle": "06",
+    "content": [
+     
+      "<h2>async</h2>" ,
+     
+      "<p>To make the presenters work with the revised model, all called to the <code>suspend</code> versions of the PlacemarkStore objects will need to be reconfigured.</p>" ,
+     
+      "<p>Each call to a <code>suspend</code> method will need revision:</p>" ,
+     
+      "<h2>PlacemrkListPresenter</h2>" ,
+     
+      "<pre><code>  fun loadPlacemarks() {" ,
+     
+      "    async(UI) {" ,
+     
+      "      view?.showPlacemarks(app.placemarks.findAll())" ,
+     
+      "    }" ,
+     
+      "  }</code></pre>" ,
+     
+      "<h2>PlacemarkPresenter</h2>" ,
+     
+      "<pre><code>  ..." ,
+     
+      "" ,
+     
+      "  fun doDelete() {" ,
+     
+      "    async(UI) {" ,
+     
+      "      app.placemarks.delete(placemark)" ,
+     
+      "      view?.finish()" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  ..." ,
+     
+      "" ,
+     
+      "  fun doAddOrSave(title: String, description: String) {" ,
+     
+      "    placemark.title = title" ,
+     
+      "    placemark.description = description" ,
+     
+      "    async(UI) {" ,
+     
+      "      if (edit) {" ,
+     
+      "        app.placemarks.update(placemark)" ,
+     
+      "      } else {" ,
+     
+      "        app.placemarks.create(placemark)" ,
+     
+      "      }" ,
+     
+      "      view?.finish()" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  ...</code></pre>" ,
+     
+      "<h2>PlacemarkMapPresenter</h2>" ,
+     
+      "<pre><code>  fun loadPlacemarks() {" ,
+     
+      "    async(UI) {" ,
+     
+      "      view?.showPlacemarks(app.placemarks.findAll())" ,
+     
+      "    }" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>All of these rely on the following imports:</p>" ,
+     
+      "<pre><code>import kotlinx.coroutines.experimental.android.UI" ,
+     
+      "import kotlinx.coroutines.experimental.async</code></pre>" ,
+     
+      "<p>This should rebuild now and run without error</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "# Solution",
+    "shortTitle": "Exercises",
+    "content": [
+     
+      "<h2>Solution</h2>" ,
+     
+      "<p>Placemark application so far:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='archives/archive.zip'>archive.zip</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<h2>Exercise</h2>" ,
+     
+      "<p>Rework the PlacemarkModel so that, instead repeating lat/lng/zoom in each placemark, we embed a Location object. In order to implement this in the context of the Room system, you will need to use the <code>@Embedded</code> annotation:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/reference/android/arch/persistence/room/Embedded'>https://developer.android.com/reference/android/arch/persistence/room/Embedded</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Also, you will also have to adjust the other Store implementations.</p>" ,
+     
+      "" 
+     
+    ]
+    }
+  
+  ]
+  }
+

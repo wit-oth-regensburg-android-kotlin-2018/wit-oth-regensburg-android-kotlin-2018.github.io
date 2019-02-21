@@ -1,0 +1,1207 @@
+
+
+
+  {
+  
+  
+  "type" : "lab",
+  "title" : "Lab-02 Adapters",
+  "folder" : "book-02-adapters",
+  
+    "link" : "book-02-adapters/index.html",
+  
+  "img" : "book-02-adapters/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Introduce new activity to display a list of placemarks. Support adding to this list.</p>",
+  "properties" : {},
+  "los": [  ]
+,
+  "chapters" : [
+  
+    {
+    "title": "Objectives",
+    "shortTitle": "Lab-02 Adapters",
+    "content": [
+     
+      "<h1>Objectives</h1>" ,
+     
+      "<p>Introduce new activity to display a list of placemarks. Support adding to this list.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Exercises Solutions",
+    "shortTitle": "Exercise Solutions",
+    "content": [
+     
+      "<h1>Exercises Solutions</h1>" ,
+     
+      "<h2>Exercise 1:</h2>" ,
+     
+      "<p>Download, expand and open in Studio the sample solution above. Run it in the emulator.</p>" ,
+     
+      "<hr>" ,
+     
+      "<h2>Exercise 2:</h2>" ,
+     
+      "<p>Make sure you can auto import the correct libraries when you introduce referenced. As an exercise, delete all of the imports from PlacemarkActivity:</p>" ,
+     
+      "<hr>" ,
+     
+      "<h2>Exercise 3</h2>" ,
+     
+      "<p>Create an ArrayList of Placemarks in PlacemarkActivity - and add each new activity to this list.</p>" ,
+     
+      "<p>Log all placemarks when a new one is entered.</p>" ,
+     
+      "<p>HINT: Here is a simple placemark array declaration + creation:</p>" ,
+     
+      "<pre><code>  val placemarks = ArrayList&lt;PlacemarkModel&gt;()</code></pre>" ,
+     
+      "<h2>Solution</h2>" ,
+     
+      "<p>Even if you solved the problem - try this version:</p>" ,
+     
+      "<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  var placemark = PlacemarkModel()" ,
+     
+      "  val placemarks = ArrayList&lt;PlacemarkModel&gt;()" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_placemark)" ,
+     
+      "" ,
+     
+      "    btnAdd.setOnClickListener() {" ,
+     
+      "      placemark.title = placemarkTitle.text.toString()" ,
+     
+      "      if (placemark.title.isNotEmpty()) {" ,
+     
+      "        placemarks.add(placemark)" ,
+     
+      "        info(&quot;add Button Pressed: $placemarkTitle&quot;)" ,
+     
+      "        placemarks.forEach { info(&quot;add Button Pressed: ${it.title}&quot;)}" ,
+     
+      "      }" ,
+     
+      "      else {" ,
+     
+      "        toast (&quot;Please Enter a title&quot;)" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Look carefully at this statement:</p>" ,
+     
+      "<pre><code>        placemarks.forEach { info(&quot;add Button Pressed: ${it.title}&quot;)}</code></pre>" ,
+     
+      "<p>What is going on here? This is another example of a Kotlin lambda - this time as a parameter to a forEach function associated with a collection. Review these posts here to get a general feel for how to manipulate collections effectively:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://antonioleiva.com/functional-programming-android-kotlin-lambdas/'>https://antonioleiva.com/functional-programming-android-kotlin-lambdas/</a></li>" ,
+     
+      "<li><a href='https://antonioleiva.com/collection-operations-kotlin/'>https://antonioleiva.com/collection-operations-kotlin/</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>(You may need to bookmark them and come back to them later)</p>" ,
+     
+      "<p>Run the app with this solution - do you notice anything strange? You should see the every time we add a new placemark, we seem to log out the same value for all entries added. This is because we are only ever creating a single placemark :</p>" ,
+     
+      "<pre><code>  var placemark = PlacemarkModel()</code></pre>" ,
+     
+      "<p>Try this version of the add method instead:</p>" ,
+     
+      "<pre><code>        placemarks.add(placemark.copy())</code></pre>" ,
+     
+      "<p>Run again now and check the logs - each entry should be added now as expected.</p>" ,
+     
+      "<hr>" ,
+     
+      "<h2>Exercise 4:</h2>" ,
+     
+      "<p>Create new text field <code>description</code> + log when entered. This will require you to:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>and a new field in the layout</li>" ,
+     
+      "<li>add a new entry in the strings.xml file</li>" ,
+     
+      "<li>expend the model</li>" ,
+     
+      "<li>recover the field in the event handler and include in the model objects</li>" ,
+     
+      "<li>log the new field</li>" ,
+     
+      "</ul>" ,
+     
+      "<h2>Solution</h2>" ,
+     
+      "<h2>strings.xml</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  &lt;string name=&quot;hint_placemarkDescription&quot;&gt;Description &lt;/string&gt;" ,
+     
+      "...</code></pre>" ,
+     
+      "<h2>activity_placemark.xml</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "        &lt;android.support.design.widget.TextInputEditText" ,
+     
+      "            android:id=&quot;@+id/description&quot;" ,
+     
+      "            android:layout_width=&quot;match_parent&quot;" ,
+     
+      "            android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "            android:layout_margin=&quot;8dp&quot;" ,
+     
+      "            android:hint=&quot;@string/hint_placemarkDescription&quot;" ,
+     
+      "            android:inputType=&quot;text&quot;" ,
+     
+      "            android:maxLength=&quot;25&quot;" ,
+     
+      "            android:maxLines=&quot;1&quot;" ,
+     
+      "            android:padding=&quot;8dp&quot;" ,
+     
+      "            android:textColor=&quot;@color/colorPrimaryDark&quot;" ,
+     
+      "            android:textSize=&quot;14sp&quot;/&gt;" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>Make sure to put this into the correct context.</p>" ,
+     
+      "<h2>PlacemarkModel.kt</h2>" ,
+     
+      "<pre><code>data class PlacemarkModel(var title: String = &quot;&quot;," ,
+     
+      "                          var description: String = &quot;&quot;)</code></pre>" ,
+     
+      "<h2>PlacemarkActivity.kt</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "      placemark.description = description.text.toString()" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>Again, make sure to put this into the correct context.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " MainApp",
+    "shortTitle": "02",
+    "content": [
+     
+      "<h1>MainApp</h1>" ,
+     
+      "<p>Create a new package called <code>org.wit.placemark.main</code>, and introduce this class:</p>" ,
+     
+      "<h2>MainApp</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.main" ,
+     
+      "" ,
+     
+      "import android.app.Application" ,
+     
+      "import org.jetbrains.anko.AnkoLogger" ,
+     
+      "import org.jetbrains.anko.info" ,
+     
+      "" ,
+     
+      "class MainApp : Application(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  override fun onCreate() {" ,
+     
+      "    super.onCreate()" ,
+     
+      "    info(&quot;Placemark started&quot;)" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>The package structure should look like this:</p>" ,
+     
+      "<p><img src='img/01.png' alt=''></p>" ,
+     
+      "<p>In addition, change the AndroidManifest to specifically reference this class:</p>" ,
+     
+      "<h2>AndroidManifest.xml</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  &lt;application" ,
+     
+      "      android:name=&quot;org.wit.placemark.main.MainApp&quot;" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>A single instance of this class will be created when our application will be launched. A reference to this application can be acquired in other activities as needed.</p>" ,
+     
+      "<p>Run the app now, and verify that the log message is being generated.</p>" ,
+     
+      "<p>We can now put the placemarks in to this class:</p>" ,
+     
+      "<h2>MainApp</h2>" ,
+     
+      "<pre><code>class MainApp : Application(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  val placemarks = ArrayList&lt;PlacemarkModel&gt;()" ,
+     
+      "" ,
+     
+      "  override fun onCreate() {" ,
+     
+      "    super.onCreate()" ,
+     
+      "    info(&quot;Placemark started&quot;)" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>... and we can adjust PlacemarkActivity to use this list instead of the one we had created in PlacemarkActivity:</p>" ,
+     
+      "<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  var placemark = PlacemarkModel()" ,
+     
+      "  var app : MainApp? = null" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_placemark)" ,
+     
+      "    app = application as MainApp" ,
+     
+      "" ,
+     
+      "    btnAdd.setOnClickListener() {" ,
+     
+      "      placemark.title = placemarkTitle.text.toString()" ,
+     
+      "      placemark.description = description.text.toString()" ,
+     
+      "      if (placemark.title.isNotEmpty()) {" ,
+     
+      "        app!!.placemarks.add(placemark.copy())" ,
+     
+      "        info(&quot;add Button Pressed: $placemarkTitle&quot;)" ,
+     
+      "        app!!.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}" ,
+     
+      "      }" ,
+     
+      "      else {" ,
+     
+      "        toast (&quot;Please Enter a title&quot;)" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<h2>Null Safety</h2>" ,
+     
+      "<p>Notice the the reference to the MainApp object:</p>" ,
+     
+      "<pre><code>  var app : MainApp? = null</code></pre>" ,
+     
+      "<p>How it is initialised:</p>" ,
+     
+      "<pre><code>    app = application as MainApp</code></pre>" ,
+     
+      "<p>and how it is used:</p>" ,
+     
+      "<pre><code>        app!!.placemarks.add(placemark.copy())" ,
+     
+      "        info(&quot;add Button Pressed: $placemarkTitle&quot;)" ,
+     
+      "        app!!.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}</code></pre>" ,
+     
+      "<p>There is liberal use of <code>?</code> and <code>!!</code> in this code. This is an example of Null Safety in action in Kotlin. A key feature of Kotlin - (see point 2 a few pages down):</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://antonioleiva.com/kotlin-for-android-introduction/'>https://antonioleiva.com/kotlin-for-android-introduction/</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>A more detailed outline here </p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://kotlinlang.org/docs/reference/null-safety.html'>https://kotlinlang.org/docs/reference/null-safety.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<h2>lateinit</h2>" ,
+     
+      "<p>Sometimes, we which to override null safety checks - particularly if we are certain that the reference will in fact be initialised. Replace MainApp now with this version:</p>" ,
+     
+      "<h2>PlacemarkActivity</h2>" ,
+     
+      "<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+     
+      "" ,
+     
+      "  var placemark = PlacemarkModel()" ,
+     
+      "  lateinit var app : MainApp" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_placemark)" ,
+     
+      "    app = application as MainApp" ,
+     
+      "" ,
+     
+      "    btnAdd.setOnClickListener() {" ,
+     
+      "      placemark.title = placemarkTitle.text.toString()" ,
+     
+      "      placemark.description = description.text.toString()" ,
+     
+      "      if (placemark.title.isNotEmpty()) {" ,
+     
+      "        app.placemarks.add(placemark.copy())" ,
+     
+      "        info(&quot;add Button Pressed: $placemarkTitle&quot;)" ,
+     
+      "        app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}" ,
+     
+      "      }" ,
+     
+      "      else {" ,
+     
+      "        toast (&quot;Please Enter a title&quot;)" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>The changes an be seen in these lines:</p>" ,
+     
+      "<pre><code>  lateinit var app : MainApp" ,
+     
+      "  ..." ,
+     
+      "      app = application as MainApp" ,
+     
+      "      ... " ,
+     
+      "        app.placemarks.add(placemark.copy())" ,
+     
+      "        ..." ,
+     
+      "        app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}" ,
+     
+      "        ...</code></pre>" ,
+     
+      "<p>This is using the <code>lateint</code> qualifier. See this short discussion here:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://www.bignerdranch.com/blog/kotlin-when-to-use-lazy-or-lateinit/'>https://www.bignerdranch.com/blog/kotlin-when-to-use-lazy-or-lateinit/</a></li>" ,
+     
+      "</ul>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " PlacemarkList",
+    "shortTitle": "03",
+    "content": [
+     
+      "<h1>PlacemarkList</h1>" ,
+     
+      "<p>We need a new Activity to present a list of placemarks - <code>PlacemarkListActivity</code>. Introducing a new view usually requires at lest the following:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>a layout</li>" ,
+     
+      "<li>a class</li>" ,
+     
+      "<li>a reference to the class in AndroidManifest.xml</li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Here are the these three artifacts:</p>" ,
+     
+      "<h2>activity_placemark_list.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;android.support.design.widget.CoordinatorLayout" ,
+     
+      "    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;" ,
+     
+      "    xmlns:tools=&quot;http://schemas.android.com/tools&quot;" ,
+     
+      "    android:layout_width=&quot;match_parent&quot;" ,
+     
+      "    android:layout_height=&quot;match_parent&quot;" ,
+     
+      "    tools:context=&quot;org.wit.placemark.activities.PlacemarkListActivity&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;android.support.design.widget.AppBarLayout" ,
+     
+      "      android:layout_width=&quot;match_parent&quot;" ,
+     
+      "      android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "      android:background=&quot;@color/colorAccent&quot;" ,
+     
+      "      android:fitsSystemWindows=&quot;true&quot;" ,
+     
+      "      app:elevation=&quot;0dip&quot;" ,
+     
+      "      app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;" ,
+     
+      "" ,
+     
+      "    &lt;android.support.v7.widget.Toolbar" ,
+     
+      "        android:id=&quot;@+id/toolbarMain&quot;" ,
+     
+      "        android:layout_width=&quot;match_parent&quot;" ,
+     
+      "        android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "        app:titleTextColor=&quot;@color/colorPrimary&quot;/&gt;" ,
+     
+      "  &lt;/android.support.design.widget.AppBarLayout&gt;" ,
+     
+      "" ,
+     
+      "&lt;/android.support.design.widget.CoordinatorLayout&gt;</code></pre>" ,
+     
+      "<h2>PlacemarkListActivity</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.activities" ,
+     
+      "" ,
+     
+      "import android.support.v7.app.AppCompatActivity" ,
+     
+      "import android.os.Bundle" ,
+     
+      "import org.wit.placemark.R" ,
+     
+      "import org.wit.placemark.main.MainApp" ,
+     
+      "" ,
+     
+      "class PlacemarkListActivity : AppCompatActivity() {" ,
+     
+      "" ,
+     
+      "  lateinit var app: MainApp" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_placemark_list)" ,
+     
+      "    app = application as MainApp" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>Notice in the above, we are retrieving and storing a reference to the MainApp object (for future use).</p>" ,
+     
+      "<h2>AndroidManifest.xml</h2>" ,
+     
+      "<p>This is the current version:</p>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "          package=&quot;org.wit.placemark&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;application" ,
+     
+      "      android:name=&quot;org.wit.placemark.main.MainApp&quot;" ,
+     
+      "      android:allowBackup=&quot;true&quot;" ,
+     
+      "      android:icon=&quot;@mipmap/ic_launcher&quot;" ,
+     
+      "      android:label=&quot;@string/app_name&quot;" ,
+     
+      "      android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;" ,
+     
+      "      android:supportsRtl=&quot;true&quot;" ,
+     
+      "      android:theme=&quot;@style/AppTheme&quot;&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkActivity&quot;&gt;" ,
+     
+      "      &lt;intent-filter&gt;" ,
+     
+      "        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;" ,
+     
+      "" ,
+     
+      "        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;" ,
+     
+      "      &lt;/intent-filter&gt;" ,
+     
+      "    &lt;/activity&gt;" ,
+     
+      "  &lt;/application&gt;" ,
+     
+      "" ,
+     
+      "&lt;/manifest&gt;</code></pre>" ,
+     
+      "<p>This is a revised version - </p>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "          package=&quot;org.wit.placemark&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;application" ,
+     
+      "      android:name=&quot;.main.MainApp&quot;" ,
+     
+      "      android:allowBackup=&quot;true&quot;" ,
+     
+      "      android:icon=&quot;@mipmap/ic_launcher&quot;" ,
+     
+      "      android:label=&quot;@string/app_name&quot;" ,
+     
+      "      android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;" ,
+     
+      "      android:supportsRtl=&quot;true&quot;" ,
+     
+      "      android:theme=&quot;@style/AppTheme&quot;&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkActivity&quot;&gt;" ,
+     
+      "    &lt;/activity&gt;" ,
+     
+      "    &lt;activity android:name=&quot;.activities.PlacemarkListActivity&quot;&gt;" ,
+     
+      "      &lt;intent-filter&gt;" ,
+     
+      "        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;" ,
+     
+      "        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;" ,
+     
+      "      &lt;/intent-filter&gt;" ,
+     
+      "    &lt;/activity&gt;" ,
+     
+      "  &lt;/application&gt;" ,
+     
+      "" ,
+     
+      "&lt;/manifest&gt;</code></pre>" ,
+     
+      "<p>Look carefully at the differences - we have included a new entry:</p>" ,
+     
+      "<pre><code>    &lt;activity android:name=&quot;.activities.PlacemarkListActivity&quot;&gt;" ,
+     
+      "       ..." ,
+     
+      "    &lt;/activity&gt;</code></pre>" ,
+     
+      "<p>and also, this entry is marked as the main activity:</p>" ,
+     
+      "<pre><code>    ..." ,
+     
+      "      &lt;intent-filter&gt;" ,
+     
+      "        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;" ,
+     
+      "        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;" ,
+     
+      "      &lt;/intent-filter&gt;" ,
+     
+      "    ...</code></pre>" ,
+     
+      "<p>Run the app now - you should see the (blank) PlacemarkListActivity</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Card + RecyclerView",
+    "shortTitle": "04",
+    "content": [
+     
+      "<h1>Card + RecyclerView</h1>" ,
+     
+      "<p>To display a list of Placemarks, we will make use of these components:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>CardView</li>" ,
+     
+      "<li>RecyclerView</li>" ,
+     
+      "<li>RecyclerViewAdapter</li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Orchestrating these three is now a familiar patterns in Android development. It is covered briefly in this article here:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/training/material/lists-cards.html'>https://developer.android.com/training/material/lists-cards.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>This is worth a quick read before proceeding.</p>" ,
+     
+      "<h2>CardView</h2>" ,
+     
+      "<p>CardView itself is supported by a library - which must be included now:</p>" ,
+     
+      "<h2>build.gradle</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  implementation &#39;com.android.support:cardview-v7:28.0.0&#39;" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>Here is the cardview itself:</p>" ,
+     
+      "<h2>card_placemark.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;android.support.v7.widget.CardView" ,
+     
+      "    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "    android:layout_width=&quot;match_parent&quot;" ,
+     
+      "    android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "    android:layout_marginBottom=&quot;8dp&quot;" ,
+     
+      "    android:elevation=&quot;24dp&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;RelativeLayout" ,
+     
+      "      android:layout_width=&quot;match_parent&quot;" ,
+     
+      "      android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "      android:padding=&quot;16dp&quot;&gt;" ,
+     
+      "" ,
+     
+      "    &lt;TextView" ,
+     
+      "        android:id=&quot;@+id/placemarkTitle&quot;" ,
+     
+      "        android:layout_width=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_alignParentTop=&quot;true&quot;" ,
+     
+      "        android:textSize=&quot;30sp&quot;/&gt;" ,
+     
+      "" ,
+     
+      "    &lt;TextView" ,
+     
+      "        android:id=&quot;@+id/description&quot;" ,
+     
+      "        android:layout_width=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_height=&quot;wrap_content&quot;" ,
+     
+      "        android:layout_below=&quot;@id/placemarkTitle&quot;/&gt;" ,
+     
+      "" ,
+     
+      "  &lt;/RelativeLayout&gt;" ,
+     
+      "&lt;/android.support.v7.widget.CardView&gt;</code></pre>" ,
+     
+      "<p>When you rebuild the project, you should be able to view the card in design view.</p>" ,
+     
+      "<p>We can insert the cards into the activity_placemark_list layout - by introducing a RecyclerView widget like this:</p>" ,
+     
+      "<h2>activity_placemark_list.xml</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  &lt;android.support.v7.widget.RecyclerView" ,
+     
+      "      android:id=&quot;@+id/recyclerView&quot;" ,
+     
+      "      android:layout_width=&quot;match_parent&quot;" ,
+     
+      "      android:layout_height=&quot;match_parent&quot;" ,
+     
+      "      android:scrollbars=&quot;vertical&quot;" ,
+     
+      "      app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;/&gt;" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>This is to be inserted just before the closing tag.</p>" ,
+     
+      "<h2>RecyclerView + Adapter</h2>" ,
+     
+      "<p>With these resources in place - the PlacemarkListActivity can be reworked to include the RecyclerView + adapter:</p>" ,
+     
+      "<h2>PlacemarkListActivity</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.activities" ,
+     
+      "" ,
+     
+      "import android.support.v7.app.AppCompatActivity" ,
+     
+      "import android.os.Bundle" ,
+     
+      "import android.support.v7.widget.LinearLayoutManager" ,
+     
+      "import android.support.v7.widget.RecyclerView" ,
+     
+      "import android.view.LayoutInflater" ,
+     
+      "import android.view.View" ,
+     
+      "import android.view.ViewGroup" ,
+     
+      "import kotlinx.android.synthetic.main.activity_placemark_list.*" ,
+     
+      "import kotlinx.android.synthetic.main.card_placemark.view.*" ,
+     
+      "import org.wit.placemark.R" ,
+     
+      "import org.wit.placemark.main.MainApp" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "" ,
+     
+      "class PlacemarkListActivity : AppCompatActivity() {" ,
+     
+      "" ,
+     
+      "  lateinit var app: MainApp" ,
+     
+      "" ,
+     
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+     
+      "    super.onCreate(savedInstanceState)" ,
+     
+      "    setContentView(R.layout.activity_placemark_list)" ,
+     
+      "    app = application as MainApp" ,
+     
+      "" ,
+     
+      "    val layoutManager = LinearLayoutManager(this)" ,
+     
+      "    recyclerView.layoutManager = layoutManager" ,
+     
+      "    recyclerView.adapter = PlacemarkAdapter(app.placemarks)" ,
+     
+      "  }" ,
+     
+      "}" ,
+     
+      "" ,
+     
+      "class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkModel&gt;) : RecyclerView.Adapter&lt;PlacemarkAdapter.MainHolder&gt;() {" ,
+     
+      "" ,
+     
+      "  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {" ,
+     
+      "    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun onBindViewHolder(holder: MainHolder, position: Int) {" ,
+     
+      "    val placemark = placemarks[holder.adapterPosition]" ,
+     
+      "    holder.bind(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun getItemCount(): Int = placemarks.size" ,
+     
+      "" ,
+     
+      "  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {" ,
+     
+      "" ,
+     
+      "    fun bind(placemark: PlacemarkModel) {" ,
+     
+      "      itemView.placemarkTitle.text = placemark.title" ,
+     
+      "      itemView.description.text = placemark.description" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>The app should run now - but will still be blank. In MainApp, we can add some test placemarks to test out the Recycler machinery:</p>" ,
+     
+      "<h2>MainApp</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "  override fun onCreate() {" ,
+     
+      "    super.onCreate()" ,
+     
+      "    info(&quot;Placemark started&quot;)" ,
+     
+      "    placemarks.add(PlacemarkModel(&quot;One&quot;, &quot;About one...&quot;))" ,
+     
+      "    placemarks.add(PlacemarkModel(&quot;Two&quot;, &quot;About two...&quot;))" ,
+     
+      "    placemarks.add(PlacemarkModel(&quot;Three&quot;, &quot;About three...&quot;))" ,
+     
+      "  }" ,
+     
+      "...</code></pre>" ,
+     
+      "<p><img src='img/02.png' alt=''></p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Menu & Actionbar",
+    "shortTitle": "05",
+    "content": [
+     
+      "<h1>Menu &amp; Actionbar</h1>" ,
+     
+      "<p>In order to trigger the creation of Placemarks, we need some menu/action mechanic on our home screen. This will be provided by supporing a button/menu an action bar along the top of the PlacemarkListActivity.</p>" ,
+     
+      "<p>First a new string resource:</p>" ,
+     
+      "<h2>stings.xml</h2>" ,
+     
+      "<pre><code>  &lt;string name=&quot;menu_addPlacemark&quot;&gt;Add&lt;/string&gt;</code></pre>" ,
+     
+      "<p>Then a new menu resource:</p>" ,
+     
+      "<h2>menu_main.xml</h2>" ,
+     
+      "<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" ,
+     
+      "&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;" ,
+     
+      "      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;" ,
+     
+      "" ,
+     
+      "  &lt;item" ,
+     
+      "      android:id=&quot;@+id/item_add&quot;" ,
+     
+      "      android:icon=&quot;@android:drawable/ic_menu_add&quot;" ,
+     
+      "      android:title=&quot;@string/menu_addPlacemark&quot;" ,
+     
+      "      app:showAsAction=&quot;always&quot;/&gt;" ,
+     
+      "&lt;/menu&gt;</code></pre>" ,
+     
+      "<p>The above resource must be in its own folder:</p>" ,
+     
+      "<p><img src='img/03.png' alt=''></p>" ,
+     
+      "<p>In the PlacemarkListActivity onCreate method, we must enable the action bar (and give it a title):</p>" ,
+     
+      "<h2>PlacemarkListActivity</h2>" ,
+     
+      "<pre><code>..." ,
+     
+      "    toolbarMain.title = title" ,
+     
+      "    setSupportActionBar(toolbarMain)" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>... and then override the method to load the menu resource:</p>" ,
+     
+      "<pre><code>..." ,
+     
+      "  override fun onCreateOptionsMenu(menu: Menu?): Boolean {" ,
+     
+      "    menuInflater.inflate(R.menu.menu_main, menu)" ,
+     
+      "    return super.onCreateOptionsMenu(menu)" ,
+     
+      "  }" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>This gives us a single button on the action bar:</p>" ,
+     
+      "<p><img src='img/04.png' alt=''></p>" ,
+     
+      "<p>This is the stock icon we are using is </p>" ,
+     
+      "<pre><code>      android:icon=&quot;@android:drawable/ic_menu_add&quot;</code></pre>" ,
+     
+      "<p>This is drawn from this set:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='http://androiddrawables.com/Menu.html'>http://androiddrawables.com/Menu.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>These can change with each release of Android - a comprehensive set of all drawable resources is available here:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='http://androiddrawables.com/'>http://androiddrawables.com/</a></li>" ,
+     
+      "</ul>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Action Implementation",
+    "shortTitle": "06",
+    "content": [
+     
+      "<h1>Action Implementation</h1>" ,
+     
+      "<p>Review this general introduction to App Bar/toolbars here:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/training/appbar/setting-up.html'>https://developer.android.com/training/appbar/setting-up.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>We need to respond to the button press - triggering the launch of the PlacemarkActivity:</p>" ,
+     
+      "<h2>PlacemarkListActivity</h2>" ,
+     
+      "<pre><code>  override fun onOptionsItemSelected(item: MenuItem?): Boolean {" ,
+     
+      "    when (item?.itemId) {" ,
+     
+      "      R.id.item_add -&gt; startActivityForResult&lt;PlacemarkActivity&gt;(0)" ,
+     
+      "    }" ,
+     
+      "    return super.onOptionsItemSelected(item)" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>This implements the menu event handler - and if the event it <code>item_add</code>, we start the PlacemarkActivity.</p>" ,
+     
+      "<p>We are using the anko intent library:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Intents'>https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Intents</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>In this case we are starting an &#39;intent&#39; inside our own application. The intent systems in Android is more general than this - and we can trigger intents serviced by other applications.</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='https://developer.android.com/training/basics/intents/index.html'>https://developer.android.com/training/basics/intents/index.html</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Indeed, we expose an intent to permit one of our activities to be launched.</p>" ,
+     
+      "<p>Run the app now - and add an activity:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li>what happens when add activity is pressed?</li>" ,
+     
+      "<li>what happens when you press the <code>back</code> button from AddActivity?</li>" ,
+     
+      "</ul>" ,
+     
+      "<p>Clearly we are not quite finished yet. In PlacemarkActivity, we need to explicitly finish() the activity - and set a result code:</p>" ,
+     
+      "<pre><code>..." ,
+     
+      "      if (placemark.title.isNotEmpty()) {" ,
+     
+      "        app.placemarks.add(placemark.copy())" ,
+     
+      "        info(&quot;add Button Pressed: $placemarkTitle&quot;)" ,
+     
+      "        app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}" ,
+     
+      "        setResult(AppCompatActivity.RESULT_OK)" ,
+     
+      "        finish()" ,
+     
+      "      }" ,
+     
+      "...</code></pre>" ,
+     
+      "<p>This should end the PlacemarkActivity - and update the List view.</p>" ,
+     
+      "<p>We can remove the test placemarks from MainApp now:</p>" ,
+     
+      "<pre><code>  override fun onCreate() {" ,
+     
+      "    super.onCreate()" ,
+     
+      "    info(&quot;Placemark started&quot;)" ,
+     
+      "    // placemarks.add(PlacemarkModel(&quot;One&quot;, &quot;About one...&quot;))" ,
+     
+      "    // placemarks.add(PlacemarkModel(&quot;Two&quot;, &quot;About two...&quot;))" ,
+     
+      "    // placemarks.add(PlacemarkModel(&quot;Three&quot;, &quot;About three...&quot;))" ,
+     
+      "  }</code></pre>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "Solution",
+    "shortTitle": "Exercises",
+    "content": [
+     
+      "<h1>Solution</h1>" ,
+     
+      "<p>Placemark application so far:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='archives/placemark-02.zip'>placemark-02.zip</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<h2>Exercise 1: Sample Solution</h2>" ,
+     
+      "<p>Make sure you can download and run the sample solution (archive above)</p>" ,
+     
+      "<h2>Exercise 2: Cancel Button</h2>" ,
+     
+      "<p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkListActivity without adding a new Placemark.</p>" ,
+     
+      "<p><img src='img/18.png' alt=''></p>" ,
+     
+      "<p>Follow the steps 05 &amp; 06 in this lab as a guide to doing this. Remember, you will be introducing the menu/action into PlacemarkActivity.</p>" ,
+     
+      "<h2>Exercise 3: Refactor PlacemarkAdapter to its own source file.</h2>" ,
+     
+      "<p>The PlacemarkAdapter class is currently in the same source file as the PlacemarkListActivity class. For clarity and ease of maintenance, move this into its own source file.</p>" ,
+     
+      "" 
+     
+    ]
+    }
+  
+  ]
+  }
+

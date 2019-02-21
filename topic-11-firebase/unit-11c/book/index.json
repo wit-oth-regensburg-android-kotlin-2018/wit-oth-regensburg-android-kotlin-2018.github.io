@@ -1,0 +1,451 @@
+
+
+
+  {
+  
+  
+  "type" : "lab",
+  "title" : "Lab-11c Firebase Storage",
+  "folder" : "book",
+  
+    "link" : "book/index.html",
+  
+  "img" : "book/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Store images in Firebase Storage</p>",
+  "properties" : {},
+  "los": [  ]
+,
+  "chapters" : [
+  
+    {
+    "title": " Objectives",
+    "shortTitle": "Lab-11c Firebase Storage",
+    "content": [
+     
+      "<h1>Objectives</h1>" ,
+     
+      "<p>Store images in Firebase Storage</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Firebase Storage",
+    "shortTitle": "01",
+    "content": [
+     
+      "<h1>Firebase Storage</h1>" ,
+     
+      "<p>In the Firebase Console, select <code>Storage</code>:</p>" ,
+     
+      "<p><img src='img/02.png' alt=''></p>" ,
+     
+      "<p><img src='img/03.png' alt=''></p>" ,
+     
+      "<p>This gives a general purpose file storage area:</p>" ,
+     
+      "<p><img src='img/05.png' alt=''></p>" ,
+     
+      "<p>We will use this to store the placemark images.</p>" ,
+     
+      "<p>In Studio, we now connect our app to the Firebase Storage system:</p>" ,
+     
+      "<p><img src='img/08.png' alt=''></p>" ,
+     
+      "<p>This will update an entry in the google-services.json file, connecting the app to the storeage system.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " Gradle",
+    "shortTitle": "02",
+    "content": [
+     
+      "<h1>Gradle</h1>" ,
+     
+      "<p>To use the new facilities, we need another library:</p>" ,
+     
+      "<h2>build.gradle</h2>" ,
+     
+      "<pre><code>  implementation &quot;com.google.firebase:firebase-storage:$firebase_version&quot;</code></pre>" ,
+     
+      "<p>Rebuild the app now.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": " PlacemarkFireStore",
+    "shortTitle": "03",
+    "content": [
+     
+      "<h1>PlacemarkFireStore</h1>" ,
+     
+      "<p>We can augment PlacemarkFireStore with a new method:</p>" ,
+     
+      "<pre><code>  fun updateImage(placemark: PlacemarkModel) {" ,
+     
+      "    if (placemark.image != &quot;&quot;) {" ,
+     
+      "      val fileName = File(placemark.image)" ,
+     
+      "      val imageName = fileName.getName()" ,
+     
+      "" ,
+     
+      "      var imageRef = st.child(userId + &#39;/&#39; + imageName)" ,
+     
+      "      val baos = ByteArrayOutputStream()" ,
+     
+      "      val bitmap = readImageFromPath(context, placemark.image)" ,
+     
+      "" ,
+     
+      "      bitmap?.let {" ,
+     
+      "        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)" ,
+     
+      "        val data = baos.toByteArray()" ,
+     
+      "        val uploadTask = imageRef.putBytes(data)" ,
+     
+      "        uploadTask.addOnFailureListener {" ,
+     
+      "          println(it.message)" ,
+     
+      "        }.addOnSuccessListener { taskSnapshot -&gt;" ,
+     
+      "          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {" ,
+     
+      "            placemark.image = it.toString()" ,
+     
+      "            db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)" ,
+     
+      "          }" ,
+     
+      "        }" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>This will be called whenever the user selects an image.</p>" ,
+     
+      "<p>This first part will load into a bitmap object the image the user as selected from the gallery:</p>" ,
+     
+      "<pre><code>      val fileName = File(placemark.image)" ,
+     
+      "      val imageName = fileName.getName()" ,
+     
+      "" ,
+     
+      "      var imageRef = st.child(userId + &#39;/&#39; + imageName)" ,
+     
+      "      val baos = ByteArrayOutputStream()" ,
+     
+      "      val bitmap = readImageFromPath(context, placemark.image)</code></pre>" ,
+     
+      "<p>Then, if the bimap successfully loaded, we compress it to save on bandwidth and obtain a reference to the bits:</p>" ,
+     
+      "<pre><code>        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)" ,
+     
+      "        val data = baos.toByteArray()</code></pre>" ,
+     
+      "<p>Then we upload to the firebase storage service:</p>" ,
+     
+      "<pre><code>        uploadTask.addOnFailureListener {" ,
+     
+      "        }.addOnSuccessListener {" ,
+     
+      "        }</code></pre>" ,
+     
+      "<p>If the upload goes successfully:</p>" ,
+     
+      "<pre><code>         { taskSnapshot -&gt;" ,
+     
+      "          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {" ,
+     
+      "            placemark.image = it.toString()" ,
+     
+      "            db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)" ,
+     
+      "          }</code></pre>" ,
+     
+      "<p>we need to obtain a public url where the image is stored, and then place this string into the database entry for the placemark.</p>" ,
+     
+      "<p>This is the complete PlacemarkFireStore at at this stage - including all the code above:</p>" ,
+     
+      "<h2>PlacemarkFireStore</h2>" ,
+     
+      "<pre><code>package org.wit.placemark.models.firebase" ,
+     
+      "" ,
+     
+      "import android.content.Context" ,
+     
+      "import android.graphics.Bitmap" ,
+     
+      "import com.google.firebase.auth.FirebaseAuth" ,
+     
+      "import com.google.firebase.database.*" ,
+     
+      "import com.google.firebase.storage.FirebaseStorage" ,
+     
+      "import com.google.firebase.storage.StorageReference" ,
+     
+      "import org.jetbrains.anko.AnkoLogger" ,
+     
+      "import org.wit.placemark.helpers.readImageFromPath" ,
+     
+      "import org.wit.placemark.models.PlacemarkModel" ,
+     
+      "import org.wit.placemark.models.PlacemarkStore" ,
+     
+      "import java.io.ByteArrayOutputStream" ,
+     
+      "import java.io.File" ,
+     
+      "" ,
+     
+      "class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {" ,
+     
+      "" ,
+     
+      "  val placemarks = ArrayList&lt;PlacemarkModel&gt;()" ,
+     
+      "  lateinit var userId: String" ,
+     
+      "  lateinit var db: DatabaseReference" ,
+     
+      "  lateinit var st: StorageReference" ,
+     
+      "" ,
+     
+      "  suspend override fun findAll(): List&lt;PlacemarkModel&gt; {" ,
+     
+      "    return placemarks" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun findById(id: Long): PlacemarkModel? {" ,
+     
+      "    val foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == id }" ,
+     
+      "    return foundPlacemark" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun create(placemark: PlacemarkModel) {" ,
+     
+      "    val key = db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).push().key" ,
+     
+      "    key?.let {" ,
+     
+      "      placemark.fbId = key" ,
+     
+      "      placemarks.add(placemark)" ,
+     
+      "      db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(key).setValue(placemark)" ,
+     
+      "      updateImage(placemark)" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun update(placemark: PlacemarkModel) {" ,
+     
+      "    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.fbId == placemark.fbId }" ,
+     
+      "    if (foundPlacemark != null) {" ,
+     
+      "      foundPlacemark.title = placemark.title" ,
+     
+      "      foundPlacemark.description = placemark.description" ,
+     
+      "      foundPlacemark.image = placemark.image" ,
+     
+      "      foundPlacemark.location = placemark.location" ,
+     
+      "    }" ,
+     
+      "" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)" ,
+     
+      "    if ((placemark.image.length) &gt; 0 &amp;&amp; (placemark.image[0] != &#39;h&#39;)) {" ,
+     
+      "      updateImage(placemark)" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  suspend override fun delete(placemark: PlacemarkModel) {" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).removeValue()" ,
+     
+      "    placemarks.remove(placemark)" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  override fun clear() {" ,
+     
+      "    placemarks.clear()" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun updateImage(placemark: PlacemarkModel) {" ,
+     
+      "    if (placemark.image != &quot;&quot;) {" ,
+     
+      "      val fileName = File(placemark.image)" ,
+     
+      "      val imageName = fileName.getName()" ,
+     
+      "" ,
+     
+      "      var imageRef = st.child(userId + &#39;/&#39; + imageName)" ,
+     
+      "      val baos = ByteArrayOutputStream()" ,
+     
+      "      val bitmap = readImageFromPath(context, placemark.image)" ,
+     
+      "" ,
+     
+      "      bitmap?.let {" ,
+     
+      "        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)" ,
+     
+      "        val data = baos.toByteArray()" ,
+     
+      "        val uploadTask = imageRef.putBytes(data)" ,
+     
+      "        uploadTask.addOnFailureListener {" ,
+     
+      "          println(it.message)" ,
+     
+      "        }.addOnSuccessListener { taskSnapshot -&gt;" ,
+     
+      "          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {" ,
+     
+      "            placemark.image = it.toString()" ,
+     
+      "            db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)" ,
+     
+      "          }" ,
+     
+      "        }" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "  }" ,
+     
+      "" ,
+     
+      "  fun fetchPlacemarks(placemarksReady: () -&gt; Unit) {" ,
+     
+      "    val valueEventListener = object : ValueEventListener {" ,
+     
+      "      override fun onCancelled(dataSnapshot: DatabaseError) {" ,
+     
+      "      }" ,
+     
+      "      override fun onDataChange(dataSnapshot: DataSnapshot) {" ,
+     
+      "        dataSnapshot!!.children.mapNotNullTo(placemarks) { it.getValue&lt;PlacemarkModel&gt;(PlacemarkModel::class.java) }" ,
+     
+      "        placemarksReady()" ,
+     
+      "      }" ,
+     
+      "    }" ,
+     
+      "    userId = FirebaseAuth.getInstance().currentUser!!.uid" ,
+     
+      "    db = FirebaseDatabase.getInstance().reference" ,
+     
+      "    st = FirebaseStorage.getInstance().reference" ,
+     
+      "    placemarks.clear()" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).addListenerForSingleValueEvent(valueEventListener)" ,
+     
+      "  }" ,
+     
+      "}</code></pre>" ,
+     
+      "<p>If you try this out now, and look at the Firebase Database console:</p>" ,
+     
+      "<p><img src='img/09.png' alt=''></p>" ,
+     
+      "<p>You should see a firebase storage url in the image field.</p>" ,
+     
+      "<p>This is a public url - so you should be able to copy this url and paste it into a browser and retrieve the image.</p>" ,
+     
+      "" 
+     
+    ]
+    },
+  
+    {
+    "title": "Solution",
+    "shortTitle": "Exercises",
+    "content": [
+     
+      "<h1>Solution</h1>" ,
+     
+      "<p>Placemark application so far:</p>" ,
+     
+      "<ul>" ,
+     
+      "<li><a href='archives/archive.zip'>archive.zip</a></li>" ,
+     
+      "</ul>" ,
+     
+      "<h2>Exercise : delete</h2>" ,
+     
+      "<p>Currently when a placemark is deleted it is only removed from the database:</p>" ,
+     
+      "<pre><code>  suspend override fun delete(placemark: PlacemarkModel) {" ,
+     
+      "    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).removeValue()" ,
+     
+      "    placemarks.remove(placemark)" ,
+     
+      "  }</code></pre>" ,
+     
+      "<p>Change this to also remove the image (if any)</p>" ,
+     
+      "" 
+     
+    ]
+    }
+  
+  ]
+  }
+

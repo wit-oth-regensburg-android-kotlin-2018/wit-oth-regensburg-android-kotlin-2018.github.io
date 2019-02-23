@@ -6,15 +6,18 @@
   
   "type" : "lab",
   "title" : "Lab-09a Location",
-  "folder" : "book-1-location",
-  
-    "link" : "book-1-location/index.html",
-  
   "img" : "book-1-location/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>When creating a new placemark, use the current location as the starting point.</p>",
   "properties" : {},
-  "los": [  ]
+    
+      "folder" : "book-1-location",
+    
+    
+      "link" : "book-1-location/index.html",
+    
+  "los": [
+     ]
 ,
   "chapters" : [
   
@@ -29,6 +32,17 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Objectives" ,
+    
+      "" ,
+    
+      "When creating a new placemark, use the current location as the starting point." ,
+    
+      "" 
+    
     ]
     },
   
@@ -263,6 +277,255 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Solutions" ,
+    
+      "" ,
+    
+      "# Exercise 1" ,
+    
+      "" ,
+    
+      "Using this lab as a guide, convert PlacemarkMapView/Presenter to use the PlacemarkView/Presenter base classes" ,
+    
+      "" ,
+    
+      "## Solution" ,
+    
+      "" ,
+    
+      "## PlacemarkMapPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.views.map" ,
+    
+      "" ,
+    
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.model.LatLng" ,
+    
+      "import com.google.android.gms.maps.model.Marker" ,
+    
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "import org.wit.placemark.views.BasePresenter" ,
+    
+      "import org.wit.placemark.views.BaseView" ,
+    
+      "" ,
+    
+      "class PlacemarkMapPresenter(view: BaseView) : BasePresenter(view) {" ,
+    
+      "" ,
+    
+      "  fun doPopulateMap(map: GoogleMap, placemarks: List<PlacemarkModel>) {" ,
+    
+      "    map.uiSettings.setZoomControlsEnabled(true)" ,
+    
+      "    placemarks.forEach {" ,
+    
+      "      val loc = LatLng(it.lat, it.lng)" ,
+    
+      "      val options = MarkerOptions().title(it.title).position(loc)" ,
+    
+      "      map.addMarker(options).tag = it.id" ,
+    
+      "      map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doMarkerSelected(marker: Marker) {" ,
+    
+      "    val tag = marker.tag as Long" ,
+    
+      "    val placemark = app.placemarks.findById(tag)" ,
+    
+      "    if (placemark != null) view?.showPlacemark(placemark)" ,
+    
+      "" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun loadPlacemarks() {" ,
+    
+      "    view?.showPlacemarks(app.placemarks.findAll())" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## PlacemarkMapView" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.views.map" ,
+    
+      "" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.model.Marker" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark_map.*" ,
+    
+      "import kotlinx.android.synthetic.main.content_placemark_map.*" ,
+    
+      "import org.wit.placemark.helpers.readImageFromPath" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "import org.wit.placemark.views.BaseView" ,
+    
+      "" ,
+    
+      "class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {" ,
+    
+      "" ,
+    
+      "  lateinit var presenter: PlacemarkMapPresenter" ,
+    
+      "  lateinit var map : GoogleMap" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark_map)" ,
+    
+      "    super.init(toolbarMaps)" ,
+    
+      "" ,
+    
+      "    presenter = initPresenter (PlacemarkMapPresenter(this)) as PlacemarkMapPresenter" ,
+    
+      "" ,
+    
+      "    mapView.onCreate(savedInstanceState);" ,
+    
+      "    mapView.getMapAsync {" ,
+    
+      "      map = it" ,
+    
+      "      map.setOnMarkerClickListener(this)" ,
+    
+      "      presenter.loadPlacemarks()" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun showPlacemark(placemark: PlacemarkModel) {" ,
+    
+      "    currentTitle.text = placemark.title" ,
+    
+      "    currentDescription.text = placemark.description" ,
+    
+      "    imageView.setImageBitmap(readImageFromPath(this, placemark.image))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun showPlacemarks(placemarks: List<PlacemarkModel>) {" ,
+    
+      "    presenter.doPopulateMap(map, placemarks)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    presenter.doMarkerSelected(marker)" ,
+    
+      "    return true" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onDestroy() {" ,
+    
+      "    super.onDestroy()" ,
+    
+      "    mapView.onDestroy()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onLowMemory() {" ,
+    
+      "    super.onLowMemory()" ,
+    
+      "    mapView.onLowMemory()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onPause() {" ,
+    
+      "    super.onPause()" ,
+    
+      "    mapView.onPause()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onResume() {" ,
+    
+      "    super.onResume()" ,
+    
+      "    mapView.onResume()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onSaveInstanceState(outState: Bundle?) {" ,
+    
+      "    super.onSaveInstanceState(outState)" ,
+    
+      "    mapView.onSaveInstanceState(outState)" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" 
+    
     ]
     },
   
@@ -455,6 +718,213 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Solutions" ,
+    
+      "" ,
+    
+      "# Exercise 2" ,
+    
+      "" ,
+    
+      "Also convert EditLoctionView/Presenter to use the base classes" ,
+    
+      "" ,
+    
+      "## Solution" ,
+    
+      "" ,
+    
+      "## EditLocationPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "import org.wit.placemark.views.BasePresenter" ,
+    
+      "import org.wit.placemark.views.BaseView" ,
+    
+      "" ,
+    
+      "class EditLocationPresenter(view: BaseView) : BasePresenter(view) {" ,
+    
+      "" ,
+    
+      "  var location = Location()" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    location = view.intent.extras.getParcelable<Location>('location')" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doConfigureMap(map: GoogleMap) {" ,
+    
+      "    val loc = LatLng(location.lat, location.lng)" ,
+    
+      "    val options = MarkerOptions()" ,
+    
+      "        .title('Placemark')" ,
+    
+      "        .snippet('GPS : ' + loc.toString())" ,
+    
+      "        .draggable(true)" ,
+    
+      "        .position(loc)" ,
+    
+      "    map.addMarker(options)" ,
+    
+      "    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doUpdateLocation(lat: Double, lng: Double) {" ,
+    
+      "    location.lat = lat" ,
+    
+      "    location.lng = lng" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSave() {" ,
+    
+      "    val resultIntent = Intent()" ,
+    
+      "    resultIntent.putExtra('location', location)" ,
+    
+      "    view?.setResult(0, resultIntent)" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doUpdateMarker(marker: Marker) {" ,
+    
+      "    val loc = LatLng(location.lat, location.lng)" ,
+    
+      "    marker.setSnippet('GPS : ' + loc.toString())" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## EditLocationView" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.views.editlocation" ,
+    
+      "" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.SupportMapFragment" ,
+    
+      "import com.google.android.gms.maps.model.Marker" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.views.BaseView" ,
+    
+      "" ,
+    
+      "class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {" ,
+    
+      "" ,
+    
+      "  lateinit var map: GoogleMap" ,
+    
+      "  lateinit var presenter: EditLocationPresenter" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_maps)" ,
+    
+      "    val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment" ,
+    
+      "    presenter = EditLocationPresenter(this)" ,
+    
+      "    mapFragment.getMapAsync {" ,
+    
+      "      map = it" ,
+    
+      "      map.setOnMarkerDragListener(this)" ,
+    
+      "      map.setOnMarkerClickListener(this)" ,
+    
+      "      presenter.doConfigureMap(map)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDragStart(marker: Marker) {}" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDrag(marker: Marker) {}" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDragEnd(marker: Marker) {" ,
+    
+      "    presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onBackPressed() {" ,
+    
+      "    presenter.doSave()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    presenter.doUpdateMarker(marker)" ,
+    
+      "    return false" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" 
+    
     ]
     },
   
@@ -707,6 +1177,271 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# MapView" ,
+    
+      "" ,
+    
+      "Using the Layout Editor, restructure activity_placemark to contain a MapView:" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "![](img/03.png)" ,
+    
+      "" ,
+    
+      "This is the layout file:" ,
+    
+      "" ,
+    
+      "## activity_placemark.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "  xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "  xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "  xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "  android:layout_width='match_parent'" ,
+    
+      "  android:layout_height='match_parent'" ,
+    
+      "  tools:context='org.wit.placemark.views.placemark.PlacemarkView'>" ,
+    
+      "" ,
+    
+      "  <android.support.design.widget.AppBarLayout" ,
+    
+      "    android:id='@+id/appBarLayout'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='wrap_content'" ,
+    
+      "    android:background='@color/colorAccent'" ,
+    
+      "    android:fitsSystemWindows='true'" ,
+    
+      "    app:elevation='0dip'" ,
+    
+      "    app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "    <android.support.v7.widget.Toolbar" ,
+    
+      "      android:id='@+id/toolbarAdd'" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      app:titleTextColor='@color/colorPrimary' />" ,
+    
+      "" ,
+    
+      "  </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "  <android.support.constraint.ConstraintLayout" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='600dp'" ,
+    
+      "    android:layout_marginEnd='8dp'" ,
+    
+      "    android:layout_marginStart='8dp'" ,
+    
+      "    app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "    app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "    app:layout_constraintTop_toTopOf='parent'>" ,
+    
+      "" ,
+    
+      "    <EditText" ,
+    
+      "      android:id='@+id/placemarkTitle'" ,
+    
+      "      android:layout_width='365dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='64dp'" ,
+    
+      "      android:ems='10'" ,
+    
+      "      android:hint='@string/hint_placemarkTitle'" ,
+    
+      "      android:inputType='text'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintHorizontal_bias='0.503'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toTopOf='parent' />" ,
+    
+      "" ,
+    
+      "    <EditText" ,
+    
+      "      android:id='@+id/description'" ,
+    
+      "      android:layout_width='365dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:ems='10'" ,
+    
+      "      android:hint='@string/hint_placemarkDescription'" ,
+    
+      "      android:inputType='textPersonName'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/placemarkTitle' />" ,
+    
+      "" ,
+    
+      "    <Button" ,
+    
+      "      android:id='@+id/chooseImage'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:text='@string/button_addImage'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/description' />" ,
+    
+      "" ,
+    
+      "    <Button" ,
+    
+      "      android:id='@+id/placemarkLocation'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:text='@string/button_location'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/placemarkImage' />" ,
+    
+      "" ,
+    
+      "    <ImageView" ,
+    
+      "      android:id='@+id/placemarkImage'" ,
+    
+      "      android:layout_width='355dp'" ,
+    
+      "      android:layout_height='139dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='16dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintHorizontal_bias='0.0'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/chooseImage'" ,
+    
+      "      app:srcCompat='@drawable/ic_launcher_background' />" ,
+    
+      "" ,
+    
+      "    <com.google.android.gms.maps.MapView" ,
+    
+      "      android:id='@+id/mapView'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='163dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginBottom='8dp'" ,
+    
+      "      app:layout_constraintBottom_toBottomOf='parent'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/placemarkLocation' />" ,
+    
+      "" ,
+    
+      "  </android.support.constraint.ConstraintLayout>" ,
+    
+      "" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -1083,6 +1818,429 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## PlacemarkView" ,
+    
+      "" ,
+    
+      "We should be familiar with manually managing a MapView component, which involves:" ,
+    
+      "" ,
+    
+      "- declaring a GoogleMap reference" ,
+    
+      "- initialising the mapView widget + using it to acquire the googleMap reference" ,
+    
+      "- manage the mapView lifecycle" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "class PlacemarkView : BaseView(), AnkoLogger {" ,
+    
+      "  ..." ,
+    
+      "  lateinit var map: GoogleMap" ,
+    
+      "  ..." ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    ..." ,
+    
+      "    mapView.onCreate(savedInstanceState);" ,
+    
+      "    mapView.getMapAsync {" ,
+    
+      "      map = it" ,
+    
+      "      presenter.doConfigureMap(map)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  ..." ,
+    
+      "" ,
+    
+      "  override fun onDestroy() {" ,
+    
+      "    super.onDestroy()" ,
+    
+      "    mapView.onDestroy()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onLowMemory() {" ,
+    
+      "    super.onLowMemory()" ,
+    
+      "    mapView.onLowMemory()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onPause() {" ,
+    
+      "    super.onPause()" ,
+    
+      "    mapView.onPause()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onResume() {" ,
+    
+      "    super.onResume()" ,
+    
+      "    mapView.onResume()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onSaveInstanceState(outState: Bundle?) {" ,
+    
+      "    super.onSaveInstanceState(outState)" ,
+    
+      "    mapView.onSaveInstanceState(outState)" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {" ,
+    
+      "" ,
+    
+      "  var map: GoogleMap? = null" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "  fun doConfigureMap(m: GoogleMap) {" ,
+    
+      "    map = m" ,
+    
+      "    locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun locationUpdate(lat: Double, lng: Double) {" ,
+    
+      "    placemark.lat = lat" ,
+    
+      "    placemark.lng = lng" ,
+    
+      "    placemark.zoom = 15f" ,
+    
+      "    map?.clear()" ,
+    
+      "    map?.uiSettings?.setZoomControlsEnabled(true)" ,
+    
+      "    val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.lat, placemark.lng))" ,
+    
+      "    map?.addMarker(options)" ,
+    
+      "    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.lat, placemark.lng), placemark.zoom))" ,
+    
+      "    view?.showPlacemark(placemark)" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This will ensure that the marker is placed on the map correctly - if the placemark already exists. For a new placemark, we would need to take special measures:" ,
+    
+      "" ,
+    
+      "In the init block, if we are not in edit mode, set the location to the default:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  init {" ,
+    
+      "    if (view.intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = view.intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      view.showPlacemark(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      placemark.lat = defaultLocation.lat" ,
+    
+      "      placemark.lng = defaultLocation.lng" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Also, when the user has edited the location - make sure to also update the position:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {" ,
+    
+      "    ..." ,
+    
+      "    ..." ,
+    
+      "      LOCATION_REQUEST -> {" ,
+    
+      "        val location = data.extras.getParcelable<Location>('location')" ,
+    
+      "        placemark.lat = location.lat" ,
+    
+      "        placemark.lng = location.lng" ,
+    
+      "        placemark.zoom = location.zoom" ,
+    
+      "        locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~  " ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "This is the complete class at this stage:" ,
+    
+      "" ,
+    
+      "## PlacemarkPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {" ,
+    
+      "" ,
+    
+      "  var map: GoogleMap? = null" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "  var defaultLocation = Location(52.245696, -7.139102, 15f)" ,
+    
+      "  var edit = false;" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    if (view.intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = view.intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      view.showPlacemark(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      placemark.lat = defaultLocation.lat" ,
+    
+      "      placemark.lng = defaultLocation.lng" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doConfigureMap(m: GoogleMap) {" ,
+    
+      "    map = m" ,
+    
+      "    locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun locationUpdate(lat: Double, lng: Double) {" ,
+    
+      "    placemark.lat = lat" ,
+    
+      "    placemark.lng = lng" ,
+    
+      "    placemark.zoom = 15f" ,
+    
+      "    map?.clear()" ,
+    
+      "    map?.uiSettings?.setZoomControlsEnabled(true)" ,
+    
+      "    val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.lat, placemark.lng))" ,
+    
+      "    map?.addMarker(options)" ,
+    
+      "    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.lat, placemark.lng), placemark.zoom))" ,
+    
+      "    view?.showPlacemark(placemark)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doAddOrSave(title: String, description: String) {" ,
+    
+      "    placemark.title = title" ,
+    
+      "    placemark.description = description" ,
+    
+      "    if (edit) {" ,
+    
+      "      app.placemarks.update(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      app.placemarks.create(placemark)" ,
+    
+      "    }" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doCancel() {" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doDelete() {" ,
+    
+      "    app.placemarks.delete(placemark)" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSelectImage() {" ,
+    
+      "     view?.let{" ,
+    
+      "       showImagePicker(view!!, IMAGE_REQUEST)" ,
+    
+      "     }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSetLocation() {" ,
+    
+      "    if (edit == false) {" ,
+    
+      "      view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, 'location', defaultLocation)" ,
+    
+      "    } else {" ,
+    
+      "      view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, 'location', Location(placemark.lat, placemark.lng, placemark.zoom))" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {" ,
+    
+      "    when (requestCode) {" ,
+    
+      "      IMAGE_REQUEST -> {" ,
+    
+      "        placemark.image = data.data.toString()" ,
+    
+      "        view?.showPlacemark(placemark)" ,
+    
+      "      }" ,
+    
+      "      LOCATION_REQUEST -> {" ,
+    
+      "        val location = data.extras.getParcelable<Location>('location')" ,
+    
+      "        placemark.lat = location.lat" ,
+    
+      "        placemark.lng = location.lng" ,
+    
+      "        placemark.zoom = location.zoom" ,
+    
+      "        locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "It still does not determine the actual current location." ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -1177,6 +2335,119 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Location Libraries" ,
+    
+      "" ,
+    
+      "In order to determine the current location, we need the google play service location libraries:" ,
+    
+      "" ,
+    
+      "## gradle" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  implementation 'com.google.android.gms:play-services-location:16.0.0'" ,
+    
+      "...  " ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "We also need this new helper class:" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## LocationHelpers" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.helpers" ,
+    
+      "" ,
+    
+      "import android.Manifest" ,
+    
+      "import android.app.Activity" ,
+    
+      "import android.content.pm.PackageManager" ,
+    
+      "import android.support.v4.app.ActivityCompat" ,
+    
+      "import android.util.Log" ,
+    
+      "" ,
+    
+      "val REQUEST_PERMISSIONS_REQUEST_CODE = 34" ,
+    
+      "" ,
+    
+      "fun checkLocationPermissions(activity: Activity) : Boolean {" ,
+    
+      "  if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {" ,
+    
+      "    return true" ,
+    
+      "  }" ,
+    
+      "  else {" ,
+    
+      "    ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSIONS_REQUEST_CODE)" ,
+    
+      "    return false" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "" ,
+    
+      "fun isPermissionGranted(code: Int, grantResults: IntArray): Boolean {" ,
+    
+      "  var permissionGranted = false;" ,
+    
+      "  if (code == REQUEST_PERMISSIONS_REQUEST_CODE) {" ,
+    
+      "    when {" ,
+    
+      "      grantResults.isEmpty() -> Log.i('Location', 'User interaction was cancelled.')" ,
+    
+      "      (grantResults[0] == PackageManager.PERMISSION_GRANTED) -> {" ,
+    
+      "        permissionGranted = true" ,
+    
+      "        Log.i('Location', 'Permission Granted.')" ,
+    
+      "      }" ,
+    
+      "      else -> Log.i('Location', 'Permission Denied.')" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "  return permissionGranted" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -1479,6 +2750,351 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Location Permissions" ,
+    
+      "" ,
+    
+      "If we wish to access the devices current location, we will need to prompt the user to grant this permission - and be able to proceed in an orderly manner if this permission is denied." ,
+    
+      "" ,
+    
+      "First, in the presenter, acquire a reference to the location provider client:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Th init block is modified to check to see if permission is requires (or already has been granted):" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  init {" ,
+    
+      "    if (view.intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = view.intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      view.showPlacemark(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      if (checkLocationPermissions(view)) {" ,
+    
+      "        // todo get the current location" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This method will be called with the users response to the permissions dialog:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {" ,
+    
+      "    if (isPermissionGranted(requestCode, grantResults)) {" ,
+    
+      "      // todo get the current location" ,
+    
+      "    } else {" ,
+    
+      "      // permissions denied, so use the default location" ,
+    
+      "      locationUpdate(defaultLocation.lat, defaultLocation.lng)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "Run the application now - when you create a new placemark you should see this dialog:" ,
+    
+      "" ,
+    
+      "![](img/01x.png)" ,
+    
+      "" ,
+    
+      "Close the app and run it again. Does the dialog appear? (it doesnt)." ,
+    
+      "" ,
+    
+      "Now, close the app and delete from the phone. Rerun - and the dialog will reappear. Android is persisting the permission request/response, only displaying once." ,
+    
+      "" ,
+    
+      "This is the presenter at this stage (we still are not acquiring the current location)" ,
+    
+      "" ,
+    
+      "## PlacemarkPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.views.placemark" ,
+    
+      "" ,
+    
+      "import android.annotation.SuppressLint" ,
+    
+      "import android.content.Intent" ,
+    
+      "import com.google.android.gms.location.FusedLocationProviderClient" ,
+    
+      "import com.google.android.gms.location.LocationServices" ,
+    
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.model.LatLng" ,
+    
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+    
+      "import kotlinx.android.synthetic.main.activity_maps.*" ,
+    
+      "import org.wit.placemark.helpers.checkLocationPermissions" ,
+    
+      "import org.wit.placemark.helpers.isPermissionGranted" ,
+    
+      "import org.wit.placemark.helpers.showImagePicker" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "import org.wit.placemark.views.*" ,
+    
+      "" ,
+    
+      "class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {" ,
+    
+      "" ,
+    
+      "  var map: GoogleMap? = null" ,
+    
+      "  var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)" ,
+    
+      "" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "  var defaultLocation = Location(52.245696, -7.139102, 15f)" ,
+    
+      "  var edit = false;" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    if (view.intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = view.intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      view.showPlacemark(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      if (checkLocationPermissions(view)) {" ,
+    
+      "        // todo get the current location" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doConfigureMap(m: GoogleMap) {" ,
+    
+      "    map = m" ,
+    
+      "    locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun locationUpdate(lat: Double, lng: Double) {" ,
+    
+      "    placemark.lat = lat" ,
+    
+      "    placemark.lng = lng" ,
+    
+      "    placemark.zoom = 15f" ,
+    
+      "    map?.clear()" ,
+    
+      "    map?.uiSettings?.setZoomControlsEnabled(true)" ,
+    
+      "    val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.lat, placemark.lng))" ,
+    
+      "    map?.addMarker(options)" ,
+    
+      "    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.lat, placemark.lng), placemark.zoom))" ,
+    
+      "    view?.showPlacemark(placemark)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {" ,
+    
+      "    if (isPermissionGranted(requestCode, grantResults)) {" ,
+    
+      "      // todo get the current location" ,
+    
+      "    } else {" ,
+    
+      "      // permissions denied, so use the default location" ,
+    
+      "      locationUpdate(defaultLocation.lat, defaultLocation.lng)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doAddOrSave(title: String, description: String) {" ,
+    
+      "    placemark.title = title" ,
+    
+      "    placemark.description = description" ,
+    
+      "    if (edit) {" ,
+    
+      "      app.placemarks.update(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      app.placemarks.create(placemark)" ,
+    
+      "    }" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doCancel() {" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doDelete() {" ,
+    
+      "    app.placemarks.delete(placemark)" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSelectImage() {" ,
+    
+      "    view?.let {" ,
+    
+      "      showImagePicker(view!!, IMAGE_REQUEST)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSetLocation() {" ,
+    
+      "    if (edit == false) {" ,
+    
+      "      view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, 'location', defaultLocation)" ,
+    
+      "    } else {" ,
+    
+      "      view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, 'location', Location(placemark.lat, placemark.lng, placemark.zoom))" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {" ,
+    
+      "    when (requestCode) {" ,
+    
+      "      IMAGE_REQUEST -> {" ,
+    
+      "        placemark.image = data.data.toString()" ,
+    
+      "        view?.showPlacemark(placemark)" ,
+    
+      "      }" ,
+    
+      "      LOCATION_REQUEST -> {" ,
+    
+      "        val location = data.extras.getParcelable<Location>('location')" ,
+    
+      "        placemark.lat = location.lat" ,
+    
+      "        placemark.lng = location.lng" ,
+    
+      "        placemark.zoom = location.zoom" ,
+    
+      "        locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -1777,6 +3393,345 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Requesting the Current Location" ,
+    
+      "" ,
+    
+      "Introduce this new method into the presenter:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  @SuppressLint('MissingPermission')" ,
+    
+      "  fun doSetCurrentLocation() {" ,
+    
+      "    locationService.lastLocation.addOnSuccessListener {" ,
+    
+      "      locationUpdate(it.latitude, it.longitude)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "In the init block, we can now call this method:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "      if (checkLocationPermissions(view)) {" ,
+    
+      "        doSetCurrentLocation()" ,
+    
+      "      }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Finally, we can complete the permissions response:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {" ,
+    
+      "    if (isPermissionGranted(requestCode, grantResults)) {" ,
+    
+      "      doSetCurrentLocation()" ,
+    
+      "    } else {" ,
+    
+      "      locationUpdate(defaultLocation.lat, defaultLocation.lng)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Also, our doSetLocation can be simplified:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  fun doSetLocation() {" ,
+    
+      "    view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, 'location', Location(placemark.lat, placemark.lng, placemark.zoom))" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "Testing this in the emulator, you do have the ability to set the simulator location:" ,
+    
+      "" ,
+    
+      "![](img/02x.png)" ,
+    
+      "" ,
+    
+      "However, if you change the location it might take a few minutes before it percolates into the location provider." ,
+    
+      "" ,
+    
+      "This is the complete Presenter at this stage:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.views.placemark" ,
+    
+      "" ,
+    
+      "import android.annotation.SuppressLint" ,
+    
+      "import android.content.Intent" ,
+    
+      "import com.google.android.gms.location.FusedLocationProviderClient" ,
+    
+      "import com.google.android.gms.location.LocationServices" ,
+    
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.model.LatLng" ,
+    
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+    
+      "import org.wit.placemark.helpers.checkLocationPermissions" ,
+    
+      "import org.wit.placemark.helpers.isPermissionGranted" ,
+    
+      "import org.wit.placemark.helpers.showImagePicker" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "import org.wit.placemark.views.*" ,
+    
+      "" ,
+    
+      "class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {" ,
+    
+      "" ,
+    
+      "  var map: GoogleMap? = null" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "  var defaultLocation = Location(52.245696, -7.139102, 15f)" ,
+    
+      "  var edit = false;" ,
+    
+      "  var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    if (view.intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = view.intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      view.showPlacemark(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      if (checkLocationPermissions(view)) {" ,
+    
+      "        doSetCurrentLocation()" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  @SuppressLint('MissingPermission')" ,
+    
+      "  fun doSetCurrentLocation() {" ,
+    
+      "    locationService.lastLocation.addOnSuccessListener {" ,
+    
+      "      locationUpdate(it.latitude, it.longitude)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {" ,
+    
+      "    if (isPermissionGranted(requestCode, grantResults)) {" ,
+    
+      "      doSetCurrentLocation()" ,
+    
+      "    } else {" ,
+    
+      "      locationUpdate(defaultLocation.lat, defaultLocation.lng)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doConfigureMap(m: GoogleMap) {" ,
+    
+      "    map = m" ,
+    
+      "    locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun locationUpdate(lat: Double, lng: Double) {" ,
+    
+      "    placemark.lat = lat" ,
+    
+      "    placemark.lng = lng" ,
+    
+      "    placemark.zoom = 15f" ,
+    
+      "    map?.clear()" ,
+    
+      "    map?.uiSettings?.setZoomControlsEnabled(true)" ,
+    
+      "    val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.lat, placemark.lng))" ,
+    
+      "    map?.addMarker(options)" ,
+    
+      "    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.lat, placemark.lng), placemark.zoom))" ,
+    
+      "    view?.showPlacemark(placemark)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "  fun doAddOrSave(title: String, description: String) {" ,
+    
+      "    placemark.title = title" ,
+    
+      "    placemark.description = description" ,
+    
+      "    if (edit) {" ,
+    
+      "      app.placemarks.update(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      app.placemarks.create(placemark)" ,
+    
+      "    }" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doCancel() {" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doDelete() {" ,
+    
+      "    app.placemarks.delete(placemark)" ,
+    
+      "    view?.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSelectImage() {" ,
+    
+      "    view?.let {" ,
+    
+      "      showImagePicker(view!!, IMAGE_REQUEST)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSetLocation() {" ,
+    
+      "    view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, 'location', Location(placemark.lat, placemark.lng, placemark.zoom))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {" ,
+    
+      "    when (requestCode) {" ,
+    
+      "      IMAGE_REQUEST -> {" ,
+    
+      "        placemark.image = data.data.toString()" ,
+    
+      "        view?.showPlacemark(placemark)" ,
+    
+      "      }" ,
+    
+      "      LOCATION_REQUEST -> {" ,
+    
+      "        val location = data.extras.getParcelable<Location>('location')" ,
+    
+      "        placemark.lat = location.lat" ,
+    
+      "        placemark.lng = location.lng" ,
+    
+      "        placemark.zoom = location.zoom" ,
+    
+      "        locationUpdate(placemark.lat, placemark.lng)" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~  " 
+    
     ]
     },
   
@@ -1811,6 +3766,51 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "#Solution" ,
+    
+      "" ,
+    
+      "Placemark application so far:" ,
+    
+      "" ,
+    
+      "- [archive.zip](archives/archive.zip)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## Exercises" ,
+    
+      "" ,
+    
+      "Look at the following version of the placemark activity:" ,
+    
+      "" ,
+    
+      "![](img/03x.png)" ,
+    
+      "" ,
+    
+      "## Exercise 1:" ,
+    
+      "" ,
+    
+      "As in the above, show the latitude/longitude of the placemark on the view." ,
+    
+      "" ,
+    
+      "## Exercise 2:" ,
+    
+      "" ,
+    
+      "Notice in the above that the 'Set Location' button has been removed. If the map widget itself is clicked, then we will launch the EditLocation activity. Implement this capability" ,
+    
+      "" 
+    
     ]
     }
   

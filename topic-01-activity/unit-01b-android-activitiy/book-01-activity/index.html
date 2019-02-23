@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
+
+body {
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+  font-size:90%;
+  color: black;
+}
+
+p {
+  margin: 0.5em;
+}
+
+pre code {
+  font-family: "Monaco";
+  font-size: 100%;
+}
+
+img {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin:10px;
+}
+
+h1, h2, h3 {
+  border-bottom:thin solid black;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-style:italic;
+  font-size:130%;
+}
+
+h2 {
+  font-size:110%;
+}
+
+h3 {
+  font-size:100%;
+}
+
+
+
+      
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+
+
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Android Activities  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-01 Activities">
+          Lab-01 Activities
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
+    </div>
+  </div>
+
+
+  
+
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
+          
+        
+      
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-01 Activities">
+            <h1>Objectives</h1>
+<p>Layout the PlacemarkActivity - supporting create/edit of placemarks</p>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Style &amp; String Resources</h1>
+<p>Before proceeding to introduce new features into our app - we will augment some of the libraries:</p>
+<h2>build.gradle</h2>
+<pre><code>...
+  implementation &#39;com.android.support:design:28.0.0&#39;
+...</code></pre>
+<p>Make sure you include the above in the correct build.gradle file (there are two). Append it to the other <code>implementation</code> entries. When you make the above change you will be invited to <code>sync</code> the project again - do this now.</p>
+<p>This is an additional library to support android components and layouts not included in the base SDK:</p>
+<ul>
+<li><a href="https://developer.android.com/training/material/design-library.html">https://developer.android.com/training/material/design-library.html</a></li>
+</ul>
+<p>Also, change our theme:</p>
+<h2>styles.xml</h2>
+<pre><code>  &lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat.Light.NoActionBar&quot;&gt;</code></pre>
+<p>This replaces the &#39;DarkActionBar&#39; theme in the generated style</p>
+<p>Now change the colours:</p>
+<h2>colours.xml</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+  &lt;color name=&quot;colorPrimary&quot;&gt;#FFFFFF&lt;/color&gt;
+  &lt;color name=&quot;colorPrimaryDark&quot;&gt;#000000&lt;/color&gt;
+  &lt;color name=&quot;colorAccent&quot;&gt;#4c90af&lt;/color&gt;
+&lt;/resources&gt;</code></pre>
+<p>Or choose other colours as you please...</p>
+<p>We also need a new string for the button, which we will introduce in the next step:</p>
+<h2>strings.xml</h2>
+<pre><code>  &lt;string name=&quot;button_addPlacemark&quot;&gt;Add Placemark&lt;/string&gt;</code></pre>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Layouts</h1>
+<p>Working with <code>activity_placemark.xml</code>, progressively introduce the following versions - replacing each with the successive content below. Keep an eye on the <code>design</code> view as you progress to notice the changes</p>
+<p><img src="img/12.png" alt=""></p>
+<h2>activity_placemark.xml Version A</h2>
+<p>This is what you currently have (select the <code>Text</code> view to reveal this):</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;org.wit.placemark.PlacemarkActivity&quot;&gt;
+
+  &lt;TextView
+      android:layout_width=&quot;wrap_content&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:text=&quot;Hello World!&quot;
+      app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+      app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+      app:layout_constraintRight_toRightOf=&quot;parent&quot;
+      app:layout_constraintTop_toTopOf=&quot;parent&quot;/&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<h2>activity_placemark.xml Version B</h2>
+<p>Now make tee following change  ... replace the current contents to include relative layout + toolbar</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;org.wit.placemark.PlacemarkActivity&quot;&gt;
+
+  &lt;RelativeLayout
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;wrap_content&quot;&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+        android:id=&quot;@+id/appBarLayout&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:background=&quot;@color/colorAccent&quot;
+        android:fitsSystemWindows=&quot;true&quot;
+        app:elevation=&quot;0dip&quot;
+        app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;
+
+      &lt;android.support.v7.widget.Toolbar
+          android:id=&quot;@+id/toolbarAdd&quot;
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          app:titleTextColor=&quot;@color/colorPrimary&quot;/&gt;
+    &lt;/android.support.design.widget.AppBarLayout&gt;
+
+  &lt;/RelativeLayout&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>Keep an eye on the Design view as you make this change.</p>
+<h2>activity_placemark.xml Version C</h2>
+<p>... augment with a scroll view containing a linear layout:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;org.wit.placemark.PlacemarkActivity&quot;&gt;
+
+  &lt;RelativeLayout
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;wrap_content&quot;&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+        android:id=&quot;@+id/appBarLayout&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:background=&quot;@color/colorAccent&quot;
+        android:fitsSystemWindows=&quot;true&quot;
+        app:elevation=&quot;0dip&quot;
+        app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;
+
+      &lt;android.support.v7.widget.Toolbar
+          android:id=&quot;@+id/toolbarAdd&quot;
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          app:titleTextColor=&quot;@color/colorPrimary&quot;/&gt;
+    &lt;/android.support.design.widget.AppBarLayout&gt;
+
+    &lt;ScrollView
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_below=&quot;@id/appBarLayout&quot;
+        android:fillViewport=&quot;true&quot;&gt;
+
+      &lt;LinearLayout
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          android:orientation=&quot;vertical&quot;&gt;
+
+      &lt;/LinearLayout&gt;
+    &lt;/ScrollView&gt;
+
+  &lt;/RelativeLayout&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<h2>activity_placemark.xml Version D</h2>
+<p>... scroll view linear layout contains a text edit field:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;org.wit.placemark.PlacemarkActivity&quot;&gt;
+
+  &lt;RelativeLayout
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;wrap_content&quot;&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+        android:id=&quot;@+id/appBarLayout&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:background=&quot;@color/colorAccent&quot;
+        android:fitsSystemWindows=&quot;true&quot;
+        app:elevation=&quot;0dip&quot;
+        app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;
+
+      &lt;android.support.v7.widget.Toolbar
+          android:id=&quot;@+id/toolbarAdd&quot;
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          app:titleTextColor=&quot;@color/colorPrimary&quot;/&gt;
+    &lt;/android.support.design.widget.AppBarLayout&gt;
+
+    &lt;ScrollView
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_below=&quot;@id/appBarLayout&quot;
+        android:fillViewport=&quot;true&quot;&gt;
+
+      &lt;LinearLayout
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          android:orientation=&quot;vertical&quot;&gt;
+
+        &lt;android.support.design.widget.TextInputEditText
+            android:id=&quot;@+id/placemarkTitle&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_margin=&quot;8dp&quot;
+            android:hint=&quot;@string/hint_placemarkTitle&quot;
+            android:inputType=&quot;text&quot;
+            android:maxLength=&quot;25&quot;
+            android:maxLines=&quot;1&quot;
+            android:padding=&quot;8dp&quot;
+            android:textColor=&quot;@color/colorPrimaryDark&quot;
+            android:textSize=&quot;14sp&quot;/&gt;
+
+      &lt;/LinearLayout&gt;
+    &lt;/ScrollView&gt;
+
+  &lt;/RelativeLayout&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>The above needs a new string resource:</p>
+<h2>strings.xml</h2>
+<pre><code>&lt;resources&gt;
+  &lt;string name=&quot;app_name&quot;&gt;Placemark&lt;/string&gt;
+  &lt;string name=&quot;hint_placemarkTitle&quot;&gt;Placemark Title&lt;/string&gt;
+&lt;/resources&gt;</code></pre>
+<h2>activity_placemark.xml Version E</h2>
+<p>... a new button in the layout</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;
+tools:context=&quot;org.wit.placemark.PlacemarkActivity&quot;&gt;
+
+&lt;RelativeLayout
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;&gt;
+
+  &lt;android.support.design.widget.AppBarLayout
+      android:id=&quot;@+id/appBarLayout&quot;
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:background=&quot;@color/colorAccent&quot;
+      android:fitsSystemWindows=&quot;true&quot;
+      app:elevation=&quot;0dip&quot;
+      app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;
+
+    &lt;android.support.v7.widget.Toolbar
+        android:id=&quot;@+id/toolbarAdd&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        app:titleTextColor=&quot;@color/colorPrimary&quot;/&gt;
+  &lt;/android.support.design.widget.AppBarLayout&gt;
+
+  &lt;ScrollView
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;match_parent&quot;
+      android:layout_below=&quot;@id/appBarLayout&quot;
+      android:fillViewport=&quot;true&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+      &lt;android.support.design.widget.TextInputEditText
+          android:id=&quot;@+id/placemarkTitle&quot;
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          android:layout_margin=&quot;8dp&quot;
+          android:hint=&quot;@string/hint_placemarkTitle&quot;
+          android:inputType=&quot;text&quot;
+          android:maxLength=&quot;25&quot;
+          android:maxLines=&quot;1&quot;
+          android:padding=&quot;8dp&quot;
+          android:textColor=&quot;@color/colorPrimaryDark&quot;
+          android:textSize=&quot;14sp&quot;/&gt;
+
+      &lt;Button
+          android:id=&quot;@+id/btnAdd&quot;
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          android:layout_margin=&quot;16dp&quot;
+          android:background=&quot;@color/colorAccent&quot;
+          android:paddingBottom=&quot;8dp&quot;
+          android:paddingTop=&quot;8dp&quot;
+          android:stateListAnimator=&quot;@null&quot;
+          android:text=&quot;@string/button_addPlacemark&quot;
+          android:textColor=&quot;@color/colorPrimary&quot;
+          android:textSize=&quot;16sp&quot;/&gt;
+    &lt;/LinearLayout&gt;
+  &lt;/ScrollView&gt;
+
+&lt;/RelativeLayout&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>Building layouts textually like this is a useful skill to acquire over time. Initially, you will probably be most comfortable with drawing the layouts using the design view.</p>
+<p>Make sure the application launches now - and the design view is presented in the running app</p>
+<p><img src="img/09.png" alt=""></p>
+<p>This short article on layouts is as useful primer:</p>
+<ul>
+<li>&lt;<a href="https://medium.com/google-developers/layouts-attributes-and-you-9e5a4b4fe32c">https://medium.com/google-developers/layouts-attributes-and-you-9e5a4b4fe32c</a>.</li>
+</ul>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>Logging</h1>
+<p>We are going to be working exclusively in Kotlin - not Java. This affords considerable improvements, largely around conciseness and expressiveness of code.</p>
+<h2>Logging</h2>
+<p>To prepare for this, include these additional dependencies in our gradle.build:</p>
+<h2>gradle.build</h2>
+<pre><code>...
+  implementation &#39;org.jetbrains.anko:anko:0.10.7&#39;
+...</code></pre>
+<p>This library is documented here:</p>
+<ul>
+<li><a href="https://github.com/Kotlin/anko">https://github.com/Kotlin/anko</a></li>
+</ul>
+<p>We will be progressively introducing some of its features as we evolve the application.</p>
+<p>The first feature is a simple way of logging:</p>
+<p>Change the class to include the &#39;AnkoLogger&#39; feature:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>..
+class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+...</code></pre>
+<p>When you make this change, AnkoLogger will not be recognised - so you will need to import it. This can be triggered automatically (if you can figure this out). The correct import statement is:</p>
+<pre><code>import org.jetbrains.anko.AnkoLogger</code></pre>
+<p>Then, in our onCreate() method, try it out:</p>
+<pre><code>...
+    info(&quot;Placemark Activity started..&quot;)
+...</code></pre>
+<p>Again, this will require an import - which will be this:</p>
+<pre><code>import org.jetbrains.anko.info</code></pre>
+<p>Try to figure out the key strokes required to generate this...</p>
+<h1>Logcat</h1>
+<p>Now, make sure you can run the app and see the log messages in the &#39;Logcat&#39; view in Studio:</p>
+<p><img src="img/13.png" alt=""></p>
+<p>Do not proceed further until you can locate something like the above in Logcat. The logs are a bit noisy, and may contain what look like errors. However, buried in there should be your message.</p>
+<p>This style of logging is discussed here:</p>
+<ul>
+<li><a href="https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging">https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging</a></li>
+</ul>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>Event Handling</h1>
+<p>Now include the following inside the onCreate function:</p>
+<pre><code>    btnAdd.setOnClickListener() {
+      info(&quot;add Button Pressed&quot;)
+    }</code></pre>
+<p>Introducing this will require additional imports - get used to selecting these as prompted by Studio. On this occasion you will be presented with a choice of imports:</p>
+<p><img src="img/14.png" alt=""></p>
+<p>We need to select the synthetic import.The complete class will look like this:</p>
+<pre><code>package org.wit.placemark
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_placemark.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
+class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+    info(&quot;Placemark Activity started..&quot;)
+
+    btnAdd.setOnClickListener() {
+      info(&quot;add Button Pressed&quot;)
+    }
+  }
+}</code></pre>
+<p>Make sure you can run the app and that you can see the &#39;add button pressed&#39; log.</p>
+<p>Read this short blog post outlining how the above code differers from the traditional java implementation of same.</p>
+<ul>
+<li><a href="https://antonioleiva.com/lambdas-kotlin-android/">https://antonioleiva.com/lambdas-kotlin-android/</a></li>
+</ul>
+<p>Try this alternative implementation of the event handler:</p>
+<pre><code>    btnAdd.setOnClickListener() {
+      val placemarkTitle = placemarkTitle.text.toString()
+      if (placemarkTitle.isNotEmpty()) {
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }</code></pre>
+<p>Try it out and notice the difference - particularly if you press add without entering a title...</p>
+<p>In the above we are using anko toasts:</p>
+<ul>
+<li><a href="https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Dialogs">https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Dialogs</a></li>
+</ul>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>Refactor</h1>
+<p>Refactor the application structure such that ActivityPlacemark is in a new package called &#39;org.wit.placemarks.activities&#39;:</p>
+<p><img src="img/10.png" alt=""></p>
+<p>You should be able to do this from within the Studio Android perspective. You will be using the context menu to create the new package in the java folder:</p>
+<p><img src="img/16.png" alt=""></p>
+<p>and then dragging/dropping the class into this new package. This will automatically trigger refactor step:</p>
+<p><img src="img/17.png" alt=""></p>
+<p>Once this is completed, a number of files will be automatically changed:</p>
+<ul>
+<li>AndroidManifest.xml</li>
+<li>PlacemarkActivity.kt</li>
+<li>activity_placemark.xml</li>
+</ul>
+<p>See if you can locate each of the changes...</p>
+<h2>Models</h2>
+<p>Introduce a new package called &#39;models&#39; as shown here:</p>
+<p><img src="img/11.png" alt=""></p>
+<p>... and bring in this new class:</p>
+<h2>PlacemarkModel</h2>
+<pre><code>package org.wit.placemark.models
+
+data class PlacemarkModel(var title: String = &quot;&quot;)</code></pre>
+<p>This is an example of a Kotlin Data class:</p>
+<ul>
+<li><a href="https://antonioleiva.com/data-classes-kotlin/">https://antonioleiva.com/data-classes-kotlin/</a></li>
+</ul>
+<p>Briefly review the above - this is the official documentation:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/data-classes.html">https://kotlinlang.org/docs/reference/data-classes.html</a></li>
+</ul>
+<p>Here is a new version of PlacemarkActivity that makes use of this model:</p>
+<pre><code>package wit.org.placemark.activities
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_placemark.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.jetbrains.anko.toast
+import org.wit.placemark.models.PlacemarkModel
+import wit.org.placemark.R
+
+class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  var placemark = PlacemarkModel()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+
+    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      if (placemark.title.isNotEmpty()) {
+        info(&quot;add Button Pressed: $placemark&quot;)
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }
+  }
+}</code></pre>
+<p>Read it carefully - notice how we are creating a placemark as a class member:</p>
+<pre><code>  var placemark = PlacemarkModel()</code></pre>
+<p>and then using it in the event handler:</p>
+<pre><code>    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      if (placemark.title.isNotEmpty()) {
+        info(&quot;add Button Pressed: $placemark&quot;)
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }</code></pre>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h1>Solution</h1>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/placemark-01.zip">placemark-01.zip</a></li>
+</ul>
+<h2>Exercise 1:</h2>
+<p>Download, expand and open in Studio the sample solution above. Run it in the emulator.</p>
+<h2>Exercise 2:</h2>
+<p>Make sure you can auto import the correct libraries when you introduce referenced. As an exercise, delete all of the imports from PlacemarkActivity:</p>
+<pre><code>package org.wit.placemark.activities
+
+// deleted imports..
+
+class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  var placemark = PlacemarkModel()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+    info(&quot;Placemark Activity started..&quot;)
+
+    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      if (placemark.title.isNotEmpty()) {
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }
+  }
+}</code></pre>
+<p>NOw reintroduce them one-by-one. Keep a close eye on any choices you make as you do this.</p>
+<h2>Exercise 3:</h2>
+<p>Create an ArrayList of Placemarks in PlacemarkActivity - and add each new placemark to this list.</p>
+<p>Log all placemarks when a new one is entered.</p>
+<p>HINT: Here is a simple placemark array declaration + creation:</p>
+<pre><code>  val placemarks = ArrayList&lt;PlacemarkModel&gt;()</code></pre>
+<p>This is the documentation on lists in general:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/collections.html">https://kotlinlang.org/docs/reference/collections.html</a></li>
+</ul>
+<p>Greater emphasis is placed here on mutability - which we can explore at a later stage.</p>
+<h2>Exercise 4:</h2>
+<p>Create new text field <code>description</code> + log when entered. This will require you to:</p>
+<ul>
+<li>and a new field in the layout</li>
+<li>add a new entry in the strings.xml file</li>
+<li>expend the model</li>
+<li>recover the field in the event handler and include in the model objects</li>
+<li>log the new field</li>
+</ul>
+
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <script>
+    $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+    $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> Unless otherwise stated, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </div>
+
+  </body>
+
+</html>

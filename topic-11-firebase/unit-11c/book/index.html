@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
+
+body {
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+  font-size:90%;
+  color: black;
+}
+
+p {
+  margin: 0.5em;
+}
+
+pre code {
+  font-family: "Monaco";
+  font-size: 100%;
+}
+
+img {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin:10px;
+}
+
+h1, h2, h3 {
+  border-bottom:thin solid black;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-style:italic;
+  font-size:130%;
+}
+
+h2 {
+  font-size:110%;
+}
+
+h3 {
+  font-size:100%;
+}
+
+
+
+      
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+
+
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Firebase Storage  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-11c Firebase Storage">
+          Lab-11c Firebase Storage
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
+    </div>
+  </div>
+
+
+  
+
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-00-overview/unit-2-android/book-00-studio/index.html">Lab-00 Studio </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-01-activity/unit-01b-android-activitiy/book-01-activity/index.html">Lab-01 Activities </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-02-adapters/unit-02b-android-adapters/book-02-adapters/index.html">Lab-02 Adapters </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-03-models/unit-03b-android-models/book-03-models/index.html">Lab-03 Models </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-04-images/unit-04b-images/book-04-images/index.html">Lab-04 Images </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-05-map-activity/unit-05b-map-activity/book-maps/index.html">Lab-05 MapActivity </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-06-persistence/unit-06b-json/book-json/index.html">Lab-06 JSON </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-07-layouts/unit-07b-map-view/book-0-map-view/index.html">Lab-07 MapView </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08b/book-1-mvp-1/index.html">Lab-08a MVP I </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-08-mvp/unit-08c/book-2-mvp-2/index.html">Lab-08b MVP II </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09b-location/book-1-location/index.html">Lab-09a Location </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-09-location/unit-09c/book-2-location/index.html">Lab-09b Tracking </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10b-version-mgmt/book-1/index.html">Lab-10a AndroidX </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-10-rooms/unit-10c-rooms/book-1/index.html">Lab-10b Rooms </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11a-firebase-auth/book/index.html">Lab-11a Firebase Auth </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11b/book/index.html">Lab-11b Firebase Database </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="https://wit-oth-regensburg-android-kotlin-2018.github.io//topic-11-firebase/unit-11c/book/index.html">Lab-11c Firebase Storage </a>
+          
+        
+      
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-11c Firebase Storage">
+            <h1>Objectives</h1>
+<p>Store images in Firebase Storage</p>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Firebase Storage</h1>
+<p>In the Firebase Console, select <code>Storage</code>:</p>
+<p><img src="img/02.png" alt=""></p>
+<p><img src="img/03.png" alt=""></p>
+<p>This gives a general purpose file storage area:</p>
+<p><img src="img/05.png" alt=""></p>
+<p>We will use this to store the placemark images.</p>
+<p>In Studio, we now connect our app to the Firebase Storage system:</p>
+<p><img src="img/08.png" alt=""></p>
+<p>This will update an entry in the google-services.json file, connecting the app to the storeage system.</p>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Gradle</h1>
+<p>To use the new facilities, we need another library:</p>
+<h2>build.gradle</h2>
+<pre><code>  implementation &quot;com.google.firebase:firebase-storage:$firebase_version&quot;</code></pre>
+<p>Rebuild the app now.</p>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>PlacemarkFireStore</h1>
+<p>We can augment PlacemarkFireStore with a new method:</p>
+<pre><code>  fun updateImage(placemark: PlacemarkModel) {
+    if (placemark.image != &quot;&quot;) {
+      val fileName = File(placemark.image)
+      val imageName = fileName.getName()
+
+      var imageRef = st.child(userId + &#39;/&#39; + imageName)
+      val baos = ByteArrayOutputStream()
+      val bitmap = readImageFromPath(context, placemark.image)
+
+      bitmap?.let {
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        val uploadTask = imageRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+          println(it.message)
+        }.addOnSuccessListener { taskSnapshot -&gt;
+          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+            placemark.image = it.toString()
+            db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)
+          }
+        }
+      }
+    }
+  }</code></pre>
+<p>This will be called whenever the user selects an image.</p>
+<p>This first part will load into a bitmap object the image the user as selected from the gallery:</p>
+<pre><code>      val fileName = File(placemark.image)
+      val imageName = fileName.getName()
+
+      var imageRef = st.child(userId + &#39;/&#39; + imageName)
+      val baos = ByteArrayOutputStream()
+      val bitmap = readImageFromPath(context, placemark.image)</code></pre>
+<p>Then, if the bimap successfully loaded, we compress it to save on bandwidth and obtain a reference to the bits:</p>
+<pre><code>        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()</code></pre>
+<p>Then we upload to the firebase storage service:</p>
+<pre><code>        uploadTask.addOnFailureListener {
+        }.addOnSuccessListener {
+        }</code></pre>
+<p>If the upload goes successfully:</p>
+<pre><code>         { taskSnapshot -&gt;
+          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+            placemark.image = it.toString()
+            db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)
+          }</code></pre>
+<p>we need to obtain a public url where the image is stored, and then place this string into the database entry for the placemark.</p>
+<p>This is the complete PlacemarkFireStore at at this stage - including all the code above:</p>
+<h2>PlacemarkFireStore</h2>
+<pre><code>package org.wit.placemark.models.firebase
+
+import android.content.Context
+import android.graphics.Bitmap
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import org.jetbrains.anko.AnkoLogger
+import org.wit.placemark.helpers.readImageFromPath
+import org.wit.placemark.models.PlacemarkModel
+import org.wit.placemark.models.PlacemarkStore
+import java.io.ByteArrayOutputStream
+import java.io.File
+
+class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
+
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+  lateinit var userId: String
+  lateinit var db: DatabaseReference
+  lateinit var st: StorageReference
+
+  suspend override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return placemarks
+  }
+
+  suspend override fun findById(id: Long): PlacemarkModel? {
+    val foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == id }
+    return foundPlacemark
+  }
+
+  suspend override fun create(placemark: PlacemarkModel) {
+    val key = db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).push().key
+    key?.let {
+      placemark.fbId = key
+      placemarks.add(placemark)
+      db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(key).setValue(placemark)
+      updateImage(placemark)
+    }
+  }
+
+  suspend override fun update(placemark: PlacemarkModel) {
+    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.fbId == placemark.fbId }
+    if (foundPlacemark != null) {
+      foundPlacemark.title = placemark.title
+      foundPlacemark.description = placemark.description
+      foundPlacemark.image = placemark.image
+      foundPlacemark.location = placemark.location
+    }
+
+    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)
+    if ((placemark.image.length) &gt; 0 &amp;&amp; (placemark.image[0] != &#39;h&#39;)) {
+      updateImage(placemark)
+    }
+  }
+
+  suspend override fun delete(placemark: PlacemarkModel) {
+    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).removeValue()
+    placemarks.remove(placemark)
+  }
+
+  override fun clear() {
+    placemarks.clear()
+  }
+
+  fun updateImage(placemark: PlacemarkModel) {
+    if (placemark.image != &quot;&quot;) {
+      val fileName = File(placemark.image)
+      val imageName = fileName.getName()
+
+      var imageRef = st.child(userId + &#39;/&#39; + imageName)
+      val baos = ByteArrayOutputStream()
+      val bitmap = readImageFromPath(context, placemark.image)
+
+      bitmap?.let {
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        val uploadTask = imageRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+          println(it.message)
+        }.addOnSuccessListener { taskSnapshot -&gt;
+          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+            placemark.image = it.toString()
+            db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).setValue(placemark)
+          }
+        }
+      }
+    }
+  }
+
+  fun fetchPlacemarks(placemarksReady: () -&gt; Unit) {
+    val valueEventListener = object : ValueEventListener {
+      override fun onCancelled(dataSnapshot: DatabaseError) {
+      }
+      override fun onDataChange(dataSnapshot: DataSnapshot) {
+        dataSnapshot!!.children.mapNotNullTo(placemarks) { it.getValue&lt;PlacemarkModel&gt;(PlacemarkModel::class.java) }
+        placemarksReady()
+      }
+    }
+    userId = FirebaseAuth.getInstance().currentUser!!.uid
+    db = FirebaseDatabase.getInstance().reference
+    st = FirebaseStorage.getInstance().reference
+    placemarks.clear()
+    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).addListenerForSingleValueEvent(valueEventListener)
+  }
+}</code></pre>
+<p>If you try this out now, and look at the Firebase Database console:</p>
+<p><img src="img/09.png" alt=""></p>
+<p>You should see a firebase storage url in the image field.</p>
+<p>This is a public url - so you should be able to copy this url and paste it into a browser and retrieve the image.</p>
+
+          </div>
+        
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h1>Solution</h1>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/archive.zip">archive.zip</a></li>
+</ul>
+<h2>Exercise : delete</h2>
+<p>Currently when a placemark is deleted it is only removed from the database:</p>
+<pre><code>  suspend override fun delete(placemark: PlacemarkModel) {
+    db.child(&quot;users&quot;).child(userId).child(&quot;placemarks&quot;).child(placemark.fbId).removeValue()
+    placemarks.remove(placemark)
+  }</code></pre>
+<p>Change this to also remove the image (if any)</p>
+
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <script>
+    $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+    $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> Unless otherwise stated, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </div>
+
+  </body>
+
+</html>

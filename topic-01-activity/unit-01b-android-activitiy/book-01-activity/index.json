@@ -6,15 +6,18 @@
   
   "type" : "lab",
   "title" : "Lab-01 Activities",
-  "folder" : "book-01-activity",
-  
-    "link" : "book-01-activity/index.html",
-  
   "img" : "book-01-activity/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Layout the PlacemarkActivity - supporting create/edit of placemarks</p>",
   "properties" : {},
-  "los": [  ]
+    
+      "folder" : "book-01-activity",
+    
+    
+      "link" : "book-01-activity/index.html",
+    
+  "los": [
+     ]
 ,
   "chapters" : [
   
@@ -29,6 +32,15 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Objectives" ,
+    
+      "" ,
+    
+      "Layout the PlacemarkActivity - supporting create/edit of placemarks" 
+    
     ]
     },
   
@@ -93,6 +105,109 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Style & String Resources" ,
+    
+      "" ,
+    
+      "Before proceeding to introduce new features into our app - we will augment some of the libraries:" ,
+    
+      "" ,
+    
+      "## build.gradle" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  implementation 'com.android.support:design:28.0.0'" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Make sure you include the above in the correct build.gradle file (there are two). Append it to the other `implementation` entries. When you make the above change you will be invited to `sync` the project again - do this now." ,
+    
+      "" ,
+    
+      "This is an additional library to support android components and layouts not included in the base SDK:" ,
+    
+      "" ,
+    
+      "- <https://developer.android.com/training/material/design-library.html>" ,
+    
+      "" ,
+    
+      "Also, change our theme:" ,
+    
+      "" ,
+    
+      "## styles.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  <style name='AppTheme' parent='Theme.AppCompat.Light.NoActionBar'>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This replaces the 'DarkActionBar' theme in the generated style" ,
+    
+      "" ,
+    
+      "Now change the colours:" ,
+    
+      "" ,
+    
+      "## colours.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<resources>" ,
+    
+      "  <color name='colorPrimary'>#FFFFFF</color>" ,
+    
+      "  <color name='colorPrimaryDark'>#000000</color>" ,
+    
+      "  <color name='colorAccent'>#4c90af</color>" ,
+    
+      "</resources>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Or choose other colours as you please..." ,
+    
+      "" ,
+    
+      "" ,
+    
+      "We also need a new string for the button, which we will introduce in the next step:" ,
+    
+      "" ,
+    
+      "## strings.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  <string name='button_addPlacemark'>Add Placemark</string>" ,
+    
+      "~~~" 
+    
     ]
     },
   
@@ -603,6 +718,583 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Layouts" ,
+    
+      "" ,
+    
+      "Working with `activity_placemark.xml`, progressively introduce the following versions - replacing each with the successive content below. Keep an eye on the `design` view as you progress to notice the changes" ,
+    
+      "" ,
+    
+      "![](img/12.png)" ,
+    
+      "" ,
+    
+      "## activity_placemark.xml Version A" ,
+    
+      "" ,
+    
+      "This is what you currently have (select the `Text` view to reveal this):" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "    xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "    xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "    xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='match_parent'" ,
+    
+      "    tools:context='org.wit.placemark.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <TextView" ,
+    
+      "      android:layout_width='wrap_content'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:text='Hello World!'" ,
+    
+      "      app:layout_constraintBottom_toBottomOf='parent'" ,
+    
+      "      app:layout_constraintLeft_toLeftOf='parent'" ,
+    
+      "      app:layout_constraintRight_toRightOf='parent'" ,
+    
+      "      app:layout_constraintTop_toTopOf='parent'/>" ,
+    
+      "" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## activity_placemark.xml Version B " ,
+    
+      "" ,
+    
+      "Now make tee following change  ... replace the current contents to include relative layout + toolbar" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "    xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "    xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "    xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='match_parent'" ,
+    
+      "    tools:context='org.wit.placemark.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <RelativeLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'>" ,
+    
+      "" ,
+    
+      "    <android.support.design.widget.AppBarLayout" ,
+    
+      "        android:id='@+id/appBarLayout'" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:background='@color/colorAccent'" ,
+    
+      "        android:fitsSystemWindows='true'" ,
+    
+      "        app:elevation='0dip'" ,
+    
+      "        app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "      <android.support.v7.widget.Toolbar" ,
+    
+      "          android:id='@+id/toolbarAdd'" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          app:titleTextColor='@color/colorPrimary'/>" ,
+    
+      "    </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "  </RelativeLayout>" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Keep an eye on the Design view as you make this change." ,
+    
+      "" ,
+    
+      "## activity_placemark.xml Version C " ,
+    
+      "" ,
+    
+      "... augment with a scroll view containing a linear layout:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "    xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "    xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "    xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='match_parent'" ,
+    
+      "    tools:context='org.wit.placemark.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <RelativeLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'>" ,
+    
+      "" ,
+    
+      "    <android.support.design.widget.AppBarLayout" ,
+    
+      "        android:id='@+id/appBarLayout'" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:background='@color/colorAccent'" ,
+    
+      "        android:fitsSystemWindows='true'" ,
+    
+      "        app:elevation='0dip'" ,
+    
+      "        app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "      <android.support.v7.widget.Toolbar" ,
+    
+      "          android:id='@+id/toolbarAdd'" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          app:titleTextColor='@color/colorPrimary'/>" ,
+    
+      "    </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "    <ScrollView" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='match_parent'" ,
+    
+      "        android:layout_below='@id/appBarLayout'" ,
+    
+      "        android:fillViewport='true'>" ,
+    
+      "" ,
+    
+      "      <LinearLayout" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          android:orientation='vertical'>" ,
+    
+      "" ,
+    
+      "      </LinearLayout>" ,
+    
+      "    </ScrollView>" ,
+    
+      "" ,
+    
+      "  </RelativeLayout>" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## activity_placemark.xml Version D " ,
+    
+      "" ,
+    
+      "... scroll view linear layout contains a text edit field:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "    xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "    xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "    xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='match_parent'" ,
+    
+      "    tools:context='org.wit.placemark.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <RelativeLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'>" ,
+    
+      "" ,
+    
+      "    <android.support.design.widget.AppBarLayout" ,
+    
+      "        android:id='@+id/appBarLayout'" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:background='@color/colorAccent'" ,
+    
+      "        android:fitsSystemWindows='true'" ,
+    
+      "        app:elevation='0dip'" ,
+    
+      "        app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "      <android.support.v7.widget.Toolbar" ,
+    
+      "          android:id='@+id/toolbarAdd'" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          app:titleTextColor='@color/colorPrimary'/>" ,
+    
+      "    </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "    <ScrollView" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='match_parent'" ,
+    
+      "        android:layout_below='@id/appBarLayout'" ,
+    
+      "        android:fillViewport='true'>" ,
+    
+      "" ,
+    
+      "      <LinearLayout" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          android:orientation='vertical'>" ,
+    
+      "" ,
+    
+      "        <android.support.design.widget.TextInputEditText" ,
+    
+      "            android:id='@+id/placemarkTitle'" ,
+    
+      "            android:layout_width='match_parent'" ,
+    
+      "            android:layout_height='wrap_content'" ,
+    
+      "            android:layout_margin='8dp'" ,
+    
+      "            android:hint='@string/hint_placemarkTitle'" ,
+    
+      "            android:inputType='text'" ,
+    
+      "            android:maxLength='25'" ,
+    
+      "            android:maxLines='1'" ,
+    
+      "            android:padding='8dp'" ,
+    
+      "            android:textColor='@color/colorPrimaryDark'" ,
+    
+      "            android:textSize='14sp'/>" ,
+    
+      "" ,
+    
+      "      </LinearLayout>" ,
+    
+      "    </ScrollView>" ,
+    
+      "" ,
+    
+      "  </RelativeLayout>" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "The above needs a new string resource:" ,
+    
+      "" ,
+    
+      "## strings.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<resources>" ,
+    
+      "  <string name='app_name'>Placemark</string>" ,
+    
+      "  <string name='hint_placemarkTitle'>Placemark Title</string>" ,
+    
+      "</resources>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## activity_placemark.xml Version E " ,
+    
+      "" ,
+    
+      "... a new button in the layout" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "android:layout_width='match_parent'" ,
+    
+      "android:layout_height='match_parent'" ,
+    
+      "tools:context='org.wit.placemark.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "<RelativeLayout" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='wrap_content'>" ,
+    
+      "" ,
+    
+      "  <android.support.design.widget.AppBarLayout" ,
+    
+      "      android:id='@+id/appBarLayout'" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:background='@color/colorAccent'" ,
+    
+      "      android:fitsSystemWindows='true'" ,
+    
+      "      app:elevation='0dip'" ,
+    
+      "      app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "    <android.support.v7.widget.Toolbar" ,
+    
+      "        android:id='@+id/toolbarAdd'" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        app:titleTextColor='@color/colorPrimary'/>" ,
+    
+      "  </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "  <ScrollView" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='match_parent'" ,
+    
+      "      android:layout_below='@id/appBarLayout'" ,
+    
+      "      android:fillViewport='true'>" ,
+    
+      "" ,
+    
+      "    <LinearLayout" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:orientation='vertical'>" ,
+    
+      "" ,
+    
+      "      <android.support.design.widget.TextInputEditText" ,
+    
+      "          android:id='@+id/placemarkTitle'" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          android:layout_margin='8dp'" ,
+    
+      "          android:hint='@string/hint_placemarkTitle'" ,
+    
+      "          android:inputType='text'" ,
+    
+      "          android:maxLength='25'" ,
+    
+      "          android:maxLines='1'" ,
+    
+      "          android:padding='8dp'" ,
+    
+      "          android:textColor='@color/colorPrimaryDark'" ,
+    
+      "          android:textSize='14sp'/>" ,
+    
+      "" ,
+    
+      "      <Button" ,
+    
+      "          android:id='@+id/btnAdd'" ,
+    
+      "          android:layout_width='match_parent'" ,
+    
+      "          android:layout_height='wrap_content'" ,
+    
+      "          android:layout_margin='16dp'" ,
+    
+      "          android:background='@color/colorAccent'" ,
+    
+      "          android:paddingBottom='8dp'" ,
+    
+      "          android:paddingTop='8dp'" ,
+    
+      "          android:stateListAnimator='@null'" ,
+    
+      "          android:text='@string/button_addPlacemark'" ,
+    
+      "          android:textColor='@color/colorPrimary'" ,
+    
+      "          android:textSize='16sp'/>" ,
+    
+      "    </LinearLayout>" ,
+    
+      "  </ScrollView>" ,
+    
+      "" ,
+    
+      "</RelativeLayout>" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "Building layouts textually like this is a useful skill to acquire over time. Initially, you will probably be most comfortable with drawing the layouts using the design view." ,
+    
+      "" ,
+    
+      "Make sure the application launches now - and the design view is presented in the running app" ,
+    
+      "" ,
+    
+      "![](img/09.png)" ,
+    
+      "" ,
+    
+      "This short article on layouts is as useful primer:" ,
+    
+      "" ,
+    
+      "- <https://medium.com/google-developers/layouts-attributes-and-you-9e5a4b4fe32c." 
+    
     ]
     },
   
@@ -685,6 +1377,149 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Logging " ,
+    
+      "" ,
+    
+      "We are going to be working exclusively in Kotlin - not Java. This affords considerable improvements, largely around conciseness and expressiveness of code." ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## Logging" ,
+    
+      "" ,
+    
+      "To prepare for this, include these additional dependencies in our gradle.build:" ,
+    
+      "" ,
+    
+      "## gradle.build" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  implementation 'org.jetbrains.anko:anko:0.10.7'" ,
+    
+      "...  " ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This library is documented here:" ,
+    
+      "" ,
+    
+      "- <https://github.com/Kotlin/anko>" ,
+    
+      "" ,
+    
+      "We will be progressively introducing some of its features as we evolve the application." ,
+    
+      "" ,
+    
+      "The first feature is a simple way of logging:" ,
+    
+      "" ,
+    
+      "Change the class to include the 'AnkoLogger' feature:" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      ".." ,
+    
+      "class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "When you make this change, AnkoLogger will not be recognised - so you will need to import it. This can be triggered automatically (if you can figure this out). The correct import statement is:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "import org.jetbrains.anko.AnkoLogger" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "Then, in our onCreate() method, try it out:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "    info('Placemark Activity started..')" ,
+    
+      "...    " ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Again, this will require an import - which will be this:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "import org.jetbrains.anko.info" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Try to figure out the key strokes required to generate this..." ,
+    
+      "" ,
+    
+      "# Logcat" ,
+    
+      "" ,
+    
+      "Now, make sure you can run the app and see the log messages in the 'Logcat' view in Studio:" ,
+    
+      "" ,
+    
+      "![](img/13.png)" ,
+    
+      "" ,
+    
+      "Do not proceed further until you can locate something like the above in Logcat. The logs are a bit noisy, and may contain what look like errors. However, buried in there should be your message." ,
+    
+      "" ,
+    
+      "This style of logging is discussed here:" ,
+    
+      "" ,
+    
+      "- <https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging>" ,
+    
+      "" 
+    
     ]
     },
   
@@ -791,6 +1626,141 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Event Handling" ,
+    
+      "" ,
+    
+      "Now include the following inside the onCreate function:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      info('add Button Pressed')" ,
+    
+      "    }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Introducing this will require additional imports - get used to selecting these as prompted by Studio. On this occasion you will be presented with a choice of imports:" ,
+    
+      "" ,
+    
+      "![](img/14.png)" ,
+    
+      "" ,
+    
+      "We need to select the synthetic import.The complete class will look like this:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark" ,
+    
+      "" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark.*" ,
+    
+      "import org.jetbrains.anko.AnkoLogger" ,
+    
+      "import org.jetbrains.anko.info" ,
+    
+      "" ,
+    
+      "class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark)" ,
+    
+      "    info('Placemark Activity started..')" ,
+    
+      "" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      info('add Button Pressed')" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Make sure you can run the app and that you can see the 'add button pressed' log." ,
+    
+      "" ,
+    
+      "Read this short blog post outlining how the above code differers from the traditional java implementation of same." ,
+    
+      "" ,
+    
+      "- <https://antonioleiva.com/lambdas-kotlin-android/>" ,
+    
+      "" ,
+    
+      "Try this alternative implementation of the event handler:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      val placemarkTitle = placemarkTitle.text.toString()" ,
+    
+      "      if (placemarkTitle.isNotEmpty()) {" ,
+    
+      "        info('add Button Pressed: $placemarkTitle')" ,
+    
+      "      }" ,
+    
+      "      else {" ,
+    
+      "        toast ('Please Enter a title')" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Try it out and notice the difference - particularly if you press add without entering a title..." ,
+    
+      "" ,
+    
+      "In the above we are using anko toasts:" ,
+    
+      "" ,
+    
+      "- <https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Dialogs>" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -947,6 +1917,213 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Refactor" ,
+    
+      "" ,
+    
+      "Refactor the application structure such that ActivityPlacemark is in a new package called 'org.wit.placemarks.activities':" ,
+    
+      "" ,
+    
+      "![](img/10.png)" ,
+    
+      "" ,
+    
+      "You should be able to do this from within the Studio Android perspective. You will be using the context menu to create the new package in the java folder:" ,
+    
+      "" ,
+    
+      "![](img/16.png)" ,
+    
+      "" ,
+    
+      "and then dragging/dropping the class into this new package. This will automatically trigger refactor step:" ,
+    
+      "" ,
+    
+      "![](img/17.png)" ,
+    
+      "" ,
+    
+      "Once this is completed, a number of files will be automatically changed:" ,
+    
+      "" ,
+    
+      "- AndroidManifest.xml" ,
+    
+      "- PlacemarkActivity.kt" ,
+    
+      "- activity_placemark.xml" ,
+    
+      "" ,
+    
+      "See if you can locate each of the changes..." ,
+    
+      "" ,
+    
+      "## Models" ,
+    
+      "" ,
+    
+      "Introduce a new package called 'models' as shown here:" ,
+    
+      "" ,
+    
+      "![](img/11.png)" ,
+    
+      "" ,
+    
+      "... and bring in this new class:" ,
+    
+      "" ,
+    
+      "## PlacemarkModel" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.models" ,
+    
+      "" ,
+    
+      "data class PlacemarkModel(var title: String = '')" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This is an example of a Kotlin Data class:" ,
+    
+      "" ,
+    
+      "- <https://antonioleiva.com/data-classes-kotlin/>" ,
+    
+      "" ,
+    
+      "Briefly review the above - this is the official documentation:" ,
+    
+      "" ,
+    
+      "- <https://kotlinlang.org/docs/reference/data-classes.html>" ,
+    
+      "" ,
+    
+      "Here is a new version of PlacemarkActivity that makes use of this model:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package wit.org.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark.*" ,
+    
+      "import org.jetbrains.anko.AnkoLogger" ,
+    
+      "import org.jetbrains.anko.info" ,
+    
+      "import org.jetbrains.anko.toast" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "import wit.org.placemark.R" ,
+    
+      "" ,
+    
+      "class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+    
+      "" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark)" ,
+    
+      "" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      placemark.title = placemarkTitle.text.toString()" ,
+    
+      "      if (placemark.title.isNotEmpty()) {" ,
+    
+      "        info('add Button Pressed: $placemark')" ,
+    
+      "      }" ,
+    
+      "      else {" ,
+    
+      "        toast ('Please Enter a title')" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Read it carefully - notice how we are creating a placemark as a class member:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "and then using it in the event handler:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      placemark.title = placemarkTitle.text.toString()" ,
+    
+      "      if (placemark.title.isNotEmpty()) {" ,
+    
+      "        info('add Button Pressed: $placemark')" ,
+    
+      "      }" ,
+    
+      "      else {" ,
+    
+      "        toast ('Please Enter a title')" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -1063,6 +2240,151 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Solution" ,
+    
+      "" ,
+    
+      "Placemark application so far:" ,
+    
+      "" ,
+    
+      "- [placemark-01.zip](archives/placemark-01.zip)" ,
+    
+      "" ,
+    
+      "## Exercise 1:" ,
+    
+      "" ,
+    
+      "Download, expand and open in Studio the sample solution above. Run it in the emulator." ,
+    
+      "" ,
+    
+      "## Exercise 2:" ,
+    
+      "" ,
+    
+      "Make sure you can auto import the correct libraries when you introduce referenced. As an exercise, delete all of the imports from PlacemarkActivity:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "// deleted imports.." ,
+    
+      "" ,
+    
+      "class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+    
+      "" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark)" ,
+    
+      "    info('Placemark Activity started..')" ,
+    
+      "" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      placemark.title = placemarkTitle.text.toString()" ,
+    
+      "      if (placemark.title.isNotEmpty()) {" ,
+    
+      "        info('add Button Pressed: $placemarkTitle')" ,
+    
+      "      }" ,
+    
+      "      else {" ,
+    
+      "        toast ('Please Enter a title')" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "NOw reintroduce them one-by-one. Keep a close eye on any choices you make as you do this." ,
+    
+      "" ,
+    
+      "## Exercise 3:" ,
+    
+      "" ,
+    
+      "Create an ArrayList of Placemarks in PlacemarkActivity - and add each new placemark to this list." ,
+    
+      "" ,
+    
+      "Log all placemarks when a new one is entered." ,
+    
+      "" ,
+    
+      "HINT: Here is a simple placemark array declaration + creation:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  val placemarks = ArrayList<PlacemarkModel>()" ,
+    
+      "~~~  " ,
+    
+      "" ,
+    
+      "This is the documentation on lists in general:" ,
+    
+      "" ,
+    
+      "- <https://kotlinlang.org/docs/reference/collections.html>" ,
+    
+      "" ,
+    
+      "Greater emphasis is placed here on mutability - which we can explore at a later stage." ,
+    
+      "" ,
+    
+      "## Exercise 4:" ,
+    
+      "" ,
+    
+      "Create new text field `description` + log when entered. This will require you to:" ,
+    
+      "" ,
+    
+      "- and a new field in the layout" ,
+    
+      "- add a new entry in the strings.xml file" ,
+    
+      "- expend the model" ,
+    
+      "- recover the field in the event handler and include in the model objects" ,
+    
+      "- log the new field" ,
+    
+      "" 
+    
     ]
     }
   

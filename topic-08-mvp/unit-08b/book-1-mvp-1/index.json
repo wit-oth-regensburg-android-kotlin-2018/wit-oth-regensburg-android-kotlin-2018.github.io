@@ -6,15 +6,18 @@
   
   "type" : "lab",
   "title" : "Lab-08a MVP I",
-  "folder" : "book-1-mvp-1",
-  
-    "link" : "book-1-mvp-1/index.html",
-  
   "img" : "book-1-mvp-1/img/main.jpg",
   "videoid" : "none",
   "objectives" : "<p>Refactor Activities to use the Model View Presenter pattern</p>",
   "properties" : {},
-  "los": [  ]
+    
+      "folder" : "book-1-mvp-1",
+    
+    
+      "link" : "book-1-mvp-1/index.html",
+    
+  "los": [
+     ]
 ,
   "chapters" : [
   
@@ -29,6 +32,17 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "#Objectives" ,
+    
+      "" ,
+    
+      "Refactor Activities to use the Model View Presenter pattern" ,
+    
+      "" 
+    
     ]
     },
   
@@ -587,6 +601,629 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Exercise Solution" ,
+    
+      "" ,
+    
+      "## Exercise 1" ,
+    
+      "" ,
+    
+      "Currently the PlacemarkActivity layout is hand coded - and is not using the ConstraintLayout. The screen shots below are taken from a refactor the view to make it fully based on the ConstraintLayout. All of this refactoring is carried out using the visual tools." ,
+    
+      "" ,
+    
+      "## Solution" ,
+    
+      "" ,
+    
+      "You could start by removing everything - and lust leaving the toolbar + a (new) ConstraintLayout" ,
+    
+      "" ,
+    
+      "![](img/01.png)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## activity_placemark.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "    xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "    xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "    xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='match_parent'" ,
+    
+      "    tools:context='org.wit.placemark.activities.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <RelativeLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'>" ,
+    
+      "" ,
+    
+      "    <android.support.design.widget.AppBarLayout" ,
+    
+      "      android:id='@+id/appBarLayout'" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:background='@color/colorAccent'" ,
+    
+      "      android:fitsSystemWindows='true'" ,
+    
+      "      app:elevation='0dip'" ,
+    
+      "      app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "      <android.support.v7.widget.Toolbar" ,
+    
+      "        android:id='@+id/toolbarAdd'" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        app:titleTextColor='@color/colorPrimary' />" ,
+    
+      "    </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "    <android.support.constraint.ConstraintLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='match_parent'>" ,
+    
+      "" ,
+    
+      "    </android.support.constraint.ConstraintLayout>" ,
+    
+      "" ,
+    
+      "  </RelativeLayout>" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "The recreate all of the controls:" ,
+    
+      "" ,
+    
+      "![](img/02.png)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "    xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "    xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "    xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='match_parent'" ,
+    
+      "    tools:context='org.wit.placemark.activities.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <RelativeLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'>" ,
+    
+      "" ,
+    
+      "    <android.support.design.widget.AppBarLayout" ,
+    
+      "      android:id='@+id/appBarLayout'" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:background='@color/colorAccent'" ,
+    
+      "      android:fitsSystemWindows='true'" ,
+    
+      "      app:elevation='0dip'" ,
+    
+      "      app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "      <android.support.v7.widget.Toolbar" ,
+    
+      "        android:id='@+id/toolbarAdd'" ,
+    
+      "        android:layout_width='match_parent'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        app:titleTextColor='@color/colorPrimary' />" ,
+    
+      "    </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "    <android.support.constraint.ConstraintLayout" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='match_parent'>" ,
+    
+      "" ,
+    
+      "      <EditText" ,
+    
+      "        android:id='@+id/placemarkTitle'" ,
+    
+      "        android:layout_width='wrap_content'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:ems='10'" ,
+    
+      "        android:hint='@string/hint_placemarkTitle'" ,
+    
+      "        android:inputType='text'" ,
+    
+      "        tools:layout_editor_absoluteX='48dp'" ,
+    
+      "        tools:layout_editor_absoluteY='89dp' />" ,
+    
+      "" ,
+    
+      "      <EditText" ,
+    
+      "        android:id='@+id/description'" ,
+    
+      "        android:layout_width='wrap_content'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:ems='10'" ,
+    
+      "        android:hint='@string/hint_placemarkDescription'" ,
+    
+      "        android:inputType='textPersonName'" ,
+    
+      "        tools:layout_editor_absoluteX='55dp'" ,
+    
+      "        tools:layout_editor_absoluteY='165dp' />" ,
+    
+      "" ,
+    
+      "      <Button" ,
+    
+      "        android:id='@+id/chooseImage'" ,
+    
+      "        android:layout_width='wrap_content'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:text='@string/button_addImage'" ,
+    
+      "        tools:layout_editor_absoluteX='270dp'" ,
+    
+      "        tools:layout_editor_absoluteY='301dp' />" ,
+    
+      "" ,
+    
+      "      <ImageView" ,
+    
+      "        android:id='@+id/placemarkImage'" ,
+    
+      "        android:layout_width='wrap_content'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        app:srcCompat='@drawable/ic_launcher_background'" ,
+    
+      "        tools:layout_editor_absoluteX='260dp'" ,
+    
+      "        tools:layout_editor_absoluteY='443dp' />" ,
+    
+      "" ,
+    
+      "      <Button" ,
+    
+      "        android:id='@+id/placemarkLocation'" ,
+    
+      "        android:layout_width='wrap_content'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:text='@string/button_location'" ,
+    
+      "        tools:layout_editor_absoluteX='64dp'" ,
+    
+      "        tools:layout_editor_absoluteY='284dp' />" ,
+    
+      "" ,
+    
+      "      <Button" ,
+    
+      "        android:id='@+id/btnAdd'" ,
+    
+      "        android:layout_width='wrap_content'" ,
+    
+      "        android:layout_height='wrap_content'" ,
+    
+      "        android:text='@string/button_addPlacemark'" ,
+    
+      "        tools:layout_editor_absoluteX='48dp'" ,
+    
+      "        tools:layout_editor_absoluteY='417dp' />" ,
+    
+      "    </android.support.constraint.ConstraintLayout>" ,
+    
+      "" ,
+    
+      "  </RelativeLayout>" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "And finally, wire them together to achieve this layout:" ,
+    
+      "" ,
+    
+      "![](img/03.png)" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "  xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "  xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "  xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "  android:layout_width='match_parent'" ,
+    
+      "  android:layout_height='match_parent'" ,
+    
+      "  tools:context='org.wit.placemark.activities.PlacemarkActivity'>" ,
+    
+      "" ,
+    
+      "  <android.support.design.widget.AppBarLayout" ,
+    
+      "    android:id='@+id/appBarLayout'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='wrap_content'" ,
+    
+      "    android:background='@color/colorAccent'" ,
+    
+      "    android:fitsSystemWindows='true'" ,
+    
+      "    app:elevation='0dip'" ,
+    
+      "    app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "    <android.support.v7.widget.Toolbar" ,
+    
+      "      android:id='@+id/toolbarAdd'" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      app:titleTextColor='@color/colorPrimary' />" ,
+    
+      "" ,
+    
+      "  </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "  <android.support.constraint.ConstraintLayout" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='600dp'" ,
+    
+      "    android:layout_marginEnd='8dp'" ,
+    
+      "    android:layout_marginStart='8dp'" ,
+    
+      "    app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "    app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "    app:layout_constraintTop_toTopOf='parent'>" ,
+    
+      "" ,
+    
+      "    <EditText" ,
+    
+      "      android:id='@+id/placemarkTitle'" ,
+    
+      "      android:layout_width='365dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='64dp'" ,
+    
+      "      android:ems='10'" ,
+    
+      "      android:hint='@string/hint_placemarkTitle'" ,
+    
+      "      android:inputType='text'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintHorizontal_bias='0.503'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toTopOf='parent' />" ,
+    
+      "" ,
+    
+      "    <EditText" ,
+    
+      "      android:id='@+id/description'" ,
+    
+      "      android:layout_width='365dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:ems='10'" ,
+    
+      "      android:hint='@string/hint_placemarkDescription'" ,
+    
+      "      android:inputType='textPersonName'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/placemarkTitle' />" ,
+    
+      "" ,
+    
+      "    <Button" ,
+    
+      "      android:id='@+id/btnAdd'" ,
+    
+      "      android:layout_width='365dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:text='@string/button_addPlacemark'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/description' />" ,
+    
+      "" ,
+    
+      "    <Button" ,
+    
+      "      android:id='@+id/chooseImage'" ,
+    
+      "      android:layout_width='150dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:text='@string/button_addImage'" ,
+    
+      "      app:layout_constraintStart_toStartOf='@+id/btnAdd'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/btnAdd' />" ,
+    
+      "" ,
+    
+      "    <Button" ,
+    
+      "      android:id='@+id/placemarkLocation'" ,
+    
+      "      android:layout_width='150dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:text='@string/button_location'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='@+id/btnAdd'" ,
+    
+      "      app:layout_constraintHorizontal_bias='1.0'" ,
+    
+      "      app:layout_constraintStart_toEndOf='@+id/chooseImage'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/btnAdd' />" ,
+    
+      "" ,
+    
+      "    <ImageView" ,
+    
+      "      android:id='@+id/placemarkImage'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='0dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:layout_marginBottom='8dp'" ,
+    
+      "      app:layout_constraintBottom_toBottomOf='parent'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintHorizontal_bias='0.555'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/placemarkLocation'" ,
+    
+      "      app:layout_constraintVertical_bias='0.173'" ,
+    
+      "      app:srcCompat='@drawable/ic_launcher_background' />" ,
+    
+      "" ,
+    
+      "  </android.support.constraint.ConstraintLayout>" ,
+    
+      "" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Take a look at the imageView in the inspector -" ,
+    
+      "" ,
+    
+      "![](img/07.png)" ,
+    
+      "" ,
+    
+      ".. and note the 'match constraints' setting in the image guides." ,
+    
+      "" ,
+    
+      "Running the app - the screen should look like this:" ,
+    
+      "" ,
+    
+      "![](img/04.png)" ,
+    
+      "" ,
+    
+      "![](img/05.png)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## content_placeark_maps.xml" ,
+    
+      "" ,
+    
+      "Finally, some small adjustments to the Map control in the PlacemarkMapsActivity:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  <com.google.android.gms.maps.MapView" ,
+    
+      "    android:id='@+id/mapView'" ,
+    
+      "    android:layout_width='0dp'" ,
+    
+      "    android:layout_height='0dp'" ,
+    
+      "    android:layout_marginStart='8dp'" ,
+    
+      "    android:layout_marginTop='8dp'" ,
+    
+      "    android:layout_marginEnd='8dp'" ,
+    
+      "    android:layout_marginBottom='8dp'" ,
+    
+      "    app:layout_constraintBottom_toTopOf='@+id/cardView'" ,
+    
+      "    app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "    app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "    app:layout_constraintTop_toTopOf='parent' />" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "These adjustments are made via the attribute inspector again:" ,
+    
+      "" ,
+    
+      "![](img/08.png)" 
+    
     ]
     },
   
@@ -727,6 +1364,235 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Exercise Solution" ,
+    
+      "" ,
+    
+      "## Exercise 2" ,
+    
+      "" ,
+    
+      "Currently, when you select the marker in the PlacemarkMapsActivity, we display the title of the placemark only:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    currentTitle.text = marker.title" ,
+    
+      "    return false" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "How would you go about showing the description + the image as well?" ,
+    
+      "" ,
+    
+      "HINT: What does this code do in the configureMap function:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "      map.addMarker(options).tag = it.id" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "How can we use this to realise this feature?" ,
+    
+      "" ,
+    
+      "## Solution" ,
+    
+      "" ,
+    
+      "Currently we do not have any way retrieving a placemark by its ID. Having this ability is a useful utility method for a variety of scenarios." ,
+    
+      "" ,
+    
+      "We can start by introducing this into the PlacemarkStore and PlacemarkMemStore" ,
+    
+      "" ,
+    
+      "## PlacemarkStore" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  fun findById(id:Long) : PlacemarkModel?" ,
+    
+      "...  " ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## PlacemarkMemStore" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  override fun findById(id:Long) : PlacemarkModel? {" ,
+    
+      "    val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == id }" ,
+    
+      "    return foundPlacemark" ,
+    
+      "  }" ,
+    
+      "...  " ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "This implements the facility only if we are using in-memory store. Now implement the same feature when we are using the PlacemarkJSONStore implementation:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun findById(id:Long) : PlacemarkModel? {" ,
+    
+      "    val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == id }" ,
+    
+      "    return foundPlacemark" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "It is in fact the same." ,
+    
+      "" ,
+    
+      "Now, back to PlacemarkMapsActivity. This line:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "        map.addMarker(options).tag = it.id" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This is doing two things:" ,
+    
+      "" ,
+    
+      "- adding a marker to the map" ,
+    
+      "- 'Tagging' the marker with the ID of the placemark" ,
+    
+      "" ,
+    
+      "This means the each placemark will have the ID (from the datastore) of the placemark is is representing. We can now use this `tag` to update the card containing details of the selected placemark. This is the current version of the onMarkerCLick event hander:" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## PlacemarkMapsActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    currentTitle.text = marker.title" ,
+    
+      "    return false" ,
+    
+      "  }" ,
+    
+      "...  " ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Replace it with the following:" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    val tag = marker.tag as Long" ,
+    
+      "    val placemark = app.placemarks.findById(tag)" ,
+    
+      "    currentTitle.text = placemark!!.title" ,
+    
+      "    currentDescription.text = placemark!!.description" ,
+    
+      "    imageView.setImageBitmap(readImageFromPath(this@PlacemarkMapsActivity, placemark.image))" ,
+    
+      "    return true" ,
+    
+      "  }" ,
+    
+      "..." ,
+    
+      "~~~  " ,
+    
+      "" ,
+    
+      "Look carefully at method - when a user clicks on a placemark in the map, we do the following:" ,
+    
+      "" ,
+    
+      "- retrieve the tag from the marker" ,
+    
+      "- look up the datatore for a placemark based in this ID" ,
+    
+      "- set the currentTitle, currentDescription & imageView to contains the details of the placemark" ,
+    
+      "" ,
+    
+      "Try this out now - it should display the placemark details on the panel as each marker is selected." ,
+    
+      "" ,
+    
+      "![](img/06.png)" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -745,6 +1611,27 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Gradle Version" ,
+    
+      "" ,
+    
+      "Bump the gradle revision the latest release:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "    classpath 'com.android.tools.build:gradle:3.2.1'" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This will require a complete rebuild." 
+    
     ]
     },
   
@@ -1375,6 +2262,665 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# PlacemarkPresenter" ,
+    
+      "" ,
+    
+      "This is our current PlacemarkActivity:" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.content.Intent" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import android.view.Menu" ,
+    
+      "import android.view.MenuItem" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark.*" ,
+    
+      "import org.jetbrains.anko.AnkoLogger" ,
+    
+      "import org.jetbrains.anko.info" ,
+    
+      "import org.jetbrains.anko.intentFor" ,
+    
+      "import org.jetbrains.anko.toast" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.helpers.readImage" ,
+    
+      "import org.wit.placemark.helpers.readImageFromPath" ,
+    
+      "import org.wit.placemark.helpers.showImagePicker" ,
+    
+      "import org.wit.placemark.main.MainApp" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+    
+      "" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "  lateinit var app: MainApp" ,
+    
+      "  val IMAGE_REQUEST = 1" ,
+    
+      "  val LOCATION_REQUEST = 2" ,
+    
+      "  var edit = false;" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark)" ,
+    
+      "    toolbarAdd.title = title" ,
+    
+      "    setSupportActionBar(toolbarAdd)" ,
+    
+      "    info('Placemark Activity started..')" ,
+    
+      "" ,
+    
+      "    app = application as MainApp" ,
+    
+      "" ,
+    
+      "    if (intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      placemarkTitle.setText(placemark.title)" ,
+    
+      "      description.setText(placemark.description)" ,
+    
+      "      placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))" ,
+    
+      "      if (placemark.image != null) {" ,
+    
+      "        chooseImage.setText(R.string.change_placemark_image)" ,
+    
+      "      }" ,
+    
+      "      btnAdd.setText(R.string.save_placemark)" ,
+    
+      "    }" ,
+    
+      "" ,
+    
+      "    btnAdd.setOnClickListener() {" ,
+    
+      "      placemark.title = placemarkTitle.text.toString()" ,
+    
+      "      placemark.description = description.text.toString()" ,
+    
+      "      if (placemark.title.isEmpty()) {" ,
+    
+      "        toast(R.string.enter_placemark_title)" ,
+    
+      "      } else {" ,
+    
+      "        if (edit) {" ,
+    
+      "          app.placemarks.update(placemark.copy())" ,
+    
+      "        } else {" ,
+    
+      "" ,
+    
+      "          app.placemarks.create(placemark.copy())" ,
+    
+      "        }" ,
+    
+      "      }" ,
+    
+      "      info('add Button Pressed: $placemarkTitle')" ,
+    
+      "      setResult(AppCompatActivity.RESULT_OK)" ,
+    
+      "      finish()" ,
+    
+      "    }" ,
+    
+      "" ,
+    
+      "    chooseImage.setOnClickListener {" ,
+    
+      "      showImagePicker(this, IMAGE_REQUEST)" ,
+    
+      "    }" ,
+    
+      "" ,
+    
+      "    placemarkLocation.setOnClickListener {" ,
+    
+      "      val location = Location(52.245696, -7.139102, 15f)" ,
+    
+      "      if (placemark.zoom != 0f) {" ,
+    
+      "        location.lat = placemark.lat" ,
+    
+      "        location.lng = placemark.lng" ,
+    
+      "        location.zoom = placemark.zoom" ,
+    
+      "      }" ,
+    
+      "      startActivityForResult(intentFor<MapsActivity>().putExtra('location', location), LOCATION_REQUEST)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onCreateOptionsMenu(menu: Menu?): Boolean {" ,
+    
+      "    menuInflater.inflate(R.menu.menu_placemark, menu)" ,
+    
+      "    if (edit && menu != null) menu.getItem(0).setVisible(true)" ,
+    
+      "    return super.onCreateOptionsMenu(menu)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onOptionsItemSelected(item: MenuItem?): Boolean {" ,
+    
+      "    when (item?.itemId) {" ,
+    
+      "      R.id.item_delete -> {" ,
+    
+      "        app.placemarks.delete(placemark)" ,
+    
+      "        finish()" ,
+    
+      "      }" ,
+    
+      "      R.id.item_cancel -> {" ,
+    
+      "        finish()" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "    return super.onOptionsItemSelected(item)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {" ,
+    
+      "    super.onActivityResult(requestCode, resultCode, data)" ,
+    
+      "    when (requestCode) {" ,
+    
+      "      IMAGE_REQUEST -> {" ,
+    
+      "        if (data != null) {" ,
+    
+      "          placemark.image = data.getData().toString()" ,
+    
+      "          placemarkImage.setImageBitmap(readImage(this, resultCode, data))" ,
+    
+      "          chooseImage.setText(R.string.change_placemark_image)" ,
+    
+      "        }" ,
+    
+      "      }" ,
+    
+      "      LOCATION_REQUEST -> {" ,
+    
+      "        if (data != null) {" ,
+    
+      "          val location = data.extras.getParcelable<Location>('location')" ,
+    
+      "          placemark.lat = location.lat" ,
+    
+      "          placemark.lng = location.lng" ,
+    
+      "          placemark.zoom = location.zoom" ,
+    
+      "        }" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Over 120 lines of code - which has multiple responsibilities. These include:" ,
+    
+      "" ,
+    
+      "- Initialising the the various controls" ,
+    
+      "- Establishing the event handlers" ,
+    
+      "- Overriding life cycle methods" ,
+    
+      "- Determining what actions to take in response to menu events" ,
+    
+      "- Keeping track of edit mode" ,
+    
+      "- Interacting with the model" ,
+    
+      "" ,
+    
+      "If we were to add additional features into this activity, for instance location tracking, or a maps control, then the complexity of the class would continue to expand." ,
+    
+      "" ,
+    
+      "This is a well understood problem, with a range of possible solutions. Our chosen method is called Model View Presenter (MVP). This involves creating 2 classes from this single class, dividing the responsibilities as follows:" ,
+    
+      "" ,
+    
+      "- View: " ,
+    
+      "    - initialising the the various controls" ,
+    
+      "    - establishing the event handlers" ,
+    
+      "    - overriding life cycle methods" ,
+    
+      "" ,
+    
+      "- Presenter:" ,
+    
+      "    - determining what actions to take in response to menu events" ,
+    
+      "    - keeping track of edit mode  " ,
+    
+      "    - interacting with the model " ,
+    
+      "" ,
+    
+      "This is a new class called PlacemarkPresenter:" ,
+    
+      "" ,
+    
+      "## PlacemarkPresenter:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.content.Intent" ,
+    
+      "import org.jetbrains.anko.intentFor" ,
+    
+      "import org.wit.placemark.helpers.showImagePicker" ,
+    
+      "import org.wit.placemark.main.MainApp" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkPresenter(val activity: PlacemarkActivity) {" ,
+    
+      "" ,
+    
+      "  val IMAGE_REQUEST = 1" ,
+    
+      "  val LOCATION_REQUEST = 2" ,
+    
+      "" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "  var location = Location(52.245696, -7.139102, 15f)" ,
+    
+      "  var app: MainApp" ,
+    
+      "  var edit = false;" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    app = activity.application as MainApp" ,
+    
+      "    if (activity.intent.hasExtra('placemark_edit')) {" ,
+    
+      "      edit = true" ,
+    
+      "      placemark = activity.intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      activity.showPlacemark(placemark)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doAddOrSave(title: String, description: String) {" ,
+    
+      "    placemark.title = title" ,
+    
+      "    placemark.description = description" ,
+    
+      "    if (edit) {" ,
+    
+      "      app.placemarks.update(placemark)" ,
+    
+      "    } else {" ,
+    
+      "      app.placemarks.create(placemark)" ,
+    
+      "    }" ,
+    
+      "    activity.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doCancel() {" ,
+    
+      "    activity.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doDelete() {" ,
+    
+      "    app.placemarks.delete(placemark)" ,
+    
+      "    activity.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSelectImage() {" ,
+    
+      "    showImagePicker(activity, IMAGE_REQUEST)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doSetLocation() {" ,
+    
+      "    if (placemark.zoom != 0f) {" ,
+    
+      "      location.lat = placemark.lat" ,
+    
+      "      location.lng = placemark.lng" ,
+    
+      "      location.zoom = placemark.zoom" ,
+    
+      "    }" ,
+    
+      "    activity.startActivityForResult(activity.intentFor<MapsActivity>().putExtra('location', location), LOCATION_REQUEST)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {" ,
+    
+      "    when (requestCode) {" ,
+    
+      "      IMAGE_REQUEST -> {" ,
+    
+      "        placemark.image = data.data.toString()" ,
+    
+      "        activity.showPlacemark(placemark)" ,
+    
+      "      }" ,
+    
+      "      LOCATION_REQUEST -> {" ,
+    
+      "        location = data.extras.getParcelable<Location>('location')" ,
+    
+      "        placemark.lat = location.lat" ,
+    
+      "        placemark.lng = location.lng" ,
+    
+      "        placemark.zoom = location.zoom" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Look at it carefully. Notice that it receives a PlacemarkActivity in its constructor, and that it invokes this actvity in a number of methods. Try to get a sense of the responsibilities of this class." ,
+    
+      "" ,
+    
+      "And this is a revised PlacemarkActivity, which creates the presenter and defers to it as outlined above:" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.content.Intent" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import android.view.Menu" ,
+    
+      "import android.view.MenuItem" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark.*" ,
+    
+      "import org.jetbrains.anko.AnkoLogger" ,
+    
+      "import org.jetbrains.anko.toast" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.helpers.readImageFromPath" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkActivity : AppCompatActivity(), AnkoLogger {" ,
+    
+      "" ,
+    
+      "  lateinit var presenter: PlacemarkPresenter" ,
+    
+      "  var placemark = PlacemarkModel()" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark)" ,
+    
+      "    toolbarAdd.title = title" ,
+    
+      "    setSupportActionBar(toolbarAdd)" ,
+    
+      "" ,
+    
+      "    presenter = PlacemarkPresenter(this)" ,
+    
+      "" ,
+    
+      "    btnAdd.setOnClickListener {" ,
+    
+      "      if (placemarkTitle.text.toString().isEmpty()) {" ,
+    
+      "        toast(R.string.enter_placemark_title)" ,
+    
+      "      } else {" ,
+    
+      "        presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString())" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "" ,
+    
+      "    chooseImage.setOnClickListener { presenter.doSelectImage() }" ,
+    
+      "" ,
+    
+      "    placemarkLocation.setOnClickListener { presenter.doSetLocation() }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun showPlacemark(placemark: PlacemarkModel) {" ,
+    
+      "    placemarkTitle.setText(placemark.title)" ,
+    
+      "    description.setText(placemark.description)" ,
+    
+      "    placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))" ,
+    
+      "    if (placemark.image != null) {" ,
+    
+      "      chooseImage.setText(R.string.change_placemark_image)" ,
+    
+      "    }" ,
+    
+      "    btnAdd.setText(R.string.save_placemark)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onCreateOptionsMenu(menu: Menu): Boolean {" ,
+    
+      "    menuInflater.inflate(R.menu.menu_placemark, menu)" ,
+    
+      "    if (presenter.edit) menu.getItem(0).setVisible(true)" ,
+    
+      "    return super.onCreateOptionsMenu(menu)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onOptionsItemSelected(item: MenuItem?): Boolean {" ,
+    
+      "    when (item?.itemId) {" ,
+    
+      "      R.id.item_delete -> {" ,
+    
+      "        presenter.doDelete()" ,
+    
+      "      }" ,
+    
+      "      R.id.item_cancel -> {" ,
+    
+      "        presenter.doCancel()" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "    return super.onOptionsItemSelected(item)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {" ,
+    
+      "    super.onActivityResult(requestCode, resultCode, data)" ,
+    
+      "    if (data != null) {" ,
+    
+      "      presenter.doActivityResult(requestCode, resultCode, data)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This version is simpler that the original, is focus now is primarily on the user interface, with model update and tracking responsibilities delegated to the presenter." ,
+    
+      "" ,
+    
+      "Have a close look at the responsibilities " ,
+    
+      "" 
+    
     ]
     },
   
@@ -1687,6 +3233,345 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# PlacemarkListPresenter" ,
+    
+      "" ,
+    
+      "This is our current PlacemarkListActivity:" ,
+    
+      "" ,
+    
+      "## PlacenarListActivity " ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.content.Intent" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import android.support.v7.widget.LinearLayoutManager" ,
+    
+      "import android.view.*" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark_list.*" ,
+    
+      "import org.jetbrains.anko.intentFor" ,
+    
+      "import org.jetbrains.anko.startActivity" ,
+    
+      "import org.jetbrains.anko.startActivityForResult" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.main.MainApp" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {" ,
+    
+      "" ,
+    
+      "  lateinit var app: MainApp" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark_list)" ,
+    
+      "    app = application as MainApp" ,
+    
+      "    toolbarMain.title = title" ,
+    
+      "    setSupportActionBar(toolbarMain)" ,
+    
+      "" ,
+    
+      "    val layoutManager = LinearLayoutManager(this)" ,
+    
+      "    recyclerView.layoutManager = layoutManager" ,
+    
+      "    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)" ,
+    
+      "    loadPlacemarks()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  private fun loadPlacemarks() {" ,
+    
+      "    showPlacemarks( app.placemarks.findAll())" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun showPlacemarks (placemarks: List<PlacemarkModel>) {" ,
+    
+      "    recyclerView.adapter = PlacemarkAdapter(placemarks, this)" ,
+    
+      "    recyclerView.adapter?.notifyDataSetChanged()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onCreateOptionsMenu(menu: Menu?): Boolean {" ,
+    
+      "    menuInflater.inflate(R.menu.menu_main, menu)" ,
+    
+      "    return super.onCreateOptionsMenu(menu)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onOptionsItemSelected(item: MenuItem?): Boolean {" ,
+    
+      "    when (item?.itemId) {" ,
+    
+      "      R.id.item_add -> startActivityForResult<PlacemarkActivity>(0)" ,
+    
+      "      R.id.item_map -> startActivity<PlacemarkMapsActivity>()" ,
+    
+      "    }" ,
+    
+      "    return super.onOptionsItemSelected(item)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onPlacemarkClick(placemark: PlacemarkModel) {" ,
+    
+      "    startActivityForResult(intentFor<PlacemarkActivity>().putExtra('placemark_edit', placemark), 0)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {" ,
+    
+      "    loadPlacemarks()" ,
+    
+      "    super.onActivityResult(requestCode, resultCode, data)" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "And this is a new PlacemarkListPresenter:" ,
+    
+      "" ,
+    
+      "## PlacemarkListPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import org.jetbrains.anko.intentFor" ,
+    
+      "import org.jetbrains.anko.startActivity" ,
+    
+      "import org.jetbrains.anko.startActivityForResult" ,
+    
+      "import org.wit.placemark.main.MainApp" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkListPresenter(val activity: PlacemarkListActivity) {" ,
+    
+      "" ,
+    
+      "  var app: MainApp" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    app = activity.application as MainApp" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun getPlacemarks() = app.placemarks.findAll()" ,
+    
+      "" ,
+    
+      "  fun doAddPlacemark() {" ,
+    
+      "    activity.startActivityForResult<PlacemarkActivity>(0)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doEditPlacemark(placemark: PlacemarkModel) {" ,
+    
+      "    activity.startActivityForResult(activity.intentFor<PlacemarkActivity>().putExtra('placemark_edit', placemark), 0)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doShowPlacemarksMap() {" ,
+    
+      "    activity.startActivity<PlacemarkMapsActivity>()" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This is a revised PlacemarkListActivity to defer some responsibilities to the presenter:" ,
+    
+      "" ,
+    
+      "## PlacemarkListActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.content.Intent" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import android.support.v7.widget.LinearLayoutManager" ,
+    
+      "import android.view.*" ,
+    
+      "import kotlinx.android.synthetic.main.activity_placemark_list.*" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {" ,
+    
+      "" ,
+    
+      "  lateinit var presenter: PlacemarkListPresenter" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_placemark_list)" ,
+    
+      "    toolbarMain.title = title" ,
+    
+      "    setSupportActionBar(toolbarMain)" ,
+    
+      "" ,
+    
+      "    presenter = PlacemarkListPresenter(this)" ,
+    
+      "    val layoutManager = LinearLayoutManager(this)" ,
+    
+      "    recyclerView.layoutManager = layoutManager" ,
+    
+      "    recyclerView.adapter = PlacemarkAdapter(presenter.getPlacemarks(), this)" ,
+    
+      "    recyclerView.adapter?.notifyDataSetChanged()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onCreateOptionsMenu(menu: Menu?): Boolean {" ,
+    
+      "    menuInflater.inflate(R.menu.menu_main, menu)" ,
+    
+      "    return super.onCreateOptionsMenu(menu)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onOptionsItemSelected(item: MenuItem?): Boolean {" ,
+    
+      "    when (item?.itemId) {" ,
+    
+      "      R.id.item_add -> presenter.doAddPlacemark()" ,
+    
+      "      R.id.item_map -> presenter.doShowPlacemarksMap()" ,
+    
+      "    }" ,
+    
+      "    return super.onOptionsItemSelected(item)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onPlacemarkClick(placemark: PlacemarkModel) {" ,
+    
+      "    presenter.doEditPlacemark(placemark)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {" ,
+    
+      "    recyclerView.adapter?.notifyDataSetChanged()" ,
+    
+      "    super.onActivityResult(requestCode, resultCode, data)" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "The PlacemarkAdapter is not effected by these changes" ,
+    
+      "" 
+    
     ]
     },
   
@@ -2037,6 +3922,379 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# MapsPresenter" ,
+    
+      "" ,
+    
+      "The Current Maps Activity:" ,
+    
+      "" ,
+    
+      "## MapsActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.app.Activity" ,
+    
+      "import android.content.Intent" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "" ,
+    
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.OnMapReadyCallback" ,
+    
+      "import com.google.android.gms.maps.SupportMapFragment" ,
+    
+      "import com.google.android.gms.maps.model.LatLng" ,
+    
+      "import com.google.android.gms.maps.model.Marker" ,
+    
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "" ,
+    
+      "class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {" ,
+    
+      "" ,
+    
+      "  private lateinit var map: GoogleMap" ,
+    
+      "  var location = Location()" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_maps)" ,
+    
+      "    location = intent.extras.getParcelable<Location>('location')" ,
+    
+      "    val mapFragment = supportFragmentManager" ,
+    
+      "        .findFragmentById(R.id.map) as SupportMapFragment" ,
+    
+      "    mapFragment.getMapAsync(this)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMapReady(googleMap: GoogleMap) {" ,
+    
+      "    map = googleMap" ,
+    
+      "    map.setOnMarkerDragListener(this)" ,
+    
+      "    map.setOnMarkerClickListener(this)" ,
+    
+      "    val loc = LatLng(location.lat, location.lng)" ,
+    
+      "    val options = MarkerOptions()" ,
+    
+      "        .title('Placemark')" ,
+    
+      "        .snippet('GPS : ' + loc.toString())" ,
+    
+      "        .draggable(true)" ,
+    
+      "        .position(loc)" ,
+    
+      "    map.addMarker(options)" ,
+    
+      "    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDragStart(marker: Marker) {" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDrag(marker: Marker) {" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDragEnd(marker: Marker) {" ,
+    
+      "    location.lat = marker.position.latitude" ,
+    
+      "    location.lng = marker.position.longitude" ,
+    
+      "    location.zoom = map.cameraPosition.zoom" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onBackPressed() {" ,
+    
+      "    val resultIntent = Intent()" ,
+    
+      "    resultIntent.putExtra('location', location)" ,
+    
+      "    setResult(Activity.RESULT_OK, resultIntent)" ,
+    
+      "    finish()" ,
+    
+      "    super.onBackPressed()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    val loc = LatLng(location.lat, location.lng)" ,
+    
+      "    marker.setSnippet('GPS : ' + loc.toString())" ,
+    
+      "    return false" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "A new Presenter class:" ,
+    
+      "" ,
+    
+      "## MapsPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.app.Activity" ,
+    
+      "import android.content.Intent" ,
+    
+      "import com.google.android.gms.maps.CameraUpdateFactory" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.model.LatLng" ,
+    
+      "import com.google.android.gms.maps.model.Marker" ,
+    
+      "import com.google.android.gms.maps.model.MarkerOptions" ,
+    
+      "import org.wit.placemark.models.Location" ,
+    
+      "" ,
+    
+      "class MapsPresenter(val activity: MapsActivity) {" ,
+    
+      "" ,
+    
+      "  var location = Location()" ,
+    
+      "" ,
+    
+      "  init {" ,
+    
+      "    location = activity.intent.extras.getParcelable<Location>('location')" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun initMap(map: GoogleMap) {" ,
+    
+      "    val loc = LatLng(location.lat, location.lng)" ,
+    
+      "    val options = MarkerOptions()" ,
+    
+      "        .title('Placemark')" ,
+    
+      "        .snippet('GPS : ' + loc.toString())" ,
+    
+      "        .draggable(true)" ,
+    
+      "        .position(loc)" ,
+    
+      "    map.addMarker(options)" ,
+    
+      "    map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doUpdateLocation(lat: Double, lng: Double, zoom: Float) {" ,
+    
+      "    location.lat = lat" ,
+    
+      "    location.lng = lng" ,
+    
+      "    location.zoom = zoom" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doOnBackPressed() {" ,
+    
+      "    val resultIntent = Intent()" ,
+    
+      "    resultIntent.putExtra('location', location)" ,
+    
+      "    activity.setResult(Activity.RESULT_OK, resultIntent)" ,
+    
+      "    activity.finish()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun doUpdateMarker(marker: Marker) {" ,
+    
+      "    val loc = LatLng(location.lat, location.lng)" ,
+    
+      "    marker.setSnippet('GPS : ' + loc.toString())" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Revised MapsActivity to use this class:" ,
+    
+      "" ,
+    
+      "## MapsActivity " ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.support.v7.app.AppCompatActivity" ,
+    
+      "import android.os.Bundle" ,
+    
+      "import com.google.android.gms.maps.GoogleMap" ,
+    
+      "import com.google.android.gms.maps.SupportMapFragment" ,
+    
+      "import com.google.android.gms.maps.model.Marker" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "" ,
+    
+      "class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {" ,
+    
+      "" ,
+    
+      "  lateinit var map: GoogleMap" ,
+    
+      "  lateinit var presenter: MapsPresenter" ,
+    
+      "" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    super.onCreate(savedInstanceState)" ,
+    
+      "    setContentView(R.layout.activity_maps)" ,
+    
+      "    val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment" ,
+    
+      "    presenter = MapsPresenter(this)" ,
+    
+      "    mapFragment.getMapAsync {" ,
+    
+      "      map = it" ,
+    
+      "      map.setOnMarkerDragListener(this)" ,
+    
+      "      map.setOnMarkerClickListener(this)" ,
+    
+      "      presenter.initMap(map)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDragStart(marker: Marker) {}" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDrag(marker: Marker) {}" ,
+    
+      "" ,
+    
+      "  override fun onMarkerDragEnd(marker: Marker) {" ,
+    
+      "    presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, map.cameraPosition.zoom)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onBackPressed() {" ,
+    
+      "    presenter.doOnBackPressed()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onMarkerClick(marker: Marker): Boolean {" ,
+    
+      "    presenter.doUpdateMarker(marker)" ,
+    
+      "    return false" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" 
+    
     ]
     },
   
@@ -2105,6 +4363,103 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## Rename & Refactor" ,
+    
+      "" ,
+    
+      "We might take this opportunity to tidy up some of the names we have been using" ,
+    
+      "" ,
+    
+      "## 1: MapsActivity/MapsPresenter" ,
+    
+      "" ,
+    
+      "This class has a poor name choice, as it conflicts somewhat with one of our other activities." ,
+    
+      "" ,
+    
+      "- Rename MapsActivity to EditLoctionActivity" ,
+    
+      "- Rename MapsPresenter to EditLocationPresenter" ,
+    
+      "" ,
+    
+      "Be sure to use the refactoring tools to do this. In particular, make sure that the various resources to refer to the activity class are appropriately updated." ,
+    
+      "" ,
+    
+      "A good way of doing this is to keep an eye on the git changes once the refactoring is complete." ,
+    
+      "" ,
+    
+      "Do not proceed until you have completed a complete rebuild and also test of the application." ,
+    
+      "" ,
+    
+      "## 2: Rename all `Activities` to `Views`" ,
+    
+      "" ,
+    
+      "As we are now using the MVP pattern - it would be a good idea to adjust our class naming to reveal this." ,
+    
+      "" ,
+    
+      "- Rename all XxxxActivity classes to ViewActivity" ,
+    
+      "- Rename all `activity` references in the Presenters to `view`" ,
+    
+      "" ,
+    
+      "So we would have `PlacemarkView` and `PlacemarkPresenter`, with the `activity` property in PlacemarkPresenter renamed to `view`:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "class PlacemarkPresenter(val view: PlacemarkView) {" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Again, try to use the refactoring tools to do this." ,
+    
+      "" ,
+    
+      "## Refactor package structure" ,
+    
+      "" ,
+    
+      "Finally, this is our current package structure:" ,
+    
+      "" ,
+    
+      "![](img/11.png)" ,
+    
+      "" ,
+    
+      "Have a look at this revised version:" ,
+    
+      "" ,
+    
+      "![](img/10.png)" ,
+    
+      "" ,
+    
+      "Notice that we have created a `views` packages - and then this contains a package for each view/presenter pair." ,
+    
+      "" ,
+    
+      "See if you can replicate this now in your project." 
+    
     ]
     },
   
@@ -2137,6 +4492,45 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Exercises" ,
+    
+      "" ,
+    
+      "Placemark application so far:" ,
+    
+      "" ,
+    
+      "- [archive.zip](archives/archive.zip)" ,
+    
+      "" ,
+    
+      "## Exercise 1" ,
+    
+      "" ,
+    
+      "Convert the PlacemarkMaps Activity into PlacemarkMapView + PlacemarkPresenter. Perhaps aim for this final structure:" ,
+    
+      "" ,
+    
+      "![](img/12.png)" ,
+    
+      "" ,
+    
+      "## Exercise 2:" ,
+    
+      "" ,
+    
+      "Simplify the UX for PlacemarkActivity, removing the `Add Placemark` button, and including a `save` menu option to perform equivalent functionality:" ,
+    
+      "" ,
+    
+      "![](img/09.png)" ,
+    
+      "" 
+    
     ]
     }
   

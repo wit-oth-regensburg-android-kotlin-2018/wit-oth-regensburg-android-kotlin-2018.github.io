@@ -6,15 +6,18 @@
   
   "type" : "lab",
   "title" : "Lab-03 Models",
-  "folder" : "book-03-models",
-  
-    "link" : "book-03-models/index.html",
-  
   "img" : "book-03-models/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Application object + Model classes to manage placemarks.</p>",
   "properties" : {},
-  "los": [  ]
+    
+      "folder" : "book-03-models",
+    
+    
+      "link" : "book-03-models/index.html",
+    
+  "los": [
+     ]
 ,
   "chapters" : [
   
@@ -29,6 +32,17 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## Objectives" ,
+    
+      "" ,
+    
+      "Application object + Model classes to manage placemarks. " ,
+    
+      "" 
+    
     ]
     },
   
@@ -203,6 +217,249 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Exercise Solutions" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## Exercise 2: Cancel Button" ,
+    
+      "" ,
+    
+      "Incorporate new 'Cancel' action into `PlacemarkActivity`. This should return to PlacemarkListActivity without adding a new Placemark." ,
+    
+      "" ,
+    
+      "## strings.xml" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  <string name='menu_cancelPlacemark'>Cancel</string>" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## menu_placemark.xml" ,
+    
+      "" ,
+    
+      "This resources must be in the `menu` folder in `res`" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<menu xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "      xmlns:app='http://schemas.android.com/apk/res-auto'>" ,
+    
+      "" ,
+    
+      "  <item" ,
+    
+      "      android:id='@+id/item_cancel'" ,
+    
+      "      android:title='@string/menu_cancelPlacemark'" ,
+    
+      "      app:showAsAction='always'/>" ,
+    
+      "</menu>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "" ,
+    
+      "In order to present the toolbar - we need to first support it:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      " override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "    ..." ,
+    
+      "    toolbarAdd.title = title" ,
+    
+      "    setSupportActionBar(toolbarAdd)" ,
+    
+      "    ..." ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Then we need to `inflate` the menu:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onCreateOptionsMenu(menu: Menu?): Boolean {" ,
+    
+      "    menuInflater.inflate(R.menu.menu_placemark, menu)" ,
+    
+      "    return super.onCreateOptionsMenu(menu)" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Finally, we need to handle the event:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onOptionsItemSelected(item: MenuItem?): Boolean {" ,
+    
+      "    when (item?.itemId) {" ,
+    
+      "      R.id.item_cancel -> {" ,
+    
+      "        finish()" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "    return super.onOptionsItemSelected(item)" ,
+    
+      "  }" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "# Exercise 3: Refactor PlacemarkAdapter to its own source file." ,
+    
+      "" ,
+    
+      "The PlacemarkAdapter class is currently in the same source file as the PlacemarkListActivity class. For clarity and ease of maintenance, move this into its own source file." ,
+    
+      "" ,
+    
+      "## PlacemarkAdapter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.activities" ,
+    
+      "" ,
+    
+      "import android.support.v7.widget.RecyclerView" ,
+    
+      "import android.view.LayoutInflater" ,
+    
+      "import android.view.View" ,
+    
+      "import android.view.ViewGroup" ,
+    
+      "import kotlinx.android.synthetic.main.card_placemark.view.*" ,
+    
+      "import org.wit.placemark.R" ,
+    
+      "import org.wit.placemark.models.PlacemarkModel" ,
+    
+      "" ,
+    
+      "class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>) : RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {" ,
+    
+      "" ,
+    
+      "  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder {" ,
+    
+      "    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onBindViewHolder(holder: MainHolder, position: Int) {" ,
+    
+      "    val placemark = placemarks[holder.adapterPosition]" ,
+    
+      "    holder.bind(placemark)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun getItemCount(): Int = placemarks.size" ,
+    
+      "" ,
+    
+      "  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {" ,
+    
+      "" ,
+    
+      "    fun bind(placemark: PlacemarkModel) {" ,
+    
+      "      itemView.placemarkTitle.text = placemark.title" ,
+    
+      "      itemView.description.text = placemark.description" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Delete the PlacemarkAdapter class from PlacemarkListActivity - and rebuild and run the app now to verify that these changes have been engaged correctly." ,
+    
+      "" ,
+    
+      "Check the imports in PlacemarkListActivity:" ,
+    
+      "" ,
+    
+      "![](img/03.png)" ,
+    
+      "" ,
+    
+      "The greyed out imported are no longer needed (they were used by PlacemarkAdapter). Remove them now and rebuild." ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -333,6 +590,219 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## Introduce first Model Representation" ,
+    
+      "" ,
+    
+      "Introduce the following interface into the `models` package:" ,
+    
+      "" ,
+    
+      "## PlacemarkStore" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.models" ,
+    
+      "" ,
+    
+      "interface PlacemarkStore {" ,
+    
+      "  fun findAll(): List<PlacemarkModel>" ,
+    
+      "  fun create(placemark: PlacemarkModel)" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "In the same package, implement this interface in a class called PlacemarkMemStore" ,
+    
+      "" ,
+    
+      "## PlacemarkMemStore" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.models" ,
+    
+      "" ,
+    
+      "class PlacemarkMemStore : PlacemarkStore {" ,
+    
+      "" ,
+    
+      "  val placemarks = ArrayList<PlacemarkModel>()" ,
+    
+      "" ,
+    
+      "  override fun findAll(): List<PlacemarkModel> {" ,
+    
+      "    return placemarks" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun create(placemark: PlacemarkModel) {" ,
+    
+      "    placemarks.add(placemark)" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This is a simple encapsulation of our list of placemarks." ,
+    
+      "" ,
+    
+      "Rework all MainApp to use the above class:" ,
+    
+      "" ,
+    
+      "## MainApp" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  // val placemarks = ArrayList<PlacemarkModel>()" ,
+    
+      "  val placemarks = PlacemarkMemStore()" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## PlacemarkListActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  // recyclerView.adapter = PlacemarkAdapter(app.placemarks)" ,
+    
+      "  recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll())" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  // app.placemarks.add(placemark.copy())" ,
+    
+      "  app.placemarks.create(placemark.copy())" ,
+    
+      "" ,
+    
+      "  ..." ,
+    
+      "  // app.placemarks.forEach { info('add Button Pressed: ${it}') }" ,
+    
+      "  app.placemarks.findAll().forEach{ info('add Button Pressed: ${it}') }" ,
+    
+      "  ..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "## Logging" ,
+    
+      "" ,
+    
+      "Introduce a new method in PlacemarkMemStore which will log all placemarks. Call it whenever a new placemark is added." ,
+    
+      "" ,
+    
+      "## PlacemarkMemStore" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  override fun create(placemark: PlacemarkModel) {" ,
+    
+      "    placemarks.add(placemark)" ,
+    
+      "    logAll()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun logAll() {" ,
+    
+      "   placemarks.forEach{ info('${it}') }" ,
+    
+      "  }" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "For the above to compile, you will. need to adjust the class declaration:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "class PlacemarkMemStore : PlacemarkStore, AnkoLogger {" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "We can now remove the current logging from PlacemarkActivity:" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "        info('add Button Pressed: $placemarkTitle')" ,
+    
+      "        // app.placemarks.findAll().forEach{ info('add Button Pressed: ${it}') }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -437,6 +907,171 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## PlacemarkListner" ,
+    
+      "" ,
+    
+      "In PlacemarkAdapter, introduce this new interface:" ,
+    
+      "" ,
+    
+      "## PlacemarkAdapter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "interface PlacemarkListener {" ,
+    
+      "  fun onPlacemarkClick(placemark: PlacemarkModel)" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Place it just before the PlacemarkAdapter class (outside the class)." ,
+    
+      "" ,
+    
+      "This new interface will represent click events on the placemark Card, and allow us to abstract the response to this event." ,
+    
+      "" ,
+    
+      "" ,
+    
+      "Here is a revised version of the Adapter - which accepts and installs an event handler based on this interface:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>," ,
+    
+      "                                   private val listener: PlacemarkListener) : RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {" ,
+    
+      "" ,
+    
+      "  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {" ,
+    
+      "    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun onBindViewHolder(holder: MainHolder, position: Int) {" ,
+    
+      "    val placemark = placemarks[holder.adapterPosition]" ,
+    
+      "    holder.bind(placemark, listener)" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun getItemCount(): Int = placemarks.size" ,
+    
+      "" ,
+    
+      "  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {" ,
+    
+      "" ,
+    
+      "    fun bind(placemark: PlacemarkModel,  listener : PlacemarkListener) {" ,
+    
+      "      itemView.placemarkTitle.text = placemark.title" ,
+    
+      "      itemView.description.text = placemark.description" ,
+    
+      "      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Look carefully at the very last line of the bind function above:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Can you figure our that is going on here?" ,
+    
+      "" ,
+    
+      "Perhaps if we now use this capability in PlacemarkListActivity it will become clearer." ,
+    
+      "" ,
+    
+      "## PlacemarkListActivity" ,
+    
+      "" ,
+    
+      "First, declare that we will implement the new interface:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "... then the actual implementation:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onPlacemarkClick(placemark: PlacemarkModel) {" ,
+    
+      "    startActivityForResult(intentFor<PlacemarkActivity>(), 0)" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Finally, in onCreate, change the way we create the adapter:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "If you run the app now - and add some placemarks. Selecting a placemark from the list will start the PlacemarkActivity. However, the Placemark we select will not appear in the PlacemarkActivity view. We will fix this in the next steps." ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -491,7 +1126,7 @@
      
       "<ul>" ,
      
-      "<li><a href='&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x68;&#x74;&#x74;&#112;&#115;&#x3a;&#x2f;&#x2f;&#109;&#x65;&#x64;&#x69;&#117;&#x6d;&#x2e;&#99;&#111;&#109;&#x2f;&#64;&#x42;&#x6c;&#x61;&#x64;&#x65;&#67;&#111;&#x64;&#x65;&#114;&#47;&#x72;&#101;&#x64;&#117;&#99;&#x69;&#x6e;&#x67;&#x2d;&#112;&#x61;&#x72;&#x63;&#x65;&#x6c;&#97;&#98;&#108;&#x65;&#x2d;&#98;&#111;&#105;&#x6c;&#101;&#114;&#112;&#108;&#97;&#116;&#101;&#x2d;&#99;&#x6f;&#x64;&#101;&#x2d;&#117;&#115;&#x69;&#x6e;&#103;&#x2d;&#107;&#x6f;&#116;&#x6c;&#105;&#x6e;&#45;&#55;&#52;&#49;&#99;&#51;&#x31;&#x32;&#52;&#97;&#x34;&#x39;&#x61;'>&#x68;&#x74;&#x74;&#112;&#115;&#x3a;&#x2f;&#x2f;&#109;&#x65;&#x64;&#x69;&#117;&#x6d;&#x2e;&#99;&#111;&#109;&#x2f;&#64;&#x42;&#x6c;&#x61;&#x64;&#x65;&#67;&#111;&#x64;&#x65;&#114;&#47;&#x72;&#101;&#x64;&#117;&#99;&#x69;&#x6e;&#x67;&#x2d;&#112;&#x61;&#x72;&#x63;&#x65;&#x6c;&#97;&#98;&#108;&#x65;&#x2d;&#98;&#111;&#105;&#x6c;&#101;&#114;&#112;&#108;&#97;&#116;&#101;&#x2d;&#99;&#x6f;&#x64;&#101;&#x2d;&#117;&#115;&#x69;&#x6e;&#103;&#x2d;&#107;&#x6f;&#116;&#x6c;&#105;&#x6e;&#45;&#55;&#52;&#49;&#99;&#51;&#x31;&#x32;&#52;&#97;&#x34;&#x39;&#x61;</a></li>" ,
+      "<li><a href='&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#x68;&#x74;&#x74;&#112;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#x6d;&#x2f;&#64;&#66;&#x6c;&#x61;&#100;&#101;&#67;&#111;&#x64;&#x65;&#114;&#x2f;&#114;&#x65;&#100;&#117;&#x63;&#105;&#110;&#x67;&#x2d;&#x70;&#97;&#x72;&#x63;&#101;&#108;&#x61;&#x62;&#108;&#101;&#x2d;&#x62;&#x6f;&#x69;&#x6c;&#101;&#x72;&#112;&#x6c;&#x61;&#116;&#101;&#45;&#99;&#x6f;&#x64;&#101;&#45;&#117;&#x73;&#x69;&#x6e;&#103;&#x2d;&#x6b;&#111;&#x74;&#108;&#105;&#x6e;&#x2d;&#x37;&#x34;&#49;&#99;&#x33;&#x31;&#x32;&#x34;&#97;&#52;&#x39;&#97;'>&#x68;&#x74;&#x74;&#112;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#x2e;&#99;&#x6f;&#x6d;&#x2f;&#64;&#66;&#x6c;&#x61;&#100;&#101;&#67;&#111;&#x64;&#x65;&#114;&#x2f;&#114;&#x65;&#100;&#117;&#x63;&#105;&#110;&#x67;&#x2d;&#x70;&#97;&#x72;&#x63;&#101;&#108;&#x61;&#x62;&#108;&#101;&#x2d;&#x62;&#x6f;&#x69;&#x6c;&#101;&#x72;&#112;&#x6c;&#x61;&#116;&#101;&#45;&#99;&#x6f;&#x64;&#101;&#45;&#117;&#x73;&#x69;&#x6e;&#103;&#x2d;&#x6b;&#111;&#x74;&#108;&#105;&#x6e;&#x2d;&#x37;&#x34;&#49;&#99;&#x33;&#x31;&#x32;&#x34;&#97;&#52;&#x39;&#97;</a></li>" ,
      
       "</ul>" ,
      
@@ -507,6 +1142,99 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## Parcelable" ,
+    
+      "" ,
+    
+      "We will switch on some additional Kotlin goodness - which will significantly simplify the next set of features." ,
+    
+      "" ,
+    
+      "## build.gradle" ,
+    
+      "" ,
+    
+      "Before the dependencies:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "androidExtensions {" ,
+    
+      "  experimental = true" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "These experimental features are discussed here:" ,
+    
+      "" ,
+    
+      "- <https://kotlinlang.org/docs/tutorials/android-plugin.html>" ,
+    
+      "" ,
+    
+      "They are not without some issues - but quite usable." ,
+    
+      "" ,
+    
+      "This is a revised version of the PlacemarkModel class:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.models" ,
+    
+      "" ,
+    
+      "import android.os.Parcelable" ,
+    
+      "import kotlinx.android.parcel.Parcelize" ,
+    
+      "" ,
+    
+      "@Parcelize" ,
+    
+      "data class PlacemarkModel(var title: String = ''," ,
+    
+      "                          var description: String = '') : Parcelable" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "It implements a parcelize capability. This is discussed in detail here:" ,
+    
+      "" ,
+    
+      "- <https://medium.com/@BladeCoder/reducing-parcelable-boilerplate-code-using-kotlin-741c3124a49a>" ,
+    
+      "" ,
+    
+      "...but this was written without using the new feature we have just enabled, which dramatically reduces the boilerplate even further. Our approach is discussed here:" ,
+    
+      "" ,
+    
+      "- <https://kotlinlang.org/docs/tutorials/android-plugin.html>" ,
+    
+      "" ,
+    
+      "(towards the end)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -569,6 +1297,97 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# StartActivityWithData" ,
+    
+      "" ,
+    
+      "We can now pass the selected placemark when we start PlacemarkActivity:" ,
+    
+      "" ,
+    
+      "Change the current onPlacemarkClick implementation:" ,
+    
+      "" ,
+    
+      "## PlacemarkListActivity" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onPlacemarkClick(placemark: PlacemarkModel) {" ,
+    
+      "    startActivityForResult(intentFor<PlacemarkActivity>(), 0)" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "to this:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onPlacemarkClick(placemark: PlacemarkModel) {" ,
+    
+      "    startActivityForResult(intentFor<PlacemarkActivity>().putExtra('placemark_edit', placemark), 0)" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Notice we are passing the selected placemark to the activity - this is enabled via the `parcelable` mechanism we have just turned on." ,
+    
+      "" ,
+    
+      "Now, in PlacemarkActivity, we can retrieve the placemark in `onCreate()`" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onCreate(savedInstanceState: Bundle?) {" ,
+    
+      "" ,
+    
+      "    ..." ,
+    
+      "    if (intent.hasExtra('placemark_edit')) {" ,
+    
+      "      placemark = intent.extras.getParcelable<PlacemarkModel>('placemark_edit')" ,
+    
+      "      placemarkTitle.setText(placemark.title)" ,
+    
+      "      description.setText(placemark.description)" ,
+    
+      "    }" ,
+    
+      "    ..." ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Place this before the `btnAdd.setOnClickListener()` statement." ,
+    
+      "" ,
+    
+      "We read back the placemark, and place its field into the view controls." ,
+    
+      "" ,
+    
+      "Run the app now - and verify that if you select a placemark - you will be taken to the PlacemakrActivity containing its values." 
+    
     ]
     },
   
@@ -693,6 +1512,169 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Ids" ,
+    
+      "" ,
+    
+      "Currently, we 'edit' a placemark, make a change - then it will create a new placemark. This clearly is not the appropriate behavior. We should update the placemark we have been passed." ,
+    
+      "" ,
+    
+      "To do this, we need a unique way of identifying placemarks - this is usually via an id. This is the current model:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "@Parcelize" ,
+    
+      "data class PlacemarkModel(var title: String = ''," ,
+    
+      "                          var description: String = '') : Parcelable" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This is a revised version to include an ID:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "@Parcelize" ,
+    
+      "data class PlacemarkModel(var id: Long = 0," ,
+    
+      "                          var title: String = ''," ,
+    
+      "                          var description: String = '') : Parcelable" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "We can now introduce a new method in PlacemarkStore interface:" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## PlacemarkStore" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "..." ,
+    
+      "  fun update(placemark: PlacemarkModel)" ,
+    
+      "..." ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "... and this is the completely revised PlacemarkMemStore implementation:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "package org.wit.placemark.models" ,
+    
+      "" ,
+    
+      "import org.jetbrains.anko.AnkoLogger" ,
+    
+      "import org.jetbrains.anko.info" ,
+    
+      "" ,
+    
+      "var lastId = 0L" ,
+    
+      "" ,
+    
+      "internal fun getId(): Long {" ,
+    
+      "  return lastId++" ,
+    
+      "}" ,
+    
+      "" ,
+    
+      "class PlacemarkMemStore : PlacemarkStore, AnkoLogger {" ,
+    
+      "" ,
+    
+      "  val placemarks = ArrayList<PlacemarkModel>()" ,
+    
+      "" ,
+    
+      "  override fun findAll(): List<PlacemarkModel> {" ,
+    
+      "    return placemarks" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun create(placemark: PlacemarkModel) {" ,
+    
+      "    placemark.id = getId()" ,
+    
+      "    placemarks.add(placemark)" ,
+    
+      "    logAll()" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  override fun update(placemark: PlacemarkModel) {" ,
+    
+      "    var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == placemark.id }" ,
+    
+      "    if (foundPlacemark != null) {" ,
+    
+      "      foundPlacemark.title = placemark.title" ,
+    
+      "      foundPlacemark.description = placemark.description" ,
+    
+      "      logAll()" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "" ,
+    
+      "  fun logAll() {" ,
+    
+      "    placemarks.forEach { info('${it}') }" ,
+    
+      "  }" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Notice how we are generating a new ID when we create placemarks." ,
+    
+      "" ,
+    
+      "These features will enable us to implement a placemark edit behaviour." ,
+    
+      "" 
+    
     ]
     },
   
@@ -749,6 +1731,97 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "#Solution" ,
+    
+      "" ,
+    
+      "Placemark application so far:" ,
+    
+      "" ,
+    
+      "- [placemark-03.zip](archives/placemark-03.zip)" ,
+    
+      "" ,
+    
+      "## Exercise 1: String Resources" ,
+    
+      "" ,
+    
+      "In PlacemarkActivity - we have the following hard coded string:" ,
+    
+      "" ,
+    
+      "## PlacemarkActivity" ,
+    
+      "~~~" ,
+    
+      "  toast('Please Enter a title')" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "These strings should be in the strings.xml resource file. Move them in there, and figure out how to load the strings in PlacemarkActivity." ,
+    
+      "" ,
+    
+      "For guidance, see:" ,
+    
+      "" ,
+    
+      "- <https://developer.android.com/guide/topics/resources/string-resource.html>" ,
+    
+      "- <https://stackoverflow.com/questions/44871481/how-can-i-access-values-from-strings-xml-in-kotlin-android>" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## Exercise 2: Add Button Label" ,
+    
+      "" ,
+    
+      "When you select a placemark - and the PlacemarkActivity is launched, the button label is 'Add Placemark'. See if you can change this to 'Save Placemark'. This is only to be changed if PlacemarkActivity is launched with a placemark passed to it. Make sure the `Save Placemark` string is externalized (in strings.xml)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "## Exercise 3 " ,
+    
+      "" ,
+    
+      "When you select a placemark from PlacemarkListActivity - it presents the activity in the PlacemarkActivity. If you press 'Save Activity' - a new activity is created and appended to the list." ,
+    
+      "" ,
+    
+      "Change this behaviour such that the button should update the existing placemark with the newly entered values, not create a new one.  We have new features in PlacemarkStore to enable you to implement this (the update method). Essentially, you will need to call update OR create when handling the button event." ,
+    
+      "" ,
+    
+      "If you complete the implementation, you will notice that even if you update a Placemark's contents, the new contents will not be displayed in PlacemarkList. However, if you consult the logs you may be able to see if the values are actually changed." ,
+    
+      "" ,
+    
+      "If you have trouble finding the correct logs, enter `PlacemarkModel` in the expression window in logcat. This should remove all logs except the ones you want to see:" ,
+    
+      "" ,
+    
+      "![](img/04.png)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     }
   

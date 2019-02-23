@@ -6,15 +6,18 @@
   
   "type" : "lab",
   "title" : "Lab-09b Tracking",
-  "folder" : "book-2-location",
-  
-    "link" : "book-2-location/index.html",
-  
   "img" : "book-2-location/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Extend the location facility to track location in real time.</p>",
   "properties" : {},
-  "los": [  ]
+    
+      "folder" : "book-2-location",
+    
+    
+      "link" : "book-2-location/index.html",
+    
+  "los": [
+     ]
 ,
   "chapters" : [
   
@@ -29,6 +32,19 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Objectives" ,
+    
+      "" ,
+    
+      "Extend the location facility to track location in real time." ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -323,6 +339,313 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Exercise Solution 1" ,
+    
+      "" ,
+    
+      "This is the revised view we are seeking:" ,
+    
+      "" ,
+    
+      "![](img/03x.png)" ,
+    
+      "" ,
+    
+      "activity_placemark layout to include lat/lng and remove the Set Location button:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "<?xml version='1.0' encoding='utf-8'?>" ,
+    
+      "<android.support.constraint.ConstraintLayout" ,
+    
+      "  xmlns:android='http://schemas.android.com/apk/res/android'" ,
+    
+      "  xmlns:app='http://schemas.android.com/apk/res-auto'" ,
+    
+      "  xmlns:tools='http://schemas.android.com/tools'" ,
+    
+      "  android:layout_width='match_parent'" ,
+    
+      "  android:layout_height='match_parent'" ,
+    
+      "  tools:context='org.wit.placemark.views.placemark.PlacemarkView'>" ,
+    
+      "" ,
+    
+      "  <android.support.design.widget.AppBarLayout" ,
+    
+      "    android:id='@+id/appBarLayout'" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='wrap_content'" ,
+    
+      "    android:background='@color/colorAccent'" ,
+    
+      "    android:fitsSystemWindows='true'" ,
+    
+      "    app:elevation='0dip'" ,
+    
+      "    app:theme='@style/ThemeOverlay.AppCompat.Dark.ActionBar'>" ,
+    
+      "" ,
+    
+      "    <android.support.v7.widget.Toolbar" ,
+    
+      "      android:id='@+id/toolbarAdd'" ,
+    
+      "      android:layout_width='match_parent'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      app:titleTextColor='@color/colorPrimary' />" ,
+    
+      "" ,
+    
+      "  </android.support.design.widget.AppBarLayout>" ,
+    
+      "" ,
+    
+      "  <android.support.constraint.ConstraintLayout" ,
+    
+      "    android:layout_width='match_parent'" ,
+    
+      "    android:layout_height='600dp'" ,
+    
+      "    android:layout_marginEnd='8dp'" ,
+    
+      "    android:layout_marginStart='8dp'" ,
+    
+      "    app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "    app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "    app:layout_constraintTop_toTopOf='parent'>" ,
+    
+      "" ,
+    
+      "    <EditText" ,
+    
+      "      android:id='@+id/placemarkTitle'" ,
+    
+      "      android:layout_width='239dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:ems='10'" ,
+    
+      "      android:hint='@string/hint_placemarkTitle'" ,
+    
+      "      android:inputType='text'" ,
+    
+      "      app:layout_constraintBaseline_toBaselineOf='@+id/textView'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent' />" ,
+    
+      "" ,
+    
+      "    <EditText" ,
+    
+      "      android:id='@+id/description'" ,
+    
+      "      android:layout_width='239dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:ems='10'" ,
+    
+      "      android:hint='@string/hint_placemarkDescription'" ,
+    
+      "      android:inputType='textPersonName'" ,
+    
+      "      app:layout_constraintBaseline_toBaselineOf='@+id/textView2'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent' />" ,
+    
+      "" ,
+    
+      "    <Button" ,
+    
+      "      android:id='@+id/chooseImage'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:text='@string/button_addImage'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/description' />" ,
+    
+      "" ,
+    
+      "    <ImageView" ,
+    
+      "      android:id='@+id/placemarkImage'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='139dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='16dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintHorizontal_bias='0.0'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/chooseImage'" ,
+    
+      "      app:srcCompat='@drawable/ic_launcher_background' />" ,
+    
+      "" ,
+    
+      "    <com.google.android.gms.maps.MapView" ,
+    
+      "      android:id='@+id/mapView'" ,
+    
+      "      android:layout_width='0dp'" ,
+    
+      "      android:layout_height='0dp'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='8dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      app:layout_constraintBottom_toBottomOf='parent'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toStartOf='parent'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/placemarkImage' />" ,
+    
+      "" ,
+    
+      "    <TextView" ,
+    
+      "      android:id='@+id/textView'" ,
+    
+      "      android:layout_width='wrap_content'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:text='Lat:'" ,
+    
+      "      app:layout_constraintBaseline_toBaselineOf='@+id/lat'" ,
+    
+      "      app:layout_constraintStart_toEndOf='@+id/placemarkTitle' />" ,
+    
+      "" ,
+    
+      "    <TextView" ,
+    
+      "      android:id='@+id/textView2'" ,
+    
+      "      android:layout_width='wrap_content'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:text='Lng:'" ,
+    
+      "      app:layout_constraintBaseline_toBaselineOf='@+id/lng'" ,
+    
+      "      app:layout_constraintStart_toEndOf='@+id/description' />" ,
+    
+      "" ,
+    
+      "    <TextView" ,
+    
+      "      android:id='@+id/lat'" ,
+    
+      "      android:layout_width='wrap_content'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='72dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:text='00.000000'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toEndOf='@+id/textView'" ,
+    
+      "      app:layout_constraintTop_toTopOf='parent' />" ,
+    
+      "" ,
+    
+      "    <TextView" ,
+    
+      "      android:id='@+id/lng'" ,
+    
+      "      android:layout_width='wrap_content'" ,
+    
+      "      android:layout_height='wrap_content'" ,
+    
+      "      android:layout_marginStart='8dp'" ,
+    
+      "      android:layout_marginTop='20dp'" ,
+    
+      "      android:layout_marginEnd='8dp'" ,
+    
+      "      android:text='00.000000'" ,
+    
+      "      app:layout_constraintEnd_toEndOf='parent'" ,
+    
+      "      app:layout_constraintStart_toEndOf='@+id/textView2'" ,
+    
+      "      app:layout_constraintTop_toBottomOf='@+id/lat' />" ,
+    
+      "" ,
+    
+      "  </android.support.constraint.ConstraintLayout>" ,
+    
+      "" ,
+    
+      "</android.support.constraint.ConstraintLayout>" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -373,6 +696,81 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "## PlacemarkView" ,
+    
+      "" ,
+    
+      "In PlacemarkView, display the lat/lng:" ,
+    
+      "" ,
+    
+      "## PlacemarkView" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun showPlacemark(placemark: PlacemarkModel) {" ,
+    
+      "    placemarkTitle.setText(placemark.title)" ,
+    
+      "    description.setText(placemark.description)" ,
+    
+      "    placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))" ,
+    
+      "    if (placemark.image != null) {" ,
+    
+      "      chooseImage.setText(R.string.change_placemark_image)" ,
+    
+      "    }" ,
+    
+      "    lat.setText('%.6f'.format(placemark.lat))" ,
+    
+      "    lng.setText('%.6f'.format(placemark.lng))" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Also in PlacemarkView - remove references to the setLocation button:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "   // placemarkLocation.setOnClickListener { presenter.doSetLocation() }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Instead, set an onClikcListener on the GoogleMap object:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "    mapView.getMapAsync {" ,
+    
+      "      presenter.doConfigureMap(it)" ,
+    
+      "      it.setOnMapClickListener { presenter.doSetLocation() }" ,
+    
+      "    }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -471,6 +869,145 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Live Location Updates" ,
+    
+      "" ,
+    
+      "First, we need a new helper function:" ,
+    
+      "" ,
+    
+      "## LocationHelper" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "@SuppressLint('RestrictedApi')" ,
+    
+      "fun createDefaultLocationRequest() : LocationRequest {" ,
+    
+      "  val locationRequest = LocationRequest().apply {" ,
+    
+      "    interval = 10000" ,
+    
+      "    fastestInterval = 5000" ,
+    
+      "    priority = LocationRequest.PRIORITY_HIGH_ACCURACY" ,
+    
+      "  }" ,
+    
+      "  return locationRequest" ,
+    
+      "}" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "In PlacemarkPresenter, use this helper to initialise a new attribute:" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  val locationRequest = createDefaultLocationRequest()" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "Now introduce a new method, also in the presenter:" ,
+    
+      "" ,
+    
+      "## PlacemarkPresenter" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  @SuppressLint('MissingPermission')" ,
+    
+      "  fun doResartLocationUpdates() {" ,
+    
+      "    var locationCallback = object : LocationCallback() {" ,
+    
+      "      override fun onLocationResult(locationResult: LocationResult?) {" ,
+    
+      "        if (locationResult != null && locationResult.locations != null) {" ,
+    
+      "          val l = locationResult.locations.last()" ,
+    
+      "          locationUpdate(l.latitude, l.longitude)" ,
+    
+      "        }" ,
+    
+      "      }" ,
+    
+      "    }" ,
+    
+      "    if (!edit) {" ,
+    
+      "      locationService.requestLocationUpdates(locationRequest, locationCallback, null)" ,
+    
+      "    }" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "This method, when invoked, does 12 things:" ,
+    
+      "" ,
+    
+      "- defines a callback - to be triggered when we turn location updates" ,
+    
+      "- checks to see if we are in edit mode - if not, it is assumed we would like live location updates to commence." ,
+    
+      "" ,
+    
+      "Finally, we need to be careful how we start these location updates. The safest place is from the PresenterView:" ,
+    
+      "" ,
+    
+      "## PlacemarkView" ,
+    
+      "" ,
+    
+      "~~~" ,
+    
+      "  override fun onResume() {" ,
+    
+      "    super.onResume()" ,
+    
+      "    mapView.onResume()" ,
+    
+      "    presenter.doResartLocationUpdates()" ,
+    
+      "  }" ,
+    
+      "~~~" ,
+    
+      "" ,
+    
+      "Here, in onResumne(), we ask for location updates to start (or restart if the view has been removed). We are assuming that location updates will be automatically terminated if the view is destroyed." ,
+    
+      "" ,
+    
+      "Run the app now in the simulator - and modify the lat/log values, then pressing `Send`. The location should change reasonably promptly in the view." ,
+    
+      "" ,
+    
+      "" 
+    
     ]
     },
   
@@ -501,6 +1038,41 @@
      
       "" 
      
+    ],
+    "contentMd": [
+    
+      "# Exercises" ,
+    
+      "" ,
+    
+      "Placemark application so far:" ,
+    
+      "" ,
+    
+      "- [archive.zip](archives/archive.zip)" ,
+    
+      "" ,
+    
+      "" ,
+    
+      "This is a revised EditLocation view:" ,
+    
+      "" ,
+    
+      "![](img/02.png)" ,
+    
+      "" ,
+    
+      "In this version, as you drag the marker around the lat/long is updated as the marker is moved. Try to implement this now. " ,
+    
+      "" ,
+    
+      "One strategy might be to replace the existing view completely with a version that loads a new layout. This layout can be designed in the layout editor, and contain the MapView + the lat/lng text views." ,
+    
+      "" ,
+    
+      "To kick start this process, you could copy the PlacemarkMapView class + layout. You should be able to keep the same presenter." 
+    
     ]
     }
   

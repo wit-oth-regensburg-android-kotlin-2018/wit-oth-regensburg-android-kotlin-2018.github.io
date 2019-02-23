@@ -9,7 +9,9 @@
   "img" : "book-04-images/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Allow an image to be selected from the phones photos, and stored with the placemark</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book-04-images",
     

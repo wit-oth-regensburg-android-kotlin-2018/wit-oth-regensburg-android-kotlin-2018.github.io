@@ -9,7 +9,9 @@
   "img" : "book-1-mvp-1/img/main.jpg",
   "videoid" : "none",
   "objectives" : "<p>Refactor Activities to use the Model View Presenter pattern</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book-1-mvp-1",
     

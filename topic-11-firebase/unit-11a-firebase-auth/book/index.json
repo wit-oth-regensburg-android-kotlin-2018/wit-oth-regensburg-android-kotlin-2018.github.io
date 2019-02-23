@@ -9,7 +9,9 @@
   "img" : "book/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Authenticate users against the Firebase Authentication service</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book",
     

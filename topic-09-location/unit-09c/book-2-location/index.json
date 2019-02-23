@@ -9,7 +9,9 @@
   "img" : "book-2-location/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Extend the location facility to track location in real time.</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book-2-location",
     

@@ -9,7 +9,9 @@
   "img" : "book-02-adapters/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Introduce new activity to display a list of placemarks. Support adding to this list.</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book-02-adapters",
     

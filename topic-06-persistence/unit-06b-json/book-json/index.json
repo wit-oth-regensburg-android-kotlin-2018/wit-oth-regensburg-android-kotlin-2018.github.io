@@ -9,7 +9,9 @@
   "img" : "book-json/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Save and restore placemarks from a JSON formatted file</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book-json",
     

@@ -9,7 +9,9 @@
   "img" : "book-1-location/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>When creating a new placemark, use the current location as the starting point.</p>",
-  "properties" : {},
+   
+    "properties" : {},
+    
     
       "folder" : "book-1-location",
     

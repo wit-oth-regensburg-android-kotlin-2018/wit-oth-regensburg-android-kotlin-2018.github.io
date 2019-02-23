@@ -9,8 +9,8 @@
   "img" : "book-1/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Migrate to AndroidX + manage library versions more optimally</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book-1",

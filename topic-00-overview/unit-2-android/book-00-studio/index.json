@@ -9,8 +9,8 @@
   "img" : "book-00-studio/img/main.png",
   "videoid" : "6kcITTgMPxA",
   "objectives" : "<p>Download and configure Android Studio. Generate and run a sample application.</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book-00-studio",

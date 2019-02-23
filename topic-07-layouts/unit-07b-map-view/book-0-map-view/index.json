@@ -9,8 +9,8 @@
   "img" : "book-0-map-view/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Display all placemarks on a map in a new activity</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book-0-map-view",

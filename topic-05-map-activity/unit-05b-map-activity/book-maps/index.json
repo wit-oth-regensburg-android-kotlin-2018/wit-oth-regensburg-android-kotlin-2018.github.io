@@ -9,8 +9,8 @@
   "img" : "book-maps/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Include a MapActivity, enabling the user to select the location of the placemark</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book-maps",

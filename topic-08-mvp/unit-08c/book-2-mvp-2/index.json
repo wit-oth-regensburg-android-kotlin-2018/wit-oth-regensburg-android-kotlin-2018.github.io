@@ -9,8 +9,8 @@
   "img" : "book-2-mvp-2/img/main.jpg",
   "videoid" : "none",
   "objectives" : "<p>Complete the presenter pattern implementation, introducing BaseView &amp; BasePresenter classes</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book-2-mvp-2",

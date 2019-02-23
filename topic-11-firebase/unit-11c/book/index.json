@@ -9,8 +9,8 @@
   "img" : "book/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Store images in Firebase Storage</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book",

@@ -9,8 +9,8 @@
   "img" : "book/img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Store placemarks in Firebase Realtime Database</p>",
-   
-    "properties" : {},
+    
+      "properties" : {},
     
     
       "folder" : "book",

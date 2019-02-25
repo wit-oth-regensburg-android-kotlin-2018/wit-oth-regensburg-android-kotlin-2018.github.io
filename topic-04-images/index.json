@@ -1,0 +1,209 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "04: Images ",
+  "img" : "topic-04-images/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>A more detailed look at the fundamental types in Kotlin. How to manage images in android, including selecting and displaying images from the phone gallery.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-04-images",
+    
+    
+      "link" : "topic-04-images/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Deep Dive ",
+  "img" : "unit-04a-kotlin-types-and-packages/talk-1-kotlin-types/types.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04a-kotlin-types-and-packages",
+    
+    
+      "link" : "unit-04a-kotlin-types-and-packages/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Types ",
+  "img" : "unit-04a-kotlin-types-and-packages/talk-1-kotlin-types/types.png",
+  "videoid" : "none",
+  "objectives" : "<p>Summary of the basic types in the Kotlin programming language</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04a-kotlin-types-and-packages/talk-1-kotlin-types",
+    
+    
+      "link" : "unit-04a-kotlin-types-and-packages/talk-1-kotlin-types/types.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "J2K Collections ",
+  "img" : "unit-04a-kotlin-types-and-packages/talk-2-j2k-collections/d-j2k-collections.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Collection examples: Java &amp; Kotlin equivalents</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04a-kotlin-types-and-packages/talk-2-j2k-collections",
+    
+    
+      "link" : "unit-04a-kotlin-types-and-packages/talk-2-j2k-collections/d-j2k-collections.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Images  ",
+  "img" : "unit-04b-images/talk-01-resources/resources.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04b-images",
+    
+    
+      "link" : "unit-04b-images/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Resources ",
+  "img" : "unit-04b-images/talk-01-resources/resources.png",
+  "videoid" : "none",
+  "objectives" : "<p>A general term for all layout, strings, bitmaps and other XML artefacts in an Android Project</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04b-images/talk-01-resources",
+    
+    
+      "link" : "unit-04b-images/talk-01-resources/resources.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Model Updates ",
+  "img" : "unit-04b-images/talk-02-model-updates/model-updates.png",
+  "videoid" : "none",
+  "objectives" : "<p>Creating and updating a Placemark. Updating the placemark list.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04b-images/talk-02-model-updates",
+    
+    
+      "link" : "unit-04b-images/talk-02-model-updates/model-updates.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Images ",
+  "img" : "unit-04b-images/talk-03-images/images.png",
+  "videoid" : "none",
+  "objectives" : "<p>Support selecting image from phone gallery, and then displaying them in an activity.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04b-images/talk-03-images",
+    
+    
+      "link" : "unit-04b-images/talk-03-images/images.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-04 Images",
+  "img" : "unit-04b-images/book-04-images/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Allow an image to be selected from the phones photos, and stored with the placemark</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-04b-images/book-04-images",
+    
+    
+      "link" : "unit-04b-images/book-04-images/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

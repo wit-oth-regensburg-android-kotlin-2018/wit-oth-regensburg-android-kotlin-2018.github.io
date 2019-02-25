@@ -1,0 +1,209 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "02: Adapters ",
+  "img" : "topic-02-adapters/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Look at Kotlin in more depth. Deep dive into some of its features. Extend the app to manage lists of placemarks using the adapter pattern.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-02-adapters",
+    
+    
+      "link" : "topic-02-adapters/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Fundamentals ",
+  "img" : "unit-02a-kotlin-basics/talk-1-origins/kotlin-origins.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02a-kotlin-basics",
+    
+    
+      "link" : "unit-02a-kotlin-basics/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Kotlin Structure ",
+  "img" : "unit-02a-kotlin-basics/talk-1-origins/kotlin-origins.png",
+  "videoid" : "none",
+  "objectives" : "<p>The fundamental characteristics of the language</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02a-kotlin-basics/talk-1-origins",
+    
+    
+      "link" : "unit-02a-kotlin-basics/talk-1-origins/kotlin-origins.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Basic Syntax ",
+  "img" : "unit-02a-kotlin-basics/talk-2-basic-syntax/01-basic-syntax.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Rapid tour of the basic syntax of Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02a-kotlin-basics/talk-2-basic-syntax",
+    
+    
+      "link" : "unit-02a-kotlin-basics/talk-2-basic-syntax/01-basic-syntax.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Kotlin Deep Dive ",
+  "img" : "unit-02a-kotlin-basics/talk-3-deep-dive/deep-dive.png",
+  "videoid" : "none",
+  "objectives" : "<p>A deep dive into some key Kotlin features: Data Classes &amp; Lambdas</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02a-kotlin-basics/talk-3-deep-dive",
+    
+    
+      "link" : "unit-02a-kotlin-basics/talk-3-deep-dive/deep-dive.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Android Adapters ",
+  "img" : "unit-02b-android-adapters/talk-01-app-objects/app-object.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02b-android-adapters",
+    
+    
+      "link" : "unit-02b-android-adapters/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Android Application Object ",
+  "img" : "unit-02b-android-adapters/talk-01-app-objects/app-object.png",
+  "videoid" : "none",
+  "objectives" : "<p>This class enables a global application object to be defined, accessible from all activities</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02b-android-adapters/talk-01-app-objects",
+    
+    
+      "link" : "unit-02b-android-adapters/talk-01-app-objects/app-object.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Recycler View + Adapters ",
+  "img" : "unit-02b-android-adapters/talk-02-adapters/adapter.png",
+  "videoid" : "none",
+  "objectives" : "<p>Managing lists is facilitated by the RecyclerView + Adapters - 2 key patterns in Android development</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02b-android-adapters/talk-02-adapters",
+    
+    
+      "link" : "unit-02b-android-adapters/talk-02-adapters/adapter.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-02 Adapters",
+  "img" : "unit-02b-android-adapters/book-02-adapters/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Introduce new activity to display a list of placemarks. Support adding to this list.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-02b-android-adapters/book-02-adapters",
+    
+    
+      "link" : "unit-02b-android-adapters/book-02-adapters/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

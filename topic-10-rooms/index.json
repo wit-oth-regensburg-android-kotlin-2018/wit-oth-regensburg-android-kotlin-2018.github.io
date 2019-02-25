@@ -1,0 +1,324 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "10: Rooms ",
+  "img" : "topic-10-rooms/topic.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Kotlin Data &amp; Sealed classes, Generics. Android Architecture Components. The Room framework. PlacemarkStoreRoom implementation</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-10-rooms",
+    
+    
+      "link" : "topic-10-rooms/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin  ",
+  "img" : "unit-10a-kotlin/talk-1-nested-and-enums/nested-and-enums.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10a-kotlin",
+    
+    
+      "link" : "unit-10a-kotlin/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Nested Classes & Enums ",
+  "img" : "unit-10a-kotlin/talk-1-nested-and-enums/nested-and-enums.png",
+  "videoid" : "none",
+  "objectives" : "<p>Classes can be nested in other classes. Enums provide an elegant notation for a limited set of constant values</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10a-kotlin/talk-1-nested-and-enums",
+    
+    
+      "link" : "unit-10a-kotlin/talk-1-nested-and-enums/nested-and-enums.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Objects ",
+  "img" : "unit-10a-kotlin/talk-2-objects/objects.png",
+  "videoid" : "none",
+  "objectives" : "<p>Objects, Singletons &amp; Companion objects</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10a-kotlin/talk-2-objects",
+    
+    
+      "link" : "unit-10a-kotlin/talk-2-objects/objects.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Delegation ",
+  "img" : "unit-10a-kotlin/talk-3-delegation/delegation.png",
+  "videoid" : "none",
+  "objectives" : "<p>A class can implement an interface Base by delegating all of its public members to a specified object</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10a-kotlin/talk-3-delegation",
+    
+    
+      "link" : "unit-10a-kotlin/talk-3-delegation/delegation.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "AndroidX ",
+  "img" : "unit-10b-version-mgmt/talk-0-android-x/android-x.png",
+  "videoid" : "",
+  "objectives" : "<p>AndroidX</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10b-version-mgmt",
+    
+    
+      "link" : "unit-10b-version-mgmt/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Jetpack & AndroidX ",
+  "img" : "unit-10b-version-mgmt/talk-0-android-x/android-x.png",
+  "videoid" : "none",
+  "objectives" : "<p>AndroidX is the open-source project that the Android team uses to develop, test, package, version and release libraries within Jetpack</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10b-version-mgmt/talk-0-android-x",
+    
+    
+      "link" : "unit-10b-version-mgmt/talk-0-android-x/android-x.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Semantic Version Management ",
+  "img" : "unit-10b-version-mgmt/talk-1-version-mgmt/version-mgmt.png",
+  "videoid" : "none",
+  "objectives" : "<p>A simple set of rules and requirements that dictate how version numbers are assigned and incremented</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10b-version-mgmt/talk-1-version-mgmt",
+    
+    
+      "link" : "unit-10b-version-mgmt/talk-1-version-mgmt/version-mgmt.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-10a AndroidX",
+  "img" : "unit-10b-version-mgmt/book-1/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Migrate to AndroidX + manage library versions more optimally</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10b-version-mgmt/book-1",
+    
+    
+      "link" : "unit-10b-version-mgmt/book-1/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Rooms ",
+  "img" : "unit-10c-rooms/talk-1-rooms/rooms.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10c-rooms",
+    
+    
+      "link" : "unit-10c-rooms/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Rooms ",
+  "img" : "unit-10c-rooms/talk-1-rooms/rooms.png",
+  "videoid" : "none",
+  "objectives" : "<p>The Room persistence library provides an abstraction layer over SQLite</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10c-rooms/talk-1-rooms",
+    
+    
+      "link" : "unit-10c-rooms/talk-1-rooms/rooms.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Rooms in Placemark ",
+  "img" : "unit-10c-rooms/talk-2-placemark-rooms/placemark-rooms.png",
+  "videoid" : "none",
+  "objectives" : "<p>Implementation of PlacemarkStoreRoom, which stores placemarks in a SQLite database</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10c-rooms/talk-2-placemark-rooms",
+    
+    
+      "link" : "unit-10c-rooms/talk-2-placemark-rooms/placemark-rooms.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-10b Rooms",
+  "img" : "unit-10c-rooms/book-1/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Introduce a new PlacemarkStore implementation to persist to an SQLite database</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-10c-rooms/book-1",
+    
+    
+      "link" : "unit-10c-rooms/book-1/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "panelvideo",
+  "title" : "Rooms ",
+  "img" : "panelvideo/",
+  "videoid" : "xv_ICzIEDDs",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "panelvideo",
+    
+    
+      "link" : "panelvideo/xv_ICzIEDDs",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+  }
+

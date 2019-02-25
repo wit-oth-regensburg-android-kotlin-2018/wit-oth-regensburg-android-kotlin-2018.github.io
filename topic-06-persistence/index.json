@@ -1,0 +1,209 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "06: Persistence ",
+  "img" : "topic-06-persistence/topic.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Kotlin Classes in detail. New Placemark Store class to save placemarks to the file system.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-06-persistence",
+    
+    
+      "link" : "topic-06-persistence/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Classes I ",
+  "img" : "unit-06a-classes-and-inheritance/talk-1-classes-1/classes-1.png",
+  "videoid" : "",
+  "objectives" : "<p>Kotlin Classes I</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06a-classes-and-inheritance",
+    
+    
+      "link" : "unit-06a-classes-and-inheritance/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Classes & Inheritance ",
+  "img" : "unit-06a-classes-and-inheritance/talk-1-classes-1/classes-1.png",
+  "videoid" : "none",
+  "objectives" : "<p>In kotlin, classes are more concise, explicit and fine-grained then Java</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06a-classes-and-inheritance/talk-1-classes-1",
+    
+    
+      "link" : "unit-06a-classes-and-inheritance/talk-1-classes-1/classes-1.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "J2K: Functions ",
+  "img" : "unit-06a-classes-and-inheritance/talk-2-j2k-functions/c-j2k-functions.png",
+  "videoid" : "none",
+  "objectives" : "<p>Functions in Java &amp; Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06a-classes-and-inheritance/talk-2-j2k-functions",
+    
+    
+      "link" : "unit-06a-classes-and-inheritance/talk-2-j2k-functions/c-j2k-functions.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Persistence ",
+  "img" : "unit-06b-json/talk-1-file-formats/b-file-formats.png",
+  "videoid" : "",
+  "objectives" : "<p>Korlin classes &amp; Inheritance. Storing and retrieving placemarks. JSON file serialization</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06b-json",
+    
+    
+      "link" : "unit-06b-json/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "File Formats ",
+  "img" : "unit-06b-json/talk-1-file-formats/b-file-formats.png",
+  "videoid" : "none",
+  "objectives" : "<p>When a simple file persistence strategy, CSV, Name/Value, YAML, XML &amp; JSON are all potential candidate formats for file-based storage.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06b-json/talk-1-file-formats",
+    
+    
+      "link" : "unit-06b-json/talk-1-file-formats/b-file-formats.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "JSON ",
+  "img" : "unit-06b-json/talk-2-json/json.gif",
+  "videoid" : "none",
+  "objectives" : "<p>A detailed look at the syntax of JSON</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06b-json/talk-2-json",
+    
+    
+      "link" : "unit-06b-json/talk-2-json/json.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "JSON Store ",
+  "img" : "unit-06b-json/talk-2-placemark-json/placemarkj-json.png",
+  "videoid" : "none",
+  "objectives" : "<p>A new PlacemarkStore implementation - PlacemarkJSONStore - to persist placemarks to a JSON file.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06b-json/talk-2-placemark-json",
+    
+    
+      "link" : "unit-06b-json/talk-2-placemark-json/placemarkj-json.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-06 JSON",
+  "img" : "unit-06b-json/book-json/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Save and restore placemarks from a JSON formatted file</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-06b-json/book-json",
+    
+    
+      "link" : "unit-06b-json/book-json/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

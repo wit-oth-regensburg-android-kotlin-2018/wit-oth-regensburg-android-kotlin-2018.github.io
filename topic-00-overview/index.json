@@ -1,0 +1,255 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "00: Overview ",
+  "img" : "topic-00-overview/topic.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Preview the module, get a flavour of Kotlin. Introduce the Android platform</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-00-overview",
+    
+    
+      "link" : "topic-00-overview/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Module Overview ",
+  "img" : "unit-01-overview/talk-0-overview/talk.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01-overview",
+    
+    
+      "link" : "unit-01-overview/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Module Overview ",
+  "img" : "unit-01-overview/talk-0-overview/talk.png",
+  "videoid" : "y8kxc3B2b0Q",
+  "objectives" : "<p>Outline of the structure and content of the module</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01-overview/talk-0-overview",
+    
+    
+      "link" : "unit-01-overview/talk-0-overview/talk.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Convergence ",
+  "img" : "unit-01-overview/talk-2-convergence/d-programming-example.png",
+  "videoid" : "JPsLfTwj8b8",
+  "objectives" : "<p>A simple algorithm expressed in Java, Groovy, Swift and Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01-overview/talk-2-convergence",
+    
+    
+      "link" : "unit-01-overview/talk-2-convergence/d-programming-example.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Android Overview ",
+  "img" : "unit-2-android/talk-1-intro-to-android/intro.to.android.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-2-android",
+    
+    
+      "link" : "unit-2-android/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Android Overview ",
+  "img" : "unit-2-android/talk-1-intro-to-android/intro.to.android.png",
+  "videoid" : "Vvcoy-HAz3U",
+  "objectives" : "<p>Introduction to the Android platform - its goals and major components</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-2-android/talk-1-intro-to-android",
+    
+    
+      "link" : "unit-2-android/talk-1-intro-to-android/intro.to.android.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-00 Studio",
+  "img" : "unit-2-android/book-00-studio/img/main.png",
+  "videoid" : "6kcITTgMPxA",
+  "objectives" : "<p>Download and configure Android Studio. Generate and run a sample application.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-2-android/book-00-studio",
+    
+    
+      "link" : "unit-2-android/book-00-studio/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Assignment Specification ",
+  "img" : "unit-3-assignment/talk-project-1/project-1.jpg",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-3-assignment",
+    
+    
+      "link" : "unit-3-assignment/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Archaeological Fieldwork  ",
+  "img" : "unit-3-assignment/talk-project-1/project-1.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Specification, grading guidelines and schedule for the Assignment</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-3-assignment/talk-project-1",
+    
+    
+      "link" : "unit-3-assignment/talk-project-1/project-1.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "archive",
+  "title" : "Project Submission Template ",
+  "img" : "unit-3-assignment/archive/template.docx.png",
+  "videoid" : "",
+  "objectives" : "<p>An archive of a word document to be submitted with assignment 2</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-3-assignment/archive",
+    
+    
+      "link" : "unit-3-assignment/archive/template.docx.zip",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "web",
+  "title" : "Assignment 2 Submission ",
+  "img" : "unit-3-assignment/web/web.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Moodle assignment dropbox for Assignment 2</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-3-assignment/web",
+    
+    
+      "link" : "https://elearning.uni-regensburg.de/mod/assign/view.php?id=1052998",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

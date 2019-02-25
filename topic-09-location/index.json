@@ -1,0 +1,301 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "09: Location ",
+  "img" : "topic-09-location/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Kotlin visibility &amp; extensions. Determine the devices current location &amp; resolve in a map.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-09-location",
+    
+    
+      "link" : "topic-09-location/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Extensions, Data & Sealed Classes ",
+  "img" : "unit-09a-extensions-sealed/talk-1-extensions/extensions.jpg",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09a-extensions-sealed",
+    
+    
+      "link" : "unit-09a-extensions-sealed/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Extensions  ",
+  "img" : "unit-09a-extensions-sealed/talk-1-extensions/extensions.jpg",
+  "videoid" : "UgB4tJD4QQY",
+  "objectives" : "<p>The ability to extend a class with new functionality without having to inherit from the class</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09a-extensions-sealed/talk-1-extensions",
+    
+    
+      "link" : "unit-09a-extensions-sealed/talk-1-extensions/extensions.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Data Classes ",
+  "img" : "unit-09a-extensions-sealed/talk-2-data-classes/data-classes.png",
+  "videoid" : "Oa6YSKHvsZQ",
+  "objectives" : "<p>Classes whose main purpose is to hold data.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09a-extensions-sealed/talk-2-data-classes",
+    
+    
+      "link" : "unit-09a-extensions-sealed/talk-2-data-classes/data-classes.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Sealed Classes ",
+  "img" : "unit-09a-extensions-sealed/talk-3-sealed-classes/sealed-classes.png",
+  "videoid" : "Nkc9p4rO0hk",
+  "objectives" : "<p>Sealed classes are used for representing restricted class hierarchies</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09a-extensions-sealed/talk-3-sealed-classes",
+    
+    
+      "link" : "unit-09a-extensions-sealed/talk-3-sealed-classes/sealed-classes.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Last Known Location ",
+  "img" : "unit-09b-location/talk-0-location-api/location-api.png",
+  "videoid" : "",
+  "objectives" : "<p>Configure Markers and listen for marker events</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09b-location",
+    
+    
+      "link" : "unit-09b-location/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Location API ",
+  "img" : "unit-09b-location/talk-0-location-api/location-api.png",
+  "videoid" : "p82--E7dLII",
+  "objectives" : "<p>The location APIs available in Google Play services</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09b-location/talk-0-location-api",
+    
+    
+      "link" : "unit-09b-location/talk-0-location-api/location-api.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Current Location ",
+  "img" : "unit-09b-location/talk-1-map-current-location copy/map-current-location.jpg",
+  "videoid" : "19xhLiWnUGw",
+  "objectives" : "<p>Using the  Fused Location Provider to recover the last known location</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09b-location/talk-1-map-current-location copy",
+    
+    
+      "link" : "unit-09b-location/talk-1-map-current-location copy/map-current-location.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-09a Location",
+  "img" : "unit-09b-location/book-1-location/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>When creating a new placemark, use the current location as the starting point.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09b-location/book-1-location",
+    
+    
+      "link" : "unit-09b-location/book-1-location/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Current Location Tracking ",
+  "img" : "unit-09c/talk-2-tracking/tracking.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Configure Markers and listen for marker events</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09c",
+    
+    
+      "link" : "unit-09c/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Location Tracking ",
+  "img" : "unit-09c/talk-2-tracking/tracking.jpg",
+  "videoid" : "mMOCcZb6Q9o",
+  "objectives" : "<p>Track the location, in real time, of the device.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09c/talk-2-tracking",
+    
+    
+      "link" : "unit-09c/talk-2-tracking/tracking.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-09b Tracking",
+  "img" : "unit-09c/book-2-location/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Extend the location facility to track location in real time.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-09c/book-2-location",
+    
+    
+      "link" : "unit-09c/book-2-location/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "panelvideo",
+  "title" : "Location Overview ",
+  "img" : "panelvideo/",
+  "videoid" : "Ai_WRkdtwEc",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "panelvideo",
+    
+    
+      "link" : "panelvideo/Ai_WRkdtwEc",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+  }
+

@@ -1,0 +1,232 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "03: Models ",
+  "img" : "topic-03-models/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Examine key Kotlin Idioms. Start comparing simple Java &amp; Kotlin statements. Introduce a more complete model into Placemark.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-03-models",
+    
+    
+      "link" : "topic-03-models/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Idioms ",
+  "img" : "unit-03a-kotlin-idioms/talk-1-idioms/02-idioms.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Kotlin Idioms</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03a-kotlin-idioms",
+    
+    
+      "link" : "unit-03a-kotlin-idioms/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Idioms ",
+  "img" : "unit-03a-kotlin-idioms/talk-1-idioms/02-idioms.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>A tour of the common idioms in Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03a-kotlin-idioms/talk-1-idioms",
+    
+    
+      "link" : "unit-03a-kotlin-idioms/talk-1-idioms/02-idioms.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "J2K Variables & Expressions ",
+  "img" : "unit-03a-kotlin-idioms/talk-2-j2k-variables/a-J2k-variables.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Snippets of the same code in Java &amp; Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03a-kotlin-idioms/talk-2-j2k-variables",
+    
+    
+      "link" : "unit-03a-kotlin-idioms/talk-2-j2k-variables/a-J2k-variables.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Android Models ",
+  "img" : "unit-03b-android-models/talk-01-toolbar/toolbar.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03b-android-models",
+    
+    
+      "link" : "unit-03b-android-models/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Toolbar ",
+  "img" : "unit-03b-android-models/talk-01-toolbar/toolbar.png",
+  "videoid" : "none",
+  "objectives" : "<p>The Android Support Library implements AppCompatActivity + a range of general purpose components, including a ToolBar</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03b-android-models/talk-01-toolbar",
+    
+    
+      "link" : "unit-03b-android-models/talk-01-toolbar/toolbar.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Memory Store ",
+  "img" : "unit-03b-android-models/talk-02-store/store.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Abstract the Placemarks data structure into PlacemarkStore interface + in-memory implementation.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03b-android-models/talk-02-store",
+    
+    
+      "link" : "unit-03b-android-models/talk-02-store/store.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Adapter + Listener ",
+  "img" : "unit-03b-android-models/talk-03-adapter-listeners/adapter-listener.png",
+  "videoid" : "none",
+  "objectives" : "<p>Equip the Adapter with a Listener interface. Use this interface to communicate from the adapter to the host Activity</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03b-android-models/talk-03-adapter-listeners",
+    
+    
+      "link" : "unit-03b-android-models/talk-03-adapter-listeners/adapter-listener.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Parcelable ",
+  "img" : "unit-03b-android-models/talk-04-parcelable/parcelable.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Encapsulate model data for transmission between Activities</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03b-android-models/talk-04-parcelable",
+    
+    
+      "link" : "unit-03b-android-models/talk-04-parcelable/parcelable.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-03 Models",
+  "img" : "unit-03b-android-models/book-03-models/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Application object + Model classes to manage placemarks.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-03b-android-models/book-03-models",
+    
+    
+      "link" : "unit-03b-android-models/book-03-models/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

@@ -1,0 +1,255 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "11: Firebase ",
+  "img" : "topic-11-firebase/topic.jpg",
+  "videoid" : "",
+  "objectives" : "<p>Introducing Firebase Authentication, Database and Storage services.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-11-firebase",
+    
+    
+      "link" : "topic-11-firebase/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Firebase Authentication ",
+  "img" : "unit-11a-firebase-auth/talk-1-firebase/firebase.png",
+  "videoid" : "",
+  "objectives" : "<p>Firebase Authentication</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11a-firebase-auth",
+    
+    
+      "link" : "unit-11a-firebase-auth/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Firebase ",
+  "img" : "unit-11a-firebase-auth/talk-1-firebase/firebase.png",
+  "videoid" : "none",
+  "objectives" : "<p>A set of cloud services from google delivering app infrastructure</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11a-firebase-auth/talk-1-firebase",
+    
+    
+      "link" : "unit-11a-firebase-auth/talk-1-firebase/firebase.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Firebase Auth ",
+  "img" : "unit-11a-firebase-auth/talk-2-firebase-auth/firebase-auth.png",
+  "videoid" : "none",
+  "objectives" : "<p>Signup, Login and Logout in Placemark</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11a-firebase-auth/talk-2-firebase-auth",
+    
+    
+      "link" : "unit-11a-firebase-auth/talk-2-firebase-auth/firebase-auth.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-11a Firebase Auth",
+  "img" : "unit-11a-firebase-auth/book/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Authenticate users against the Firebase Authentication service</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11a-firebase-auth/book",
+    
+    
+      "link" : "unit-11a-firebase-auth/book/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Firebase Database ",
+  "img" : "unit-11b/talk-1-database/firebase-database.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11b",
+    
+    
+      "link" : "unit-11b/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Realtime Database ",
+  "img" : "unit-11b/talk-1-database/firebase-database.png",
+  "videoid" : "none",
+  "objectives" : "<p>Storing &amp; Retrieving placemarks to/from Firebase</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11b/talk-1-database",
+    
+    
+      "link" : "unit-11b/talk-1-database/firebase-database.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-11b Firebase Database",
+  "img" : "unit-11b/book/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Store placemarks in Firebase Realtime Database</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11b/book",
+    
+    
+      "link" : "unit-11b/book/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Firebase Storage ",
+  "img" : "unit-11c/talk-1-storage/storage.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11c",
+    
+    
+      "link" : "unit-11c/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Storage ",
+  "img" : "unit-11c/talk-1-storage/storage.png",
+  "videoid" : "none",
+  "objectives" : "<p>Storing &amp; Retrieving placemark images</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11c/talk-1-storage",
+    
+    
+      "link" : "unit-11c/talk-1-storage/storage.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-11c Firebase Storage",
+  "img" : "unit-11c/book/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Store images in Firebase Storage</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-11c/book",
+    
+    
+      "link" : "unit-11c/book/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

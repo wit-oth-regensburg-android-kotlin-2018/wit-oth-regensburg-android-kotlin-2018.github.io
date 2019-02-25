@@ -1,0 +1,117 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "01: Activities ",
+  "img" : "topic-01-activity/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Take the first steps with a Kotlin Android. Explore the source in detail.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-01-activity",
+    
+    
+      "link" : "topic-01-activity/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Android Activities ",
+  "img" : "unit-01b-android-activitiy/talk-00-android-platform/android-platform.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01b-android-activitiy",
+    
+    
+      "link" : "unit-01b-android-activitiy/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Android Platform, Components & Activities ",
+  "img" : "unit-01b-android-activitiy/talk-00-android-platform/android-platform.png",
+  "videoid" : "none",
+  "objectives" : "<p>Key features of the platform, the principle components + the activity model</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01b-android-activitiy/talk-00-android-platform",
+    
+    
+      "link" : "unit-01b-android-activitiy/talk-00-android-platform/android-platform.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Android: Foundation ",
+  "img" : "unit-01b-android-activitiy/talk-01-foundation/01-foundation.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>A first look at the structure of a simple Kotlin Android application</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01b-android-activitiy/talk-01-foundation",
+    
+    
+      "link" : "unit-01b-android-activitiy/talk-01-foundation/01-foundation.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-01 Activities",
+  "img" : "unit-01b-android-activitiy/book-01-activity/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Layout the PlacemarkActivity - supporting create/edit of placemarks</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-01b-android-activitiy/book-01-activity",
+    
+    
+      "link" : "unit-01b-android-activitiy/book-01-activity/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

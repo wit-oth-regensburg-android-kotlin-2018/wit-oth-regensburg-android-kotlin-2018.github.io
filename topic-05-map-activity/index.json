@@ -1,0 +1,232 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "05: Maps ",
+  "img" : "topic-05-map-activity/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Review Kotlin Packages + Control flow. Introducing Google Maps into and android app.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-05-map-activity",
+    
+    
+      "link" : "topic-05-map-activity/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Packages & Control Flow ",
+  "img" : "unit-05a-kotlin-packages-and-control-flow/talk-01-kotlin-packages/packages.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05a-kotlin-packages-and-control-flow",
+    
+    
+      "link" : "unit-05a-kotlin-packages-and-control-flow/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Kotlin Packages ",
+  "img" : "unit-05a-kotlin-packages-and-control-flow/talk-01-kotlin-packages/packages.png",
+  "videoid" : "none",
+  "objectives" : "<p>Source files start with a package declaration. This can be used to access (import) features from the source file.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05a-kotlin-packages-and-control-flow/talk-01-kotlin-packages",
+    
+    
+      "link" : "unit-05a-kotlin-packages-and-control-flow/talk-01-kotlin-packages/packages.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Kotlin Control Flow ",
+  "img" : "unit-05a-kotlin-packages-and-control-flow/talk-02-kotlin-control-flow/control-flow-and-ranges.png",
+  "videoid" : "none",
+  "objectives" : "<p>if, when, for and while statements</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05a-kotlin-packages-and-control-flow/talk-02-kotlin-control-flow",
+    
+    
+      "link" : "unit-05a-kotlin-packages-and-control-flow/talk-02-kotlin-control-flow/control-flow-and-ranges.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "J2K Control Flow ",
+  "img" : "unit-05a-kotlin-packages-and-control-flow/talk-3-j2k-control/b-j2k-control-structures.png",
+  "videoid" : "none",
+  "objectives" : "<p>Control flow examples in Java and Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05a-kotlin-packages-and-control-flow/talk-3-j2k-control",
+    
+    
+      "link" : "unit-05a-kotlin-packages-and-control-flow/talk-3-j2k-control/b-j2k-control-structures.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "GoogleMap Activity ",
+  "img" : "unit-05b-map-activity/talk-01-architecture/arch.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05b-map-activity",
+    
+    
+      "link" : "unit-05b-map-activity/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "App Structure ",
+  "img" : "unit-05b-map-activity/talk-01-architecture/arch.png",
+  "videoid" : "none",
+  "objectives" : "<p>Key classes and relationships in the application.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05b-map-activity/talk-01-architecture",
+    
+    
+      "link" : "unit-05b-map-activity/talk-01-architecture/arch.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Map Activity ",
+  "img" : "unit-05b-map-activity/talk-02-google-map/google-map.png",
+  "videoid" : "none",
+  "objectives" : "<p>Google Map Activity can be inserted into an app via a Wizard from Studio. API Keys must be acquired from google directly.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05b-map-activity/talk-02-google-map",
+    
+    
+      "link" : "unit-05b-map-activity/talk-02-google-map/google-map.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Cameras & Markers ",
+  "img" : "unit-05b-map-activity/talk-03-markers/markers.png",
+  "videoid" : "none",
+  "objectives" : "<p>These abstractions enable the map view to be manipulated programatically, and facilitate direct manipulation by the user.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05b-map-activity/talk-03-markers",
+    
+    
+      "link" : "unit-05b-map-activity/talk-03-markers/markers.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-05 MapActivity",
+  "img" : "unit-05b-map-activity/book-maps/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Include a MapActivity, enabling the user to select the location of the placemark</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-05b-map-activity/book-maps",
+    
+    
+      "link" : "unit-05b-map-activity/book-maps/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

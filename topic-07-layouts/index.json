@@ -1,0 +1,186 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "07: Layouts ",
+  "img" : "topic-07-layouts/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Kotlin properties, fields, &amp; interfaces. Constraint Layout. Introduce activity to display all placemark locations + details.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-07-layouts",
+    
+    
+      "link" : "topic-07-layouts/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Classes ",
+  "img" : "unit-07a-classes-2/talk-1-properties-and-fields/properties-and-fields.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07a-classes-2",
+    
+    
+      "link" : "unit-07a-classes-2/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Properties & Fields ",
+  "img" : "unit-07a-classes-2/talk-1-properties-and-fields/properties-and-fields.png",
+  "videoid" : "none",
+  "objectives" : "<p>Kotlin properties and fields offer a richer set of features and variants over Java</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07a-classes-2/talk-1-properties-and-fields",
+    
+    
+      "link" : "unit-07a-classes-2/talk-1-properties-and-fields/properties-and-fields.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "J2K : Classes ",
+  "img" : "unit-07a-classes-2/talk-3-j2k-classes-and-objects/f-j2k-classes-and-objects.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Classes in Java &amp; Kotlin</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07a-classes-2/talk-3-j2k-classes-and-objects",
+    
+    
+      "link" : "unit-07a-classes-2/talk-3-j2k-classes-and-objects/f-j2k-classes-and-objects.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Layouts ",
+  "img" : "unit-07b-map-view/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Constraint layout. Managing embedded maps. Initialisation and manipulation.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07b-map-view",
+    
+    
+      "link" : "unit-07b-map-view/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Constraint Layout ",
+  "img" : "unit-07b-map-view/talk-a-constraint-layout/constraint.png",
+  "videoid" : "none",
+  "objectives" : "<p>ConstraintLayout allows you to create large and complex layouts with a flat view</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07b-map-view/talk-a-constraint-layout",
+    
+    
+      "link" : "unit-07b-map-view/talk-a-constraint-layout/constraint.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Overall Map Activity ",
+  "img" : "unit-07b-map-view/talk-b-overall-map/map.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Introduce an activity to display all placemarks on a single map.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07b-map-view/talk-b-overall-map",
+    
+    
+      "link" : "unit-07b-map-view/talk-b-overall-map/map.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-07 MapView",
+  "img" : "unit-07b-map-view/book-0-map-view/img/main.png",
+  "videoid" : "none",
+  "objectives" : "<p>Display all placemarks on a map in a new activity</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-07b-map-view/book-0-map-view",
+    
+    
+      "link" : "unit-07b-map-view/book-0-map-view/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

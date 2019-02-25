@@ -1,0 +1,255 @@
+
+
+
+  {
+  
+  
+  "type" : "topic",
+  "title" : "08: Presenters ",
+  "img" : "topic-08-mvp/topic.png",
+  "videoid" : "",
+  "objectives" : "<p>Introducing Model View Presenter - a pattern to enhance separation of concerns in the Activity classes</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "topic-08-mvp",
+    
+    
+      "link" : "topic-08-mvp/index.html",
+    
+  "los": [
+     {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Kotlin Interfaces & Visibility Modifiers ",
+  "img" : "unit-08a-interfaces/talk-1-interfaces/interfaces.png",
+  "videoid" : "",
+  "objectives" : "",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08a-interfaces",
+    
+    
+      "link" : "unit-08a-interfaces/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Interfaces ",
+  "img" : "unit-08a-interfaces/talk-1-interfaces/interfaces.png",
+  "videoid" : "none",
+  "objectives" : "<p>Kotlin interfaces largely follow Java 8 conventions</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08a-interfaces/talk-1-interfaces",
+    
+    
+      "link" : "unit-08a-interfaces/talk-1-interfaces/interfaces.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Visibility ",
+  "img" : "unit-08a-interfaces/talk-2-visibility/visibility.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Classes, objects, interfaces, constructors, functions, properties and their setters can have visibility modifiers.</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08a-interfaces/talk-2-visibility",
+    
+    
+      "link" : "unit-08a-interfaces/talk-2-visibility/visibility.pdf",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "Model View Presenter ",
+  "img" : "unit-08b/talk-mvp/mvp.png",
+  "videoid" : "",
+  "objectives" : "<p>Model View Presenter</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08b",
+    
+    
+      "link" : "unit-08b/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "Model View Presenter ",
+  "img" : "unit-08b/talk-mvp/mvp.png",
+  "videoid" : "none",
+  "objectives" : "<p>Overview of Model View Controller &amp; Model View Presenter patterns</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08b/talk-mvp",
+    
+    
+      "link" : "unit-08b/talk-mvp/mvp.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "talk",
+  "title" : "View/Presenter ",
+  "img" : "unit-08b/talk-mvp-1-in-placemark/mvp-placemark.png",
+  "videoid" : "none",
+  "objectives" : "<p>Detailed review of conversion of PlacemarkActivity to PlacemarkView &amp; PlacemarkPresenter</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08b/talk-mvp-1-in-placemark",
+    
+    
+      "link" : "unit-08b/talk-mvp-1-in-placemark/mvp-placemark.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-08a MVP I",
+  "img" : "unit-08b/book-1-mvp-1/img/main.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Refactor Activities to use the Model View Presenter pattern</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08b/book-1-mvp-1",
+    
+    
+      "link" : "unit-08b/book-1-mvp-1/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } ,
+   {
+      
+        
+  
+  "type" : "unit",
+  "title" : "BaseView / BasePresenter ",
+  "img" : "unit-08c/talk-mvp-2-baseview-presenter/mvp-placemark.png",
+  "videoid" : "",
+  "objectives" : "<p>BaseView / BasePresenter</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08c",
+    
+    
+      "link" : "unit-08c/index.html",
+    
+  "los": [
+     {
+      
+        
+    
+  "type" : "talk",
+  "title" : "BaseView BasePresenter ",
+  "img" : "unit-08c/talk-mvp-2-baseview-presenter/mvp-placemark.png",
+  "videoid" : "none",
+  "objectives" : "<p>Factor out common MVP features into BaseView/Presenter classes</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08c/talk-mvp-2-baseview-presenter",
+    
+    
+      "link" : "unit-08c/talk-mvp-2-baseview-presenter/mvp-placemark.pdf",
+    
+  "los": [
+     ]
+
+      
+    } ,
+   {
+      
+        
+    
+  "type" : "lab",
+  "title" : "Lab-08b MVP II",
+  "img" : "unit-08c/book-2-mvp-2/img/main.jpg",
+  "videoid" : "none",
+  "objectives" : "<p>Complete the presenter pattern implementation, introducing BaseView &amp; BasePresenter classes</p>",
+    
+      "properties" : {},
+    
+    
+      "folder" : "unit-08c/book-2-mvp-2",
+    
+    
+      "link" : "unit-08c/book-2-mvp-2/index.html",
+    
+  "los": [
+     ]
+
+      
+    } 
+   ]
+
+      
+    } 
+   ]
+
+  }
+

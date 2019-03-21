@@ -4,119 +4,54 @@
   {
   
   
+    "properties" : {},
+  
   "type" : "lab",
   "title" : "Lab-10a AndroidX",
-  "img" : "book-1/img/main.png",
+  "img" : "img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Migrate to AndroidX + manage library versions more optimally</p>",
-    
-      "properties" : {},
-    
-    
-      "folder" : "book-1",
-    
-    
-      "link" : "book-1/index.html",
-    
+  "folder" : "book-1",
+  "link" : "index.html",
   "los": [
-     ]
+   ]
 ,
   "chapters" : [
   
     {
     "title": " Objectives",
     "shortTitle": "Lab-10a AndroidX",
-    
-     
-      
-     
-    
     "contentMd" : "# Objectives\n\nMigrate to AndroidX + manage library versions more optimally\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Manifest Navigation Hierarchy",
     "shortTitle": "01",
-    
-     
-      
-     
-    
     "contentMd" : "# Manifest Navigation Hierarchy\n\nWe need to augment strings with some additional labels/titles currently missing from our manmifest:\n\n## strings.xml\n\n~~~\n  <string name=\"title_activity_placemark_list\">Placemarks</string>\n  <string name=\"title_activity_placemark\">Placemark</string>\n  <string name=\"title_activity_edit_location\">Placemark</string>\n~~~\n\n## AndroidManifest.xml\n\nThis is a revised manifest - which uses the above labels to ensure all activities have a title.\n\nIn addition, each activity will have a `PARENT_ACTIVITY` - which we will make use of shorty:\n\n\n~~~\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n  package=\"org.wit.placemark\">\n\n  <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\n\n  <application\n    android:name=\".main.MainApp\"\n    android:allowBackup=\"true\"\n    android:icon=\"@mipmap/ic_launcher\"\n    android:label=\"@string/app_name\"\n    android:roundIcon=\"@mipmap/ic_launcher_round\"\n    android:supportsRtl=\"true\"\n    android:theme=\"@style/AppTheme\">\n\n    <activity android:name=\".views.placemarklist.PlacemarkListView\"\n      android:label=\"@string/title_activity_placemark_list\"\n      android:launchMode=\"singleTop\">\n      <intent-filter>\n        <action android:name=\"android.intent.action.VIEW\" />\n        <action android:name=\"android.intent.action.MAIN\" />\n        <category android:name=\"android.intent.category.LAUNCHER\" />\n      </intent-filter>\n    </activity>\n\n    <activity android:name=\".views.placemark.PlacemarkView\"\n      android:label=\"@string/title_activity_placemark\">\n      <meta-data\n        android:name=\"android.support.PARENT_ACTIVITY\"\n        android:value=\".views.placemarklist.PlacemarkListView\" />\n    </activity>\n\n    <activity\n      android:name=\".views.editlocation.EditLocationView\"\n      android:label=\"@string/title_activity_edit_location\">\n      <meta-data\n        android:name=\"android.support.PARENT_ACTIVITY\"\n        android:value=\".views.placemark.PlacemarkView\" />\n    </activity>\n\n    <activity\n      android:name=\".views.map.PlacemarkMapView\"\n      android:label=\"@string/title_activity_placemark_maps\"\n      android:launchMode=\"singleTop\">\n      <meta-data\n        android:name=\"android.support.PARENT_ACTIVITY\"\n        android:value=\".views.placemarklist.PlacemarkListView\" />\n    </activity>\n\n    <meta-data\n      android:name=\"com.google.android.geo.API_KEY\"\n      android:value=\"@string/google_maps_key\" />\n\n  </application>\n\n</manifest>\n~~~"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Up Support",
     "shortTitle": "02",
-    
-     
-      
-     
-    
     "contentMd" : "# Up Support\n\nPart of the AppBar components we are using has automatic `Up` support:\n\n- <https://developer.android.com/training/appbar/up-action>\n\nNow that all our Views are derived from a `BaseView` class - and we have already established the PARENT relationship in the previous step - introducing this button into all views is fairly simple:\n\n\n## BaseView\n\nWe already have this function, which we can extend:\n\n~~~\n  fun init(toolbar: Toolbar, upEnabled: Boolean) {\n    toolbar.title = title\n    setSupportActionBar(toolbar)\n    supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)\n  }\n~~~\n\nWe make `upEnabled` a boolean parameter,  as it  does not make sense for all views to have the Up button.\n\nThis change then to all all views:\n\n\n## EditLocationView\n\n~~~\n    super.init(toolbar, true)\n~~~\n\n## PlacemarkView\n\n~~~\n    super.init(toolbar, true)\n~~~\n\n## PlacemarkView\n\n~~~\n    super.init(toolbar, true)\n~~~\n\nPlacemarkListView\n\n~~~\n    init(toolbarMain, false)\n~~~\n\nTry this now - all views, except list, should have the up button."
-    
-    
-      
-    
-    
     },
   
     {
     "title": " AndroidX Migration",
     "shortTitle": "03",
-    
-     
-      
-     
-    
     "contentMd" : "# AndroidX Migration\n\nAndroidX is a rationalisation of many of the libraries we are using \n\n- <https://developer.android.com/jetpack/androidx/>\n\nThis is part of an overall repackaging of the Android SDK called 'JetPack'\n\n- <https://developer.android.com/jetpack/>\n\nIn AndroidX, version numbers are reset and many of the package names/name spaces are reset to androidx.\n\nStudio has a tool to automatically trigger this migration:\n\n![](img/01.png)\n\nTry this now. THis will have changed the following gradle entries:\n\n~~~\n  implementation 'androidx.appcompat:appcompat:1.0.2'\n  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'\n  implementation 'androidx.cardview:cardview:1.0.0'\n  androidTestImplementation 'androidx.test:runner:1.1.0'\n  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'\n~~~\n\n\n... and these file will have have been modified by the migration:\n\n~~~\ngradle.properties\napp/build.gradle\napp/src/androidTest/java/org/wit/placemark/ExampleInstrumentedTest.kt\napp/src/main/java/org/wit/placemark/helpers/LocationHelpers.kt\napp/src/main/java/org/wit/placemark/views/BaseView.kt\napp/src/main/java/org/wit/placemark/views/placemarklist/PlacemarkAdapter.kt\napp/src/main/java/org/wit/placemark/views/placemarklist/PlacemarkListView.kt\napp/src/main/res/layout/activity_edit_location.xml\napp/src/main/res/layout/activity_placemark.xml\napp/src/main/res/layout/activity_placemark_list.xml\napp/src/main/res/layout/activity_placemark_map.xml\napp/src/main/res/layout/card_placemark.xml\napp/src/main/res/layout/content_placemark_map.xml\n~~~\n\nThese are largely import signature modifications.\n\nRebuild now and verify that the app performs as before."
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Version Management Strategy",
     "shortTitle": "04",
-    
-     
-      
-     
-    
     "contentMd" : "# Version Management Strategy\n\nHere is a revised version of main gradle script:\n\n~~~\napply plugin: 'com.android.application'\n\napply plugin: 'kotlin-android'\n\napply plugin: 'kotlin-android-extensions'\n\nandroidExtensions {\n  experimental = true\n}\n\nandroid {\n  compileSdkVersion 28\n  defaultConfig {\n    applicationId \"org.wit.placemark\"\n    minSdkVersion 23\n    targetSdkVersion 28\n    versionCode 1\n    versionName \"1.0\"\n    testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n  }\n  buildTypes {\n    release {\n      minifyEnabled false\n      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\n    }\n  }\n}\n\next {\n  app_compat_version = '1.0.2'\n  constraint_layout_version = '2.0.0-alpha2'\n  material_version = '1.0.0'\n  cardview_version = '1.0.0'\n  design_library_version = '26.1.0'\n  support_library_version = '26.1.0'\n\n  play_services_maps_version = '16.0.0'\n  play_services_location_version = '16.0.0'\n\n  anko_version = '0.10.7'\n  anko_commons_version = '0.10.7'\n  gson_version = '2.8.5'\n}\n\ndependencies {\n  implementation fileTree(dir: 'libs', include: ['*.jar'])\n  implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version\"\n  implementation \"androidx.appcompat:appcompat:$app_compat_version\"\n  implementation \"androidx.constraintlayout:constraintlayout:$constraint_layout_version\"\n  implementation \"com.google.android.material:material:$material_version\"\n  implementation \"androidx.cardview:cardview:$cardview_version\"\n  implementation \"com.google.android.gms:play-services-maps:$play_services_maps_version\"\n  implementation \"com.google.android.gms:play-services-location:$play_services_location_version\"\n  implementation \"org.jetbrains.anko:anko-commons:$anko_commons_version\"\n  implementation \"org.jetbrains.anko:anko:$anko_version\"\n  implementation \"com.google.code.gson:gson:$gson_version\"\n\n  testImplementation 'junit:junit:4.12'\n  androidTestImplementation 'androidx.test:runner:1.1.0'\n  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'\n}\n~~~\n\n\nThe main change here is the introduction of a new section:\n\n~~~\next {\n  app_compat_version = '1.0.2'\n  constraint_layout_version = '2.0.0-alpha2'\n  material_version = '1.0.0'\n  cardview_version = '1.0.0'\n  design_library_version = '26.1.0'\n  support_library_version = '26.1.0'\n\n  play_services_maps_version = '16.0.0'\n  play_services_location_version = '16.0.0'\n\n  anko_version = '0.10.7'\n  anko_commons_version = '0.10.7'\n  gson_version = '2.8.5'\n}\n~~~\n\nThis centralises in one area all the library versions we are using. Having them together is a major advantage when we are reviewing and updating library versions - particularly when some library major version numbers must be kept in sync.\n\nThe dependencies section then uses these identifiers instead of hard coded strings:\n\n\n~~~\n  implementation fileTree(dir: 'libs', include: ['*.jar'])\n  implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version\"\n  implementation \"androidx.appcompat:appcompat:$app_compat_version\"\n  implementation \"androidx.constraintlayout:constraintlayout:$constraint_layout_version\"\n  implementation \"com.google.android.material:material:$material_version\"\n  implementation \"androidx.cardview:cardview:$cardview_version\"\n  implementation \"com.google.android.gms:play-services-maps:$play_services_maps_version\"\n  implementation \"com.google.android.gms:play-services-location:$play_services_location_version\"\n  implementation \"org.jetbrains.anko:anko-commons:$anko_commons_version\"\n  implementation \"org.jetbrains.anko:anko:$anko_version\"\n  implementation \"com.google.code.gson:gson:$gson_version\"\n\n  testImplementation 'junit:junit:4.12'\n  androidTestImplementation 'androidx.test:runner:1.1.0'\n  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'\n}\n~~~\n\n\n\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Exercises",
     "shortTitle": "Exercises",
-    
-     
-      
-     
-    
     "contentMd" : "# Exercises\n\nPlacemark application so far:\n\n- [archive.zip](archives/archive.zip)\n\n\n## Exercise:\n\nRefactor the Models package so that it is structured like this:\n\n![](img/02.png)\n\nWe will be introducing a new package here in the next lab"
-    
-    
-      
-    
-    
     }
   
   ]

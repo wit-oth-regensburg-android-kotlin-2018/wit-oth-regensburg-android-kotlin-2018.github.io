@@ -4,151 +4,66 @@
   {
   
   
+    "properties" : {},
+  
   "type" : "lab",
   "title" : "Lab-10b Rooms",
-  "img" : "book-1/img/main.png",
+  "img" : "img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Introduce a new PlacemarkStore implementation to persist to an SQLite database</p>",
-    
-      "properties" : {},
-    
-    
-      "folder" : "book-1",
-    
-    
-      "link" : "book-1/index.html",
-    
+  "folder" : "book-1",
+  "link" : "index.html",
   "los": [
-     ]
+   ]
 ,
   "chapters" : [
   
     {
     "title": " Objectives",
     "shortTitle": "Lab-10b Rooms",
-    
-     
-      
-     
-    
     "contentMd" : "# Objectives\n\nIntroduce a new PlacemarkStore implementation to persist to an SQLite database"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Room Classes",
     "shortTitle": "01",
-    
-     
-      
-     
-    
     "contentMd" : "# Room Classes\n\n\nIn 2017 Google introduced a vastly simplified approach to persisting objects to the SQLite database called Rooms:\n\n- <https://developer.android.com/training/data-storage/room/index.html>\n\nReview the introduction above (just the page linked) before proceeding.\n\nFirst, we need to include the rooms libraries:\n\n## build.gradle\n\nNew dependencies:\n\n## build.gradle\n\nA new plugin at the top of the file:\n\n~~~\napply plugin: \"kotlin-kapt\"\n~~~\n\n\nA new version identifier:\n\n~~~\n  room_version = \"2.0.0\"\n~~~\n\nNew libraries:\n\n~~~\n  implementation \"androidx.room:room-runtime:$room_version\"\n  kapt \"androidx.room:room-compiler:$room_version\"\n~~~\n\nNote the second dependency is slightly different - a `kapt` entry. Kapt is an annotation processor:\n\n- <https://kotlinlang.org/docs/reference/kapt.html>\n\nand we are using it here to engage the Room annotations we are about to use.\n\nRebuild now to make sure the libraries are correctly included."
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Room Classes & Annotations",
     "shortTitle": "02",
-    
-     
-      
-     
-    
     "contentMd" : "# Room Classes & Annotations\n\nNow we need to adjust PlacemarkModel with additional annotations:\n\n## PlacemarkModel\n\n~~~\npackage org.wit.placemark.models\n\nimport android.os.Parcelable\nimport androidx.room.Entity\nimport androidx.room.PrimaryKey\nimport kotlinx.android.parcel.Parcelize\n\n@Parcelize\n@Entity\ndata class PlacemarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,\n                          var title: String = \"\",\n                          var description: String = \"\",\n                          var image: String = \"\",\n                          var lat : Double = 0.0,\n                          var lng: Double = 0.0,\n                          var zoom: Float = 0f) : Parcelable\n\n\n\n~~~\n\nWe have included 2 additional annotations:\n\n- [@Entity](https://developer.android.com/reference/android/arch/persistence/room/Entity.html)\n- [@PrimaryKey](https://developer.android.com/reference/android/arch/persistence/room/PrimaryKey.html)\n\nThese annotations will enable PlacemarkModel objects to be stored in a Room database.\n\nIn a new `room` package, include these new classes:\n\n## Database\n\n~~~\npackage org.wit.placemark.room\n\nimport androidx.room.Database\nimport androidx.room.RoomDatabase\nimport org.wit.placemark.models.PlacemarkModel\n\n@Database(entities = arrayOf(PlacemarkModel::class), version = 1)\nabstract class Database : RoomDatabase() {\n\n  abstract fun placemarkDao(): PlacemarkDao\n}\n~~~\n\n## PlacemarkDao\n\n~~~\npackage org.wit.placemark.room\n\nimport androidx.room.*\nimport org.wit.placemark.models.PlacemarkModel\n\n@Dao\ninterface PlacemarkDao {\n\n  @Insert(onConflict = OnConflictStrategy.REPLACE)\n  fun create(placemark: PlacemarkModel)\n\n  @Query(\"SELECT * FROM PlacemarkModel\")\n  fun findAll(): List<PlacemarkModel>\n\n  @Query(\"select * from PlacemarkModel where id = :id\")\n  fun findById(id: Long): PlacemarkModel\n\n  @Update\n  fun update(placemark: PlacemarkModel)\n\n  @Delete\n  fun deletePlacemark(placemark: PlacemarkModel)\n}\n~~~\n\nThese are classes that a new version of the PlacemarkStore interface can use to implement a new store."
-    
-    
-      
-    
-    
     },
   
     {
     "title": "# PlacemarkStoreRoom - Version 1",
     "shortTitle": "03",
-    
-     
-      
-     
-    
     "contentMd" : "## PlacemarkStoreRoom - Version 1\n\nHere is a first implementation of PlacemarkStoreRoom\n\n~~~\npackage org.wit.placemark.room\n\nimport android.content.Context\nimport androidx.room.Room\nimport org.jetbrains.anko.coroutines.experimental.bg\nimport org.wit.placemark.models.PlacemarkModel\nimport org.wit.placemark.models.PlacemarkStore\n\nclass PlacemarkStoreRoom(val context: Context) : PlacemarkStore {\n\n  var dao: PlacemarkDao\n\n  init {\n    val database = Room.databaseBuilder(context, Database::class.java, \"room_sample.db\")\n        .fallbackToDestructiveMigration()\n        .build()\n    dao = database.placemarkDao()\n  }\n\n  override fun findAll(): List<PlacemarkModel> {\n    return dao.findAll()\n  }\n\n  override fun findById(id: Long): PlacemarkModel? {\n    return dao.findById(id)\n  }\n\n  override fun create(placemark: PlacemarkModel) {\n    dao.create(placemark)\n  }\n\n  override fun update(placemark: PlacemarkModel) {\n    dao.update(placemark)\n  }\n\n  override fun delete(placemark: PlacemarkModel) {\n    dao.deletePlacemark(placemark)\n  }\n\n  fun clear() {\n  }\n}\n~~~\n\nLets try it out. In main, create PlacemarkStoreRoom instead of whatever version you are currently using:\n\n## MainApp\n~~~\nclass MainApp : Application(), AnkoLogger {\n\n  lateinit var placemarks: PlacemarkStore\n\n  override fun onCreate() {\n    super.onCreate()\n    placemarks = PlacemarkStoreRoom(applicationContext)\n    info(\"Placemark started\")\n  }\n}\n~~~\n\nRun the app now:\n\n![](img/03.png)\n\nIf you interrogate logcat - you will (eventually) uncover the issue:\n\n~~~\n2018-11-16 16:50:58.333 12758-12758/org.wit.placemark E/AndroidRuntime: FATAL EXCEPTION: main\n    Process: org.wit.placemark, PID: 12758\n    java.lang.RuntimeException: Unable to start activity ComponentInfo{org.wit.placemark/org.wit.placemark.views.placemarklist.PlacemarkListView}: java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time.\n        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2665)\n        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2726)\n        at android.app.ActivityThread.-wrap12(ActivityThread.java)\n        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1477)\n        at android.os.Handler.dispatchMessage(Handler.java:102)\n        at android.os.Looper.loop(Looper.java:154)\n        at android.app.ActivityThread.main(ActivityThread.java:6119)\n        at java.lang.reflect.Method.invoke(Native Method)\n        at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)\n        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)\n     Caused by: java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time.\n        at androidx.room.RoomDatabase.assertNotMainThread(RoomDatabase.java:209)\n        at androidx.room.RoomDatabase.query(RoomDatabase.java:237)\n        at org.wit.placemark.room.PlacemarkDao_Impl.findAll(PlacemarkDao_Impl.java:137)\n        at org.wit.placemark.room.PlacemarkStoreRoom.findAll(PlacemarkStoreRoom.kt:21)\n        at org.wit.placemark.views.placemarklist.PlacemarkListPresenter.loadPlacemarks(PlacemarkListPresenter.kt:23)\n        at org.wit.placemark.views.placemarklist.PlacemarkListView.onCreate(PlacemarkListView.kt:25)\n        at android.app.Activity.performCreate(Activity.java:6679)\n        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1118)\n        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2618)\n        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2726) \n        at android.app.ActivityThread.-wrap12(ActivityThread.java) \n        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1477) \n        at android.os.Handler.dispatchMessage(Handler.java:102) \n        at android.os.Looper.loop(Looper.java:154) \n        at android.app.ActivityThread.main(ActivityThread.java:6119) \n        at java.lang.reflect.Method.invoke(Native Method) \n        at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886) \n        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776) \n~~~\n\nThe report here is:\n\n~~~\norg.wit.placemark.views.placemarklist.PlacemarkListView}: java.lang.IllegalStateException: Cannot access database on the main thread \n~~~\n\n\nOut application has been terminated by Android, as we attempted to access a potentially long running operation (a database lookup) on the main thread.\n\nThis is quite a challenging area to get to grips with:\n\n- <https://developer.android.com/training/multiple-threads/>\n\nHowever, as we are using Kotlin - we have a number of language features that can greatly simplify how we do this.\n\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " suspend",
     "shortTitle": "04",
-    
-     
-      
-     
-    
     "contentMd" : "# suspend\n\n\nAndroid will not permit access to the database on the main UI thread - as it can seriously degrade performance. \n\nQhen working with Kotlin we have considerable convenience methods available via the anko libraries when attempting multi-threaded development in Android:\n\n- <https://github.com/Kotlin/anko/wiki/Anko-Coroutines>\n- <https://antonioleiva.com/anko-background-kotlin-android>\n\nBefore brining these features in your our application, we make some changes to the way we have defined the PlacemarkMemStore interface:\n\n## PlacemarkStore\n\n~~~\ninterface PlacemarkStore {\n  suspend fun findAll(): List<PlacemarkModel>\n  suspend fun findById(id:Long) : PlacemarkModel?\n  suspend fun create(placemark: PlacemarkModel)\n  suspend fun update(placemark: PlacemarkModel)\n  suspend fun delete(placemark: PlacemarkModel)\n}\n~~~\n\nEach method is marked with the keyword `suspend`. To get an initial understanding of the purpose of this keyword, read this (5 min):\n\n- <https://medium.com/@elye.project/understanding-suspend-function-of-coroutines-de26b070c5ed>\n\nIn addition, look at this article (7 mins):\n\n- <https://android.jlelse.eu/a-first-walk-into-kotlin-coroutines-on-android-fe4a6e25f46a>\n\n\nMaking the above change to PlacemarkStore will break the PlacemarkMemStore and PlacemarkJSONStore implementations. Fix them now by marking all of those classes with the equivalent `suspend` marker:\n\n~~~\n  suspend override fun findAll(): MutableList<PlacemarkModel> \n  ...\n  ...\n  ...\n~~~\n\n\nRebuild the project - all of the Model classes should build, However, there will be errors in these three presenters:\n\n- PlacemarkPresenter\n- PlacemarkListPresenter\n- PlacemarkMapPresenter\n\n\nThis is the type of error you may see:\n\n![](img/04.png)\n\n\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " PlacemarkStoreRoom",
     "shortTitle": "05",
-    
-     
-      
-     
-    
     "contentMd" : "# PlacemarkStoreRoom\n\nTo get the application to function correctly - we need to revise PlacemarkStoreRoom to properly use the background thread for all database access\n\n## PlacemarkStoreRoom\n\n~~~\npackage org.wit.placemark.room\n\nimport android.content.Context\nimport androidx.room.Room\nimport org.jetbrains.anko.coroutines.experimental.bg\nimport org.wit.placemark.models.PlacemarkModel\nimport org.wit.placemark.models.PlacemarkStore\n\nclass PlacemarkStoreRoom(val context: Context) : PlacemarkStore {\n\n  var dao: PlacemarkDao\n\n  init {\n    val database = Room.databaseBuilder(context, Database::class.java, \"room_sample.db\")\n        .fallbackToDestructiveMigration()\n        .build()\n    dao = database.placemarkDao()\n  }\n\n  suspend override fun findAll(): List<PlacemarkModel> {\n    val deferredPlacemarks = bg {\n      dao.findAll()\n    }\n    val placemarks = deferredPlacemarks.await()\n    return placemarks\n  }\n\n  suspend override fun findById(id: Long): PlacemarkModel? {\n    val deferredPlacemark = bg {\n      dao.findById(id)\n    }\n    val placemark = deferredPlacemark.await()\n    return placemark\n  }\n\n  suspend override fun create(placemark: PlacemarkModel) {\n    bg {\n      dao.create(placemark)\n    }\n  }\n\n  suspend override fun update(placemark: PlacemarkModel) {\n    bg {\n      dao.update(placemark)\n    }\n  }\n\n  suspend override fun delete(placemark: PlacemarkModel) {\n    bg {\n      dao.deletePlacemark(placemark)\n    }\n  }\n\n  fun clear() {\n  }\n}\n~~~\n\n\nEach method is now calling the database functions on the background thread via the `bg` helper:\n\n- <https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg>\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": "# async",
     "shortTitle": "06",
-    
-     
-      
-     
-    
     "contentMd" : "## async\n\nTo make the presenters work with the revised model, all called to the `suspend` versions of the PlacemarkStore objects will need to be reconfigured.\n\nEach call to a `suspend` method will need revision:\n\n## PlacemrkListPresenter\n\n~~~\n  fun loadPlacemarks() {\n    async(UI) {\n      view?.showPlacemarks(app.placemarks.findAll())\n    }\n  }\n~~~\n\n## PlacemarkPresenter\n\n~~~\n  ...\n\n  fun doDelete() {\n    async(UI) {\n      app.placemarks.delete(placemark)\n      view?.finish()\n    }\n  }\n\n  ...\n\n  fun doAddOrSave(title: String, description: String) {\n    placemark.title = title\n    placemark.description = description\n    async(UI) {\n      if (edit) {\n        app.placemarks.update(placemark)\n      } else {\n        app.placemarks.create(placemark)\n      }\n      view?.finish()\n    }\n  }\n\n  ...  \n~~~\n\n## PlacemarkMapPresenter\n\n~~~\n  fun loadPlacemarks() {\n    async(UI) {\n      view?.showPlacemarks(app.placemarks.findAll())\n    }\n  }\n~~~\n\nAll of these rely on the following imports:\n\n~~~\nimport kotlinx.coroutines.experimental.android.UI\nimport kotlinx.coroutines.experimental.async\n~~~\n\nThis should rebuild now and run without error"
-    
-    
-      
-    
-    
     },
   
     {
     "title": "# Solution",
     "shortTitle": "Exercises",
-    
-     
-      
-     
-    
     "contentMd" : "## Solution\n\nPlacemark application so far:\n\n- [archive.zip](archives/archive.zip)\n\n## Exercise\n\nRework the PlacemarkModel so that, instead repeating lat/lng/zoom in each placemark, we embed a Location object. In order to implement this in the context of the Room system, you will need to use the `@Embedded` annotation:\n\n- <https://developer.android.com/reference/android/arch/persistence/room/Embedded>\n\nAlso, you will also have to adjust the other Store implementations."
-    
-    
-      
-    
-    
     }
   
   ]

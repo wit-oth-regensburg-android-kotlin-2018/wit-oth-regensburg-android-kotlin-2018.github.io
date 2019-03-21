@@ -4,167 +4,72 @@
   {
   
   
+    "properties" : {},
+  
   "type" : "lab",
   "title" : "Lab-11b Firebase Database",
-  "img" : "book/img/main.png",
+  "img" : "img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Store placemarks in Firebase Realtime Database</p>",
-    
-      "properties" : {},
-    
-    
-      "folder" : "book",
-    
-    
-      "link" : "book/index.html",
-    
+  "folder" : "book",
+  "link" : "index.html",
   "los": [
-     ]
+   ]
 ,
   "chapters" : [
   
     {
     "title": "Objectives",
     "shortTitle": "Lab-11b Firebase Database",
-    
-     
-      
-     
-    
     "contentMd" : "#Objectives\n\nStore placemarks in Firebase Realtime Database\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Solutions",
     "shortTitle": "Solutions",
-    
-     
-      
-     
-    
     "contentMd" : "# Solutions\n\n## Exercise 1 : Logout\n\n## PlacemarkListPresenter\n\n~~~\n  fun doLogout() {\n    FirebaseAuth.getInstance().signOut()\n    view?.navigateTo(VIEW.LOGIN)\n  }\n\n~~~\n\n## Exercise 2: Current User\n\nAdjust the title of the PlacemarkListActivity - such that it displays the logged in users email:\n\n![](img/13.png)\n\n## Solution\n\nNow that we are centralising the toolbar initialisation in BaseView, we can introduce this feature for all views:\n\n## BaseView\n\n~~~\n...\n fun init(toolbar: Toolbar, upEnabled: Boolean) {\n    toolbar.title = title\n    setSupportActionBar(toolbar)\n    supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)\n    val user = FirebaseAuth.getInstance().currentUser\n    if (user != null) {\n      toolbar.title = \"${title}: ${user.email}\"\n    }\n  }\n...\n~~~\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Image Management",
     "shortTitle": "02",
-    
-     
-      
-     
-    
     "contentMd" : "# Image Management\n\nCurrently we load all of the images using a helper method we have written for this purpose. We will replace this now with the Glide library:\n\n- <https://github.com/bumptech/glide>\n\nThis will work as as currently, but additionally it will also work with url of images on the public Internet. This will be part of our move to firebase later in this lab.\n\n\nFirst, we define the version of Glide we wish to use:\n\n## build.gradle\n\n~~~\n...\n  glide_version = '4.8.0'\n  ...\n  implementation \"com.github.bumptech.glide:glide:$glide_version\"\n  ...\n...\n~~~\n\nNow we can introduce the glide library wherever we are displaying images:\n\n## PlacemarkAdapter\n\nReplace:\n\n~~~\n      itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, placemark.image))\n~~~\n\nwith\n\n~~~\n      Glide.with(itemView.context).load(placemark.image).into(itemView.imageIcon);\n~~~\n\n## PlacemarkView\n\nReplace:\n\n~~~\n    placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))\n~~~\n\nwith\n\n~~~\n    Glide.with(this).load(placemark.image).into(placemarkImage);\n~~~\n\n## PlacemarkMqpView\n\nReplace:\n\n~~~\n     imageView.setImageBitmap(readImageFromPath(this, placemark.image))\n~~~\n\nwith:\n\n~~~\n    Glide.with(this).load(placemark.image).into(imageView);\n~~~\n\nRebuild and test the app now. It should behave as before.\n\n## PlacemarkMapPresenter\n\nWe need one other small adjustment - currently we have this line in PlacemarkMapPresenter::doPopulateMap()\n\n~~~\n      map.addMarker(options).tag = it.id\n~~~\n\nThis stores a tag to refer to the placemark associated with the marker we have just placed on the map. Change this to the following:\n\n~~~\n      map.addMarker(options).tag = it\n~~~\n\nNow in PlacemarkMapPresenter::onMarkerSelected(), replace\n\n~~~\n      val tag = marker.tag as Long\n      val placemark = app.placemarks.findById(tag)\n~~~\n\nwith\n\n~~~\n      val placemark = marker.tag as PlacemarkModel\n~~~\n\n\nThe reason we are making this adjustment is because of the Firebase adjustments we will shortly make to the PlacemarkModel\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Preparing for Firebase",
     "shortTitle": "03",
-    
-     
-      
-     
-    
     "contentMd" : "# Preparing for Firebase\n\nWe need to make a number of small changes to the application in order to prepare for incorporating Firebase storage of placemarks.\n\n# Managing the Firebase ID\n\nIn PlacemarkModel, we need an additional ID - fbId - to record the Firebase ID of each placemark. Unlike the existing id, which is a Long, the firebase id is a string:\n\n## PlacemarkModel \n\n~~~\npackage org.wit.placemark.models\n\nimport android.os.Parcelable\nimport androidx.room.Embedded\nimport androidx.room.Entity\nimport androidx.room.PrimaryKey\nimport kotlinx.android.parcel.Parcelize\n\n@Parcelize\n@Entity\ndata class PlacemarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,\n                          var fbId : String = \"\",\n                          var title: String = \"\",\n                          var description: String = \"\",\n                          var image: String = \"\",\n                          @Embedded var location : Location = Location()): Parcelable\n\n@Parcelize\ndata class Location(var lat: Double = 0.0,\n                    var lng: Double = 0.0,\n                    var zoom: Float = 0f) : Parcelable\n\n~~~\n\n\n# Clearing Placemarks between user logins\n\nAs we are now supporting multiple logins - then we need a way of clearing the placemarks between different users accessing the app.\n\n## PlacemarkMemStore\n\n~~~\n  fun clear()\n~~~\n\n##PlacemarkMemStore\n\n~~~\n  override fun clear() {\n    placemarks.clear()\n  }\n~~~\n\n## PlacemarkStoreRoom\n~~~\n  override fun clear() {\n  }\n~~~\n\n\n## PlacemarkJSONStore\n\n~~~\n  override fun clear() {\n    placemarks.clear()\n  }\n~~~\n\nWe keep the PlacemarkStoreRoom implementation empty for the moment."
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Firebase Database",
     "shortTitle": "04",
-    
-     
-      
-     
-    
     "contentMd" : "# Firebase Database\n\nIn your Firebase Application Console, select `Database`:\n\n![](img/01x.png)\n\nAnd press `Get Started` on `Realtime Database`:\n\n![](img/02x.png)\n\nBe sure to select `Start in test mode` as shown above.\n\n![](img/03x.png)\n\nThis is a view into your database - you will see in real time here any objects you insert. Also, take note of the url:\n\n~~~\nhttps://placemark-XXXXd.firebaseio.co\n~~~\n\nThis will be used in your application configuration. To establish the connection, in Studio select `Tools->Firebase->Realtime Database`\n\n![](img/04.png)\n\nPress connect (screen shot above shows result of pressing connect). This is all you need to do at this stage. If you like, you can verify that the connection has been made. Do this by locating the following file:\n\n- app/google-services.json\n\nIt may look something like this:\n\n~~~\n{\n  \"project_info\": {\n    \"project_number\": \"4283XXXXX\",\n    \"firebase_url\": \"https://placemark-XXXXd.firebaseio.com\",\n    \"project_id\": \"placemark-XXXd\",\n  },\n  \"client\": [\n    {\n      \"client_info\": {\n        \"mobilesdk_app_id\": \"1:428338485028:android:634c4XXXce143\",\n        \"android_client_info\": {\n          \"package_name\": \"org.wit.placemark\"\n        }\n      },\n      \"oauth_client\": [\n        {\n          \"client_id\": \"4283XXXXX028-ntqXXXXXXXXXl9ot6ok3r.apps.googleusercontent.com\",\n          \"client_type\": 1,\n          \"android_info\": {\n            \"package_name\": \"org.wit.placemark\",\n            \"certificate_hash\": \"bcaa865ad78XXXXXXXXX731db4da8b\"\n          }\n        },\n        {\n          \"client_id\": \"42833848XXXXXX5cup7XXXXXXk8s.apps.googleusercontent.com\",\n          \"client_type\": 3\n        }\n      ],\n      \"api_key\": [\n        {\n          \"current_key\": \"AIzaSyBXXXXXXXXXXXoTeWhTqfKxbI\"\n        }\n      ],\n      \"services\": {\n        \"analytics_service\": {\n          \"status\": 1\n        },\n        \"appinvite_service\": {\n          \"status\": 2,\n          \"other_platform_oauth_client\": [\n            {\n              \"client_id\": \"428338XXXXXXXXXXXXXXXXXX1e4kk8s.apps.googleusercontent.com\",\n              \"client_type\": 3\n            }\n          ]\n        },\n        \"ads_service\": {\n          \"status\": 2\n        }\n      }\n    }\n  ],\n  \"configuration_version\": \"1\"\n}\n~~~\n\nA Firebase URL should be in the opening info object."
-    
-    
-      
-    
-    
     },
   
     {
     "title": " FireStore",
     "shortTitle": "05",
-    
-     
-      
-     
-    
     "contentMd" : "# FireStore\n\nCreate a new package called `org.wit.placemark.models.firebase`, and introduce this new class, an implementation of PlacemarkStore:\n\n\n### PlacemarkFireStore\n\n~~~\npackage org.wit.placemark.models.firebase\n\nimport android.content.Context\nimport com.google.firebase.auth.FirebaseAuth\nimport com.google.firebase.database.*\nimport org.jetbrains.anko.AnkoLogger\nimport org.wit.placemark.models.PlacemarkModel\nimport org.wit.placemark.models.PlacemarkStore\n\nclass PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {\n\n  val placemarks = ArrayList<PlacemarkModel>()\n  lateinit var userId: String\n  lateinit var db: DatabaseReference\n\n  suspend override fun findAll(): List<PlacemarkModel> {\n    return placemarks\n  }\n\n  suspend override fun findById(id: Long): PlacemarkModel? {\n    val foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }\n    return foundPlacemark\n  }\n\n  suspend override fun create(placemark: PlacemarkModel) {\n    val key = db.child(\"users\").child(userId).child(\"placemarks\").push().key\n    placemark.fbId = key!!\n    placemarks.add(placemark)\n    db.child(\"users\").child(userId).child(\"placemarks\").child(key).setValue(placemark)\n  }\n\n  suspend override fun update(placemark: PlacemarkModel) {\n    var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.fbId == placemark.fbId }\n    if (foundPlacemark != null) {\n      foundPlacemark.title = placemark.title\n      foundPlacemark.description = placemark.description\n      foundPlacemark.image = placemark.image\n      foundPlacemark.location = placemark.location\n    }\n\n    db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).setValue(placemark)\n  }\n\n  suspend override fun delete(placemark: PlacemarkModel) {\n    db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).removeValue()\n    placemarks.remove(placemark)\n  }\n\n  override fun clear() {\n    placemarks.clear()\n  }\n\n  fun fetchPlacemarks(placemarksReady: () -> Unit) {\n    val valueEventListener = object : ValueEventListener {\n      override fun onCancelled(error: DatabaseError) {\n      }\n      override fun onDataChange(dataSnapshot: DataSnapshot) {\n        dataSnapshot.children.mapNotNullTo(placemarks) { it.getValue<PlacemarkModel>(PlacemarkModel::class.java) }\n        placemarksReady()\n      }\n    }\n    userId = FirebaseAuth.getInstance().currentUser!!.uid\n    db = FirebaseDatabase.getInstance().reference\n    placemarks.clear()\n    db.child(\"users\").child(userId).child(\"placemarks\").addListenerForSingleValueEvent(valueEventListener)\n  }\n}\n~~~\n\n\nThis is an implementation of our PlacemarkStore interface - which stores/retrieves placemarks from the Firebase database.\n\nIt implements all the PlacemarkStore methods + one new method not specified in the interface:\n\n~~~\n  fun fetchPlacemarks(placemarksReady: () -> Unit) {\n    val valueEventListener = object : ValueEventListener {\n      override fun onCancelled(error: DatabaseError) {\n      }\n      override fun onDataChange(dataSnapshot: DataSnapshot) {\n        dataSnapshot.children.mapNotNullTo(placemarks) { it.getValue<PlacemarkModel>(PlacemarkModel::class.java) }\n        placemarksReady()\n      }\n    }\n    userId = FirebaseAuth.getInstance().currentUser!!.uid\n    db = FirebaseDatabase.getInstance().reference\n    placemarks.clear()\n    db.child(\"users\").child(userId).child(\"placemarks\").addListenerForSingleValueEvent(valueEventListener)\n  }\n~~~\n\nThis is a method to fetch placemarks, and trigger a callback (placemarkReady) when the placemakrs have been retrieved. We will need to explicitly call this method when we are log in (next step).\n\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Login",
     "shortTitle": "06",
-    
-     
-      
-     
-    
     "contentMd" : "# Login\n\nThis is a revised Login activity:\n\n## LoginAPresenter\n\n~~~\npackage org.wit.placemark.views.login\n\nimport com.google.firebase.auth.FirebaseAuth\nimport org.jetbrains.anko.toast\nimport org.wit.placemark.models.firebase.PlacemarkFireStore\nimport org.wit.placemark.views.BasePresenter\nimport org.wit.placemark.views.BaseView\nimport org.wit.placemark.views.VIEW\n\nclass LoginPresenter(view: BaseView) : BasePresenter(view) {\n\n  var auth: FirebaseAuth = FirebaseAuth.getInstance()\n  var fireStore: PlacemarkFireStore? = null\n\n  init {\n    if (app.placemarks is PlacemarkFireStore) {\n      fireStore = app.placemarks as PlacemarkFireStore\n    }\n  }\n\n  fun doLogin(email: String, password: String) {\n    view?.showProgress()\n    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->\n      if (task.isSuccessful) {\n        if (fireStore != null) {\n          fireStore!!.fetchPlacemarks {\n            view?.hideProgress()\n            view?.navigateTo(VIEW.LIST)\n          }\n        } else {\n          view?.hideProgress()\n          view?.navigateTo(VIEW.LIST)\n        }\n      } else {\n        view?.hideProgress()\n        view?.toast(\"Sign Up Failed: ${task.exception?.message}\")\n      }\n    }\n  }\n\n  fun doSignUp(email: String, password: String) {\n    view?.showProgress()\n    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->\n      if (task.isSuccessful) {\n        view?.hideProgress()\n        view?.navigateTo(VIEW.LIST)\n      } else {\n        view?.hideProgress()\n        view?.toast(\"Sign Up Failed: ${task.exception?.message}\")\n      }\n    }\n  }\n}\n~~~\n\nThe key here is the code dealing with a successful login:\n\n~~~\n      if (task.isSuccessful) {\n        if (fireStore != null) {\n          fireStore!!.fetchPlacemarks {\n            view?.hideProgress()\n            view?.navigateTo(VIEW.LIST)\n          }\n        }\n      }\n~~~\n\nIn the above, we are checking to see if we are using the fireStore PlacemarkStore implementation, and if so, we fetch the placemarks and will be notified when they arrive. If we are not using the fireStore, then we just launch PlacemarkListActivity as normal.\n\nFinally, on logout we need to clear the placemarks:\n\n~~~\n  fun doLogout() {\n    FirebaseAuth.getInstance().signOut()\n    app.placemarks.clear()\n    view?.navigateTo(VIEW.LOGIN)\n  }\n~~~\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": "# Console",
     "shortTitle": "07",
-    
-     
-      
-     
-    
     "contentMd" : "## Console\n\nCreate the PlacemarkFireStore now in MainApp:\n\n~~~\nclass MainApp : Application(), AnkoLogger {\n\n  lateinit var placemarks: PlacemarkStore\n\n  override fun onCreate() {\n    super.onCreate()\n    //placemarks = PlacemarkJSONStore(applicationContext)\n    //placemarks = PlacemarkStoreRoom(applicationContext)\n    placemarks = PlacemarkFireStore(applicationContext)\n    info(\"Placemark started\")\n  }\n}\n~~~\n\nRun the app now, log in and create some placemarks. \n\nKeep an eye on the Database console:\n\n![](img/06.png)\n\nYou should see the placemarks you create populating here. Each users placemarks are grouped under the user id. And individual placemarks are under their own unique id.\n\nUser Ids can be cross-referenced on the Authentication panel:\n\n![](img/07.png)\n\nExperiment with various accounts + placemarks now. Verify that when you log in you get the placemarks relevant to the logged in user.\n\nAlso - note that the images are still stored locally - examine the image path. So, although they will display as normal - they will not be available if you change emulators. \n\nPerhaps try this now to verify that placemark images are localised to a specific phone.\n\n\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": "Solution",
     "shortTitle": "Exercises",
-    
-     
-      
-     
-    
     "contentMd" : "#Solution\n\nPlacemark application so far:\n\n- [archive.zip](archives/archive.zip)\n\n"
-    
-    
-      
-    
-    
     }
   
   ]

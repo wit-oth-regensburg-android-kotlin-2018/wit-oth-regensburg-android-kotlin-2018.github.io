@@ -4,103 +4,48 @@
   {
   
   
+    "properties" : {},
+  
   "type" : "lab",
   "title" : "Lab-11c Firebase Storage",
-  "img" : "book/img/main.png",
+  "img" : "img/main.png",
   "videoid" : "none",
   "objectives" : "<p>Store images in Firebase Storage</p>",
-    
-      "properties" : {},
-    
-    
-      "folder" : "book",
-    
-    
-      "link" : "book/index.html",
-    
+  "folder" : "book",
+  "link" : "index.html",
   "los": [
-     ]
+   ]
 ,
   "chapters" : [
   
     {
     "title": " Objectives",
     "shortTitle": "Lab-11c Firebase Storage",
-    
-     
-      
-     
-    
     "contentMd" : "# Objectives\n\nStore images in Firebase Storage\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Firebase Storage",
     "shortTitle": "01",
-    
-     
-      
-     
-    
     "contentMd" : "# Firebase Storage\n\nIn the Firebase Console, select `Storage`:\n\n![](img/02.png)\n\n![](img/03.png)\n\nThis gives a general purpose file storage area:\n\n![](img/05.png)\n\nWe will use this to store the placemark images.\n\nIn Studio, we now connect our app to the Firebase Storage system:\n\n![](img/08.png)\n\nThis will update an entry in the google-services.json file, connecting the app to the storeage system.\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": " Gradle",
     "shortTitle": "02",
-    
-     
-      
-     
-    
     "contentMd" : "# Gradle\n\nTo use the new facilities, we need another library:\n\n\n## build.gradle\n\n~~~\n  implementation \"com.google.firebase:firebase-storage:$firebase_version\"\n~~~\n\n\nRebuild the app now."
-    
-    
-      
-    
-    
     },
   
     {
     "title": " PlacemarkFireStore",
     "shortTitle": "03",
-    
-     
-      
-     
-    
     "contentMd" : "# PlacemarkFireStore\n\nWe can augment PlacemarkFireStore with a new method:\n\n~~~\n  fun updateImage(placemark: PlacemarkModel) {\n    if (placemark.image != \"\") {\n      val fileName = File(placemark.image)\n      val imageName = fileName.getName()\n\n      var imageRef = st.child(userId + '/' + imageName)\n      val baos = ByteArrayOutputStream()\n      val bitmap = readImageFromPath(context, placemark.image)\n\n      bitmap?.let {\n        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)\n        val data = baos.toByteArray()\n        val uploadTask = imageRef.putBytes(data)\n        uploadTask.addOnFailureListener {\n          println(it.message)\n        }.addOnSuccessListener { taskSnapshot ->\n          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {\n            placemark.image = it.toString()\n            db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).setValue(placemark)\n          }\n        }\n      }\n    }\n  }\n~~~\n\n\nThis will be called whenever the user selects an image.\n\nThis first part will load into a bitmap object the image the user as selected from the gallery:\n\n~~~\n      val fileName = File(placemark.image)\n      val imageName = fileName.getName()\n\n      var imageRef = st.child(userId + '/' + imageName)\n      val baos = ByteArrayOutputStream()\n      val bitmap = readImageFromPath(context, placemark.image)\n~~~\n\nThen, if the bimap successfully loaded, we compress it to save on bandwidth and obtain a reference to the bits:\n\n~~~\n        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)\n        val data = baos.toByteArray()\n~~~\n\nThen we upload to the firebase storage service:\n\n~~~\n        uploadTask.addOnFailureListener {\n        }.addOnSuccessListener {\n        }\n~~~\n\nIf the upload goes successfully:\n\n~~~\n         { taskSnapshot ->\n          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {\n            placemark.image = it.toString()\n            db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).setValue(placemark)\n          }\n~~~\n\nwe need to obtain a public url where the image is stored, and then place this string into the database entry for the placemark.\n\nThis is the complete PlacemarkFireStore at at this stage - including all the code above:\n\n## PlacemarkFireStore\n\n~~~\npackage org.wit.placemark.models.firebase\n\nimport android.content.Context\nimport android.graphics.Bitmap\nimport com.google.firebase.auth.FirebaseAuth\nimport com.google.firebase.database.*\nimport com.google.firebase.storage.FirebaseStorage\nimport com.google.firebase.storage.StorageReference\nimport org.jetbrains.anko.AnkoLogger\nimport org.wit.placemark.helpers.readImageFromPath\nimport org.wit.placemark.models.PlacemarkModel\nimport org.wit.placemark.models.PlacemarkStore\nimport java.io.ByteArrayOutputStream\nimport java.io.File\n\nclass PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {\n\n  val placemarks = ArrayList<PlacemarkModel>()\n  lateinit var userId: String\n  lateinit var db: DatabaseReference\n  lateinit var st: StorageReference\n\n  suspend override fun findAll(): List<PlacemarkModel> {\n    return placemarks\n  }\n\n  suspend override fun findById(id: Long): PlacemarkModel? {\n    val foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }\n    return foundPlacemark\n  }\n\n  suspend override fun create(placemark: PlacemarkModel) {\n    val key = db.child(\"users\").child(userId).child(\"placemarks\").push().key\n    key?.let {\n      placemark.fbId = key\n      placemarks.add(placemark)\n      db.child(\"users\").child(userId).child(\"placemarks\").child(key).setValue(placemark)\n      updateImage(placemark)\n    }\n  }\n\n  suspend override fun update(placemark: PlacemarkModel) {\n    var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.fbId == placemark.fbId }\n    if (foundPlacemark != null) {\n      foundPlacemark.title = placemark.title\n      foundPlacemark.description = placemark.description\n      foundPlacemark.image = placemark.image\n      foundPlacemark.location = placemark.location\n    }\n\n    db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).setValue(placemark)\n    if ((placemark.image.length) > 0 && (placemark.image[0] != 'h')) {\n      updateImage(placemark)\n    }\n  }\n\n  suspend override fun delete(placemark: PlacemarkModel) {\n    db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).removeValue()\n    placemarks.remove(placemark)\n  }\n\n  override fun clear() {\n    placemarks.clear()\n  }\n\n  fun updateImage(placemark: PlacemarkModel) {\n    if (placemark.image != \"\") {\n      val fileName = File(placemark.image)\n      val imageName = fileName.getName()\n\n      var imageRef = st.child(userId + '/' + imageName)\n      val baos = ByteArrayOutputStream()\n      val bitmap = readImageFromPath(context, placemark.image)\n\n      bitmap?.let {\n        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)\n        val data = baos.toByteArray()\n        val uploadTask = imageRef.putBytes(data)\n        uploadTask.addOnFailureListener {\n          println(it.message)\n        }.addOnSuccessListener { taskSnapshot ->\n          taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {\n            placemark.image = it.toString()\n            db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).setValue(placemark)\n          }\n        }\n      }\n    }\n  }\n\n  fun fetchPlacemarks(placemarksReady: () -> Unit) {\n    val valueEventListener = object : ValueEventListener {\n      override fun onCancelled(dataSnapshot: DatabaseError) {\n      }\n      override fun onDataChange(dataSnapshot: DataSnapshot) {\n        dataSnapshot!!.children.mapNotNullTo(placemarks) { it.getValue<PlacemarkModel>(PlacemarkModel::class.java) }\n        placemarksReady()\n      }\n    }\n    userId = FirebaseAuth.getInstance().currentUser!!.uid\n    db = FirebaseDatabase.getInstance().reference\n    st = FirebaseStorage.getInstance().reference\n    placemarks.clear()\n    db.child(\"users\").child(userId).child(\"placemarks\").addListenerForSingleValueEvent(valueEventListener)\n  }\n}\n~~~\n\n\nIf you try this out now, and look at the Firebase Database console:\n\n![](img/09.png)\n\nYou should see a firebase storage url in the image field.\n\nThis is a public url - so you should be able to copy this url and paste it into a browser and retrieve the image.\n\n"
-    
-    
-      
-    
-    
     },
   
     {
     "title": "Solution",
     "shortTitle": "Exercises",
-    
-     
-      
-     
-    
     "contentMd" : "#Solution\n\nPlacemark application so far:\n\n- [archive.zip](archives/archive.zip)\n\n\n## Exercise : delete\n\nCurrently when a placemark is deleted it is only removed from the database:\n\n~~~\n  suspend override fun delete(placemark: PlacemarkModel) {\n    db.child(\"users\").child(userId).child(\"placemarks\").child(placemark.fbId).removeValue()\n    placemarks.remove(placemark)\n  }\n~~~\n\nChange this to also remove the image (if any)"
-    
-    
-      
-    
-    
     }
   
   ]

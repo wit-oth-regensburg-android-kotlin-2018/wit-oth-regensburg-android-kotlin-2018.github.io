@@ -4,22 +4,17 @@
   {
   
   
+    "properties" : {},
+  
   "type" : "lab",
   "title" : "",
-  "img" : "/",
+  "img" : "",
   "videoid" : "none",
   "objectives" : "",
-    
-      "properties" : {},
-    
-    
-      "folder" : "",
-    
-    
-      "link" : "/index.html",
-    
+  "folder" : "",
+  "link" : "index.html",
   "los": [
-     ]
+   ]
 ,
   "chapters" : [
   

@@ -19,43 +19,43 @@
   "chapters" : [
   
     {
-    "title": " Objectives",
+    "title": "# Objectives",
     "shortTitle": "Lab-00 Studio",
     "contentMd" : "# Objectives\n\nDownload and configure Android Studio. Generate and run a sample application.\n"
     },
   
     {
-    "title": " Setup",
+    "title": "# Setup",
     "shortTitle": "01",
     "contentMd" : "# Setup\n\nDownload and install the latest Android Studio (3.2 when this lab was updated last).\n\n- <https://developer.android.com/studio/>\n\n## Indentation Levels\n\nRun Android Studio, and before creating an application, we can. make some adjustments to the indentation styles. These options are available in the Adnroid->Preferences option.\n\nWe will be looking to change the following settings available in Preferences->Editor->Core Style->Kotlin:\n\n- change the code settings to use tab size = 2, indent = 2 and continuation indent = 4 for Kotlin:\n\n![](img/01x.png)\n\nDo the same for XML, Groovy, Java and JSON. \n"
     },
   
     {
-    "title": "# New Project",
+    "title": "## New Project",
     "shortTitle": "02",
     "contentMd" : "## New Project\n\nCreate an new Android project with the following key characteristics:\n\n- Kotlin\n- Single 'Blank' activity\n\nFollow the structure and parameters outlined here:\n\n![](img/01.png)\n![](img/02.png)\n![](img/03.png)\n![](img/04.png)\n\nYour project should look like this:\n\n![](img/06.png)\n"
     },
   
     {
-    "title": " Run",
+    "title": "# Run",
     "shortTitle": "03",
     "contentMd" : "# Run\n\nMake sure you can build and run the project. When you first attempt to run the app, you will be asked to create a Virtual Machine. You might create a VM configured like this:\n\n![](img/02x.png)\n\nWhich will appear in a list of VMs like this:\n\n![](img/03x.png)\n\nThe version, size and resolution are a reasonable compromise. \n\nIf it launches successfully, if should look like this in the VM:\n\n![](img/04x.png)\n\n## .gitignore\n\nIf you are using git, you might want to make the following small adjustments to the generated .gitignore file:\n\n~~~\n*.iml\n.gradle\n/local.properties\n/.idea\n.DS_Store\n/build\n/captures\n.externalNativeBuild\n~~~\n\n(we are excluding all .idea files)\n\nIf you are using git, it is a good idea to commit the project to a repository now.\n\n"
     },
   
     {
-    "title": " Key Project Files & Resources",
+    "title": "# Key Project Files & Resources",
     "shortTitle": "04",
     "contentMd" : "# Key Project Files & Resources\n\nAlthough the project structure looks daunting, there are only a small number of source files to work with regularly:\n\nFind each of these files now (there are presented here without filenames)\n\n~~~\npackage org.wit.placemark\n\nimport android.support.v7.app.AppCompatActivity\nimport android.os.Bundle\n\nclass PlacemarkActivity : AppCompatActivity() {\n\n  override fun onCreate(savedInstanceState: Bundle?) {\n    super.onCreate(savedInstanceState)\n    setContentView(R.layout.activity_placemark)\n  }\n}\n~~~\n\n---\n\n~~~\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n          package=\"org.wit.placemark\">\n\n  <application\n      android:allowBackup=\"true\"\n      android:icon=\"@mipmap/ic_launcher\"\n      android:label=\"@string/app_name\"\n      android:roundIcon=\"@mipmap/ic_launcher_round\"\n      android:supportsRtl=\"true\"\n      android:theme=\"@style/AppTheme\">\n    <activity android:name=\".PlacemarkActivity\">\n      <intent-filter>\n        <action android:name=\"android.intent.action.MAIN\"/>\n\n        <category android:name=\"android.intent.category.LAUNCHER\"/>\n      </intent-filter>\n    </activity>\n  </application>\n\n</manifest>\n~~~\n---\n~~~\napply plugin: 'com.android.application'\n\napply plugin: 'kotlin-android'\n\napply plugin: 'kotlin-android-extensions'\n\nandroid {\n  compileSdkVersion 28\n  defaultConfig {\n    applicationId \"org.wit.placemark\"\n    minSdkVersion 23\n    targetSdkVersion 28\n    versionCode 1\n    versionName \"1.0\"\n    testInstrumentationRunner \"android.support.test.runner.AndroidJUnitRunner\"\n  }\n  buildTypes {\n    release {\n      minifyEnabled false\n      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\n    }\n  }\n}\n\ndependencies {\n  implementation fileTree(dir: 'libs', include: ['*.jar'])\n  implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version\"\n  implementation 'com.android.support:appcompat-v7:28.0.0'\n  implementation 'com.android.support.constraint:constraint-layout:1.1.3'\n  testImplementation 'junit:junit:4.12'\n  androidTestImplementation 'com.android.support.test:runner:1.0.2'\n  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'\n}\n~~~\n---\n~~~\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<android.support.constraint.ConstraintLayout\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\"org.wit.placemark.PlacemarkActivity\">\n\n  <TextView\n      android:layout_width=\"wrap_content\"\n      android:layout_height=\"wrap_content\"\n      android:text=\"Hello World!\"\n      app:layout_constraintBottom_toBottomOf=\"parent\"\n      app:layout_constraintLeft_toLeftOf=\"parent\"\n      app:layout_constraintRight_toRightOf=\"parent\"\n      app:layout_constraintTop_toTopOf=\"parent\"/>\n\n</android.support.constraint.ConstraintLayout>\n~~~\n---\n~~~\n<resources>\n  <string name=\"app_name\">Placemark</string>\n</resources>\n~~~\n---\n~~~\n<resources>\n\n  <!-- Base application theme. -->\n  <style name=\"AppTheme\" parent=\"Theme.AppCompat.Light.DarkActionBar\">\n    <!-- Customize your theme here. -->\n    <item name=\"colorPrimary\">@color/colorPrimary</item>\n    <item name=\"colorPrimaryDark\">@color/colorPrimaryDark</item>\n    <item name=\"colorAccent\">@color/colorAccent</item>\n  </style>\n\n</resources>\n~~~\n---\n\nThe files are (in order of appearence)\n\n- app/src/main/java/org/wit/placemark/PlacemarkActivity.kt\n- app/src/main/AndroidManifest.xml\n- app/build.gradle\n- app/src/main/res/layout/activity_placemark.xml\n- app/src/main/res/values/strings.xml\n- app/src/main/res/values/styles.xml\n\nLocate all of these files in the Android Studio 'Android' perspective:\n\n![](img/06.png)\n\nand in the 'Project' perspective:\n\n![](img/07.png)\n\nand using Finder/Explorer:\n\n![](img/08.png)\n\nAs you gain experience in android - the role and purpose of each of these files will become clearer. \n\n\n"
     },
   
     {
-    "title": " Logging Event Handling in Kotlin",
+    "title": "# Logging Event Handling in Kotlin",
     "shortTitle": "05",
     "contentMd" : "# Logging Event Handling in Kotlin\n\nWe are going to be working exclusively in Kotlin - not Java. This affords considerable improvements, largely around conciseness and expressiveness of code.\n\n\n## Logging\n\nTo prepare for this, include this additional dependency in our gradle.build:\n\n## gradle.build\n\n~~~\n  implementation 'org.jetbrains.anko:anko-commons:0.10.7'\n~~~\n\nYour dependencies section will look like this now:\n\n~~~\ndependencies {\n  implementation fileTree(dir: 'libs', include: ['*.jar'])\n  implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version\"\n  implementation 'com.android.support:appcompat-v7:28.0.0'\n  implementation 'com.android.support.constraint:constraint-layout:1.1.3'\n  implementation 'org.jetbrains.anko:anko-commons:0.10.7'\n  testImplementation 'junit:junit:4.12'\n  androidTestImplementation 'com.android.support.test:runner:1.0.2'\n  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'\n}\n~~~\n\nThis library is documented here:\n\n- <https://github.com/Kotlin/anko>\n\nWe will be progressively introducing some of its features as we evolve the application.\n\nThe first feature is a simple way of logging:\n\nChange the class to include the 'AnkoLogger' feature:\n\n## PlacemarkActivity\n\n~~~\n..\nclass PlacemarkActivity : AppCompatActivity(), AnkoLogger {\n...\n~~~\n\nWhen you make this change, AnkoLogger will not be recognised - so you will need to import it. This can be triggered automatically (if you can figure this out). The correct import statement is:\n\n~~~\nimport org.jetbrains.anko.AnkoLogger\n~~~\n\n\nThen, in our onCreate() method, try it out:\n\n~~~\n...\n    info(\"Placemark Activity started..\")\n...    \n~~~\n\nAgain, this will require an import - which will be this:\n\n~~~\nimport org.jetbrains.anko.info\n~~~\n\nTry to figure out the key strokes required to generate this...\n\nNow, make sure you can run the app and see this log in the 'Logcat' view in Studio:\n\n![](img/13.png)\n\nDo not proceed further until you can locate something like the above in Logcat. The logss are a bit noisy, and may contain what look like errors. However, buried in there should be your message.\n\nThis style of logging is discussed here:\n\n- <https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Logging>\n"
     },
   
     {
-    "title": " Solution",
+    "title": "# Solution",
     "shortTitle": "Exercises",
     "contentMd" : "# Solution\n\nPlacemark application so far:\n\n- [placemark-00.zip](archives/placemark-00.zip)\n\n## Exercise 1:\n\nLearn how to :\n\n- terminate the currently executing version of the app on the emulator\n- completely remove the application from the emulator, and install it again \n\n## Exercise 2:\n\nIf you have am android phone, plug it in and see if you can execute the application on the device. It should just be a matter of plugging it into your workstation - and it should appear as another device alongside the emulator device.\n\n## Exercise 3: \n\nDownload, extract and run the archive/sample solution above.\n"
     }

@@ -18,7 +18,6 @@
 ,
   "topics" : [  {
     
-    
   
     "properties" : {},
   
@@ -195,7 +194,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -275,7 +273,6 @@
 
   },
  {
-    
     
   
     "properties" : {},
@@ -420,7 +417,6 @@
 
   },
  {
-    
     
   
     "properties" : {},
@@ -582,7 +578,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -726,7 +721,6 @@
 
   },
  {
-    
     
   
     "properties" : {},
@@ -888,7 +882,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -1033,7 +1026,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -1162,7 +1154,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -1272,6 +1263,38 @@
   
     "properties" : {},
   
+  "type" : "talk",
+  "title" : "",
+  "img" : "",
+  "videoid" : "none",
+  "objectives" : "",
+  "folder" : "",
+  "link" : "error: missing talk",
+  "los": [
+   ]
+
+    } ,
+   {
+    
+  
+    "properties" : {},
+  
+  "type" : "lab",
+  "title" : "",
+  "img" : "",
+  "videoid" : "none",
+  "objectives" : "",
+  "folder" : "",
+  "link" : "index.html",
+  "los": [
+   ]
+
+    } ,
+   {
+    
+  
+    "properties" : {},
+  
   "type" : "lab",
   "title" : "Lab-08a MVP I",
   "img" : "img/main.jpg",
@@ -1339,7 +1362,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -1351,6 +1373,38 @@
   "folder" : "topic-09-location",
   "link" : "index.html",
   "los": [
+   {
+    
+  
+    "properties" : {},
+  
+  "type" : "unit",
+  "title" : "topic",
+  "img" : "",
+  "videoid" : "",
+  "objectives" : "",
+  "folder" : "unit-08b-location",
+  "link" : "index.html",
+  "los": [
+   {
+    
+  
+    "properties" : {},
+  
+  "type" : "lab",
+  "title" : "",
+  "img" : "",
+  "videoid" : "none",
+  "objectives" : "",
+  "folder" : "",
+  "link" : "index.html",
+  "los": [
+   ]
+
+    } 
+   ]
+
+    } ,
    {
     
   
@@ -1547,7 +1601,6 @@
 
   },
  {
-    
     
   
     "properties" : {},
@@ -1773,7 +1826,6 @@
   },
  {
     
-    
   
     "properties" : {},
   
@@ -1949,41 +2001,6 @@
 
   },
  {
-    
-    
-  
-    "properties" : {},
-  
-  "type" : "topic",
-  "title" : "topic",
-  "img" : "",
-  "videoid" : "",
-  "objectives" : "",
-  "folder" : "topic01-introducing-kotlin",
-  "link" : "index.html",
-  "los": [
-   ]
-
-  },
- {
-    
-    
-  
-    "properties" : {},
-  
-  "type" : "talk",
-  "title" : "",
-  "img" : "",
-  "videoid" : "none",
-  "objectives" : "",
-  "folder" : "",
-  "link" : "error: missing talk",
-  "los": [
-   ]
-
-  },
- {
-    
     
   
     "properties" : {},
